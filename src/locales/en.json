@@ -1,0 +1,20 @@
+{
+  "common": {
+    "home": "home",
+    "about": "About",
+    "tobeCoded": "To be coded",
+    "signIn": "sign in",
+    "signUp": "sign out",
+    "t": "only in en"
+  },
+  "menu": {
+    "open_file": "Open File",
+    "open_folder": "Open Folder",
+    "create_file": "Create File",
+    "save_file": "Save File",
+    "save_all": "Save All",
+    "close_file": "Close File"
+  }
+
+
+}
