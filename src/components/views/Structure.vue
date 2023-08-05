@@ -143,12 +143,6 @@ function reload() {
 
 .container {
 }
-
-
-
-
-
-
 </style>
 <style>
 

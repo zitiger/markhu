@@ -10,10 +10,10 @@ export const useSystemStore = defineStore('system', {
     persist: true,
     state: () => {
         const workspace = ref<string>('') //
-        // const assertDir = ref<string>() //
         const locale = ref(i18n.global.locale.value)
+        const theme = ref('dark')
 
-        return {workspace, locale}
+        return {workspace, locale, theme}
     },
     getters: {
         assertDir: (state) => path.join(state.workspace, "assets"),

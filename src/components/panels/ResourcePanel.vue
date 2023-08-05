@@ -6,7 +6,6 @@
         <transition name="arrow-transition">
           <IconFont type="icon-arrow-down" :class="{'arrow-right': showContent, 'arrow-down': !showContent}"/>
         </transition>
-
       </div>
       <div class="title">
         <slot name="title"></slot>
@@ -24,11 +23,9 @@
 </template>
 
 <script lang="ts" setup>
-import {RightOutlined, DownOutlined} from "@ant-design/icons-vue";
 import {ref} from "@vue/reactivity";
 
 const showContent = ref(true)
-
 </script>
 
 <style scoped>
@@ -44,7 +41,8 @@ const showContent = ref(true)
 }
 
 .toolbar .icon {
-  display: flex;align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .toolbar .title {
@@ -91,12 +89,7 @@ const showContent = ref(true)
   transition: opacity 0.5s ease;
 }
 
-
-
-
 .content {
   overflow-y: auto;
 }
-
-
 </style>

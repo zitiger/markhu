@@ -44,6 +44,12 @@ pub fn get_menu() -> Menu {
         .add_native_item(MenuItem::Paste)
         .add_native_item(MenuItem::SelectAll);
 
+    let theme_dark = CustomMenuItem::new("theme_dark", "Dark");//.accelerator("CmdOrControl+O");
+    let theme_light = CustomMenuItem::new("theme_light", "Light");//.accelerator("CmdOrControl+O");
+    let theme_menu = Menu::new()
+        .add_item(theme_dark)
+        .add_item(theme_light);
+
     let lang_zh_cn = CustomMenuItem::new("lang_zh_cn", "中文");//.accelerator("CmdOrControl+O");
     let lang_en = CustomMenuItem::new("lang_en", "English");//.accelerator("CmdOrControl+O");
     let lang_menu = Menu::new()
@@ -61,6 +67,7 @@ pub fn get_menu() -> Menu {
         .add_submenu(Submenu::new("MarkHu", about_menu)) // 第一个菜单项代表当前应用，这里的title字段无效
         .add_submenu(Submenu::new("File", file_menu))
         .add_submenu(Submenu::new("Edit", edit_menu))
+        .add_submenu(Submenu::new("Theme", theme_menu))
         .add_submenu(Submenu::new("Language", lang_menu))
         .add_submenu(Submenu::new("Window", window_menu))
 }

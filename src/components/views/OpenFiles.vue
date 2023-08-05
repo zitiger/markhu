@@ -15,10 +15,10 @@ await structureStore.load()
 let openedFiles = editorStore.fileCache;
 
 function focusTab(filepath: string) {
-  useEditorStore().read(filepath)
+  useEditorStore().read(filepath);
 }
 
-function removeTab2(filepath: string) {
+function removeTab(filepath: string) {
   useEditorStore().close(filepath)
 }
 
@@ -48,10 +48,10 @@ function closeAll(e: MouseEvent) {
     <template v-slot:content>
       <div style="max-height: 30vh">
         <ul class="content">
-          <li v-for="file in openedFiles" style="display: flex">
+          <li v-for="file in openedFiles" :class="{ active: file.filepath === useEditorStore().activeFile}">
 
             <span class="button">
-              <close-outlined class="remove-tab" @click="removeTab2(file.filepath)"/>
+              <close-outlined class="remove-tab" @click="removeTab(file.filepath)"/>
               <span class="changed" v-if="useEditorStore().isModified(file.filepath)">
                    <svg viewBox="0 0 20 20" width="20" height="20">
                     <circle cx="12" cy="12" r="4"/> <!-- 将r属性的值从5缩小到1.67 -->
@@ -67,15 +67,26 @@ function closeAll(e: MouseEvent) {
 
 
 </template>
-<style lang="less" scoped>
+<style scoped>
 .content ul {
-  padding-left: 10px;
+  padding: 0;
   margin:0;
 }
 
 .content li {
   cursor: pointer;
+  font-size: 14px;
+  padding: 0 0 0 10px;
+  display: flex;
 }
+
+.content li:hover{
+  background-color: rgba(255, 255, 255, 0.08);
+}
+.content li.active{
+  background-color: #1668dc !important;
+}
+
 
 .content li .button {
   display: inline-block;
@@ -83,9 +94,6 @@ function closeAll(e: MouseEvent) {
   text-align: center;
 }
 
-.content li :hover {
-  background-color: gray;
-}
 
 .content li span {
   height: 24px;
@@ -110,4 +118,5 @@ function closeAll(e: MouseEvent) {
   overflow: hidden;
   flex-grow: 1
 }
+
 </style>

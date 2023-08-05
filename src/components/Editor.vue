@@ -20,14 +20,24 @@ const editorId = "vditor" + Math.random().toString(36).substr(2, 9);
 const vditor = ref<Vditor | null>(null);
 
 import svgIcons from '../assets/vditor-toolbar-svg'
-import {message, Modal} from "ant-design-vue";
+import {message, Modal, theme} from "ant-design-vue";
 import path from "path-browserify";
 import {convertFileSrc} from "@tauri-apps/api/tauri";
 
+
+watch(() => useSystemStore().theme, async (newValue, oldCount) => {
+  if (newValue === 'dark') {
+    vditor.value?.setTheme("dark")
+  } else {
+    vditor.value?.setTheme("classic")
+  }
+});
+
 onMounted(() => {
   vditor.value = new Vditor(editorId, {
-    mode:'wysiwyg',
+    mode: 'wysiwyg',
     height: "100% ",
+    theme: 'dark',
     toolbar: [
       {
         hotkey: '⌘s',
@@ -74,20 +84,18 @@ onMounted(() => {
       "|",
       "fullscreen",
       "edit-mode",
-      {
-        name: "more",
-        toolbar: [
-          "both",
-          "code-theme",
-          "content-theme",
-        ],
-      },
     ],
     after: async () => {
       // vditor.value is a instance of Vditor now and thus can be safely used here
       if (props.path != null) {
         let content = useEditorStore().getContent(props.path);
         vditor.value!.setValue(content);
+      }
+
+      if (useSystemStore().theme === "dark") {
+        vditor.value!.setTheme("dark")
+      } else {
+        vditor.value!.setTheme("classic")
       }
     },
     input: async (content) => {
@@ -106,7 +114,7 @@ onMounted(() => {
           const filename = file.name;
 
           const reader = new FileReader();
-          reader.onload = async() => {
+          reader.onload = async () => {
             const fileContent = reader.result as ArrayBuffer;
 
             const byteArray = new Uint8Array(fileContent);
@@ -117,7 +125,7 @@ onMounted(() => {
               const baseFileName = file.name.split('.').shift();
               const newFilename = `${baseFileName}-${timestamp}.${fileExtension}`;
 
-              const filepath = path.join(useSystemStore().assertDir,newFilename);
+              const filepath = path.join(useSystemStore().assertDir, newFilename);
               if (!await existPath(useSystemStore().assertDir)) {
                 await createDirApi(useSystemStore().assertDir)
               }

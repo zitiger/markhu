@@ -24,7 +24,8 @@ app.use(Antd);
 
 import { createFromIconfontCN } from '@ant-design/icons-vue';
 const IconFont = createFromIconfontCN({
-    scriptUrl: '//at.alicdn.com/t/c/font_4193180_4c73ucwcax3.js', // 在 iconfont.cn 上生成
+    scriptUrl: '//at.alicdn.com/t/c/font_4193180_x3xrrhlghyc.js',// 在 iconfont.cn 上生成
+    extraCommonProps:{"class":"icon-button"}
 });
 app.component('IconFont', IconFont);
 

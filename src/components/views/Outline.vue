@@ -66,11 +66,10 @@ function parse(ul: HTMLUListElement): TreeNode[] {
 
 </script>
 
-<style>
+<style scoped>
 ul {
   list-style-type: none;
   padding: 0px 5px;
-
 }
 
 li {

@@ -1,32 +1,34 @@
 <script lang="ts" setup>
 import Navigator from "./components/Navigator.vue";
 import Content from "./components/Content.vue";
-import { listenMenuEvent, changeMenuTitle} from "./api/file";
+import {listenMenuEvent, changeMenuTitle} from "./api/file";
 import {useDialogStore, useEditorStore, useStructureStore, useSystemStore} from "./stores";
-import {onMounted, watch} from "vue";
+import {onMounted, reactive, watch} from "vue";
 import Dialogs from "./components/Dialogs.vue";
 import {appWindow} from '@tauri-apps/api/window'
 
-
 import SplitterPanel from "./components/panels/SplitterPanel.vue";
-
+import {theme} from "ant-design-vue";
 
 onMounted(() => {
   listenMenuEvent({
-    'open_file':   () => useEditorStore().open(),
+    'open_file': () => useEditorStore().open(),
     'open_folder': () => useSystemStore().open(),
     'create_file': () => useDialogStore().showCreateFileDialog(),
     'save_file': () => useEditorStore().save(useEditorStore().activeFile),
     'save_all': () => useEditorStore().saveAll(),
     'close_file': () => useEditorStore().close(useEditorStore().activeFile),
-    'lang_zh_cn': () => {useSystemStore().setLocale("zh_cn");},
+    'theme_dark': () => useSystemStore().theme = 'dark',
+    'theme_light': () => useSystemStore().theme = 'light',
+    'lang_zh_cn': () => useSystemStore().setLocale("zh_cn"),
     'lang_en': () => useSystemStore().setLocale("en"),
-  });
+  })
+  ;
 })
 
-watch( () => useEditorStore().activeFile, async(newValue, oldCount) => {
-  const  title = newValue ===""?"MarkHu":newValue
- await appWindow.setTitle(title)
+watch(() => useEditorStore().activeFile, async (newValue, oldCount) => {
+  const title = newValue === "" ? "MarkHu" : newValue
+  await appWindow.setTitle(title)
 });
 
 
@@ -39,37 +41,84 @@ appWindow.listen('tauri://close-requested', async (event) => {
     await appWindow.close();
   }
 })
+
+const currentTheme = reactive({algorithm: theme.darkAlgorithm})
+
+watch(() => useSystemStore().theme, async (newValue, oldCount) => {
+  if (newValue === 'dark') {
+    currentTheme.algorithm = theme.darkAlgorithm
+    document.documentElement.removeAttribute('theme')
+  } else {
+    currentTheme.algorithm = theme.defaultAlgorithm
+    document.documentElement.setAttribute('theme', 'light')
+  }
+});
 </script>
 
 <template>
-  <dialogs></dialogs>
+  <a-config-provider :theme="currentTheme">
+    <dialogs></dialogs>
 
-  <a-layout style="height: 100vh;">
-    <a-layout-sider width="50px">
-      <navigator></navigator>
-    </a-layout-sider>
-    <a-layout-content>
-      <splitter-panel>
-        <template v-slot:left>
-          <Suspense>
-            <router-view></router-view>
-          </Suspense>
-        </template>
-        <template v-slot:right>
-          <content></content>
-        </template>
-      </splitter-panel>
-    </a-layout-content>
-  </a-layout>
-
+    <div class="container">
+      <div class="sidebar">
+        <navigator></navigator>
+      </div>
+      <div class="content">
+        <splitter-panel>
+          <template v-slot:left>
+            <Suspense>
+              <router-view></router-view>
+            </Suspense>
+          </template>
+          <template v-slot:right>
+            <content></content>
+          </template>
+        </splitter-panel>
+      </div>
+    </div>
+  </a-config-provider>
 </template>
 
-<style scoped>
+<style>
+
+@import "themes/dark.css";
+@import "themes/light.css";
 
 html, body {
   height: 100%;
   margin: 0;
+  background-color: var(--mh-backgournd-color);
 }
 
+* {
+  color: var(--mh-text-color);
+}
 
+.icon-button{
+  padding: 2px;
+  border-radius: 2px;
+}
+
+.icon-button:hover{
+  background-color: var(--mh-icon-button-background-color);
+}
+</style>
+<style scoped>
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+}
+
+.sidebar {
+  width: 50px;
+  min-width: 50px;
+  background-color: var(--mh-sidebar-background-color);
+}
+
+.content {
+  background-color: var(--mh-content-background-color);
+  flex: 1;
+  width: 0;
+}
 </style>

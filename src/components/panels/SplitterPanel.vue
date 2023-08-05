@@ -11,18 +11,18 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, onUnmounted } from 'vue';
+import {ref, onMounted, onUnmounted} from 'vue';
 
 const leftFlex = ref('0 0 200px');
 let startX = 0;
 let isDragging = false;
 
-const startDrag = (event:MouseEvent) => {
+const startDrag = (event: MouseEvent) => {
   startX = event.clientX;
   isDragging = true;
 };
 
-const handleDrag = (event:MouseEvent) => {
+const handleDrag = (event: MouseEvent) => {
   if (isDragging) {
     const deltaX = event.clientX - startX;
     startX = event.clientX;
@@ -58,12 +58,12 @@ onUnmounted(() => {
   position: relative;
   user-select: none; /* 禁止文字选择 */
   -webkit-user-select: none;
-  //padding-right: 4px;
+//padding-right: 4px;
 }
 
 .right-column {
-  flex-grow: 1;
   overflow-x: hidden;
+  width: 100%;
 }
 
 .drag-handle {
@@ -72,13 +72,13 @@ onUnmounted(() => {
   right: 0;
   bottom: 0;
   width: 1px;
-  background-color: #d1d5da;
   cursor: col-resize;
+  z-index: 100;
+  background-color: var(--mh-divider-color);
 }
 
-.drag-handle:hover{
-  background-color: #d1d5da;
-  width:3px;
-
+.drag-handle:hover {
+  background-color: var(--mh-primary-color);
+  width: 3px;
 }
 </style>
