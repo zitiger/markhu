@@ -53,7 +53,7 @@ pub fn get_menu() -> Menu {
         .add_item(theme_light);
 
     let lang_zh_cn = CustomMenuItem::new("lang_zh_cn", "中文");//.accelerator("CmdOrControl+O");
-    let lang_en = CustomMenuItem::new("lang_en", "English");//.accelerator("CmdOrControl+O");
+    let lang_en = CustomMenuItem::new("lang_en_us", "English");//.accelerator("CmdOrControl+O");
     let lang_menu = Menu::new()
         .add_item(lang_zh_cn)
         .add_item(lang_en);

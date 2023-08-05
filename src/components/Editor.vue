@@ -37,6 +37,7 @@ watch(() => useSystemStore().realTheme, (newTheme: string) => {
 
 onMounted(() => {
   vditor.value = new Vditor(editorId, {
+    lang: useSystemStore().locale,
     mode: 'wysiwyg',
     height: "100% ",
     placeholder: t('editor.placeholder'),

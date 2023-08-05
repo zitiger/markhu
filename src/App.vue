@@ -22,7 +22,7 @@ onMounted(() => {
     'theme_dark': () => useSystemStore().changeTheme('dark'),
     'theme_light': () => useSystemStore().changeTheme('light'),
     'lang_zh_cn': () => useSystemStore().setLocale("zh_CN"),
-    'lang_en': () => useSystemStore().setLocale("en"),
+    'lang_en_us': () => useSystemStore().setLocale("en_US"),
   })
   ;
 })
