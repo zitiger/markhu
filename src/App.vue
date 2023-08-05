@@ -53,7 +53,7 @@ watch(() => useSystemStore().realTheme, (newTheme: string) => {
     currentTheme.algorithm = theme.darkAlgorithm
     document.documentElement.removeAttribute('theme')
   }
-});
+}, {immediate: true});
 
 appWindow.onThemeChanged((theme) => {
   useSystemStore().changeTheme('auto')
