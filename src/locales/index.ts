@@ -1,20 +1,20 @@
 import {createI18n} from 'vue-i18n'
 import en from './en.json'
-import zh from './zh_cn.json'
+import zh_CN from './zh_CN.json'
 import {changeMenuTitle} from "../api/file";
 
 // 获取浏览器界面语言，默认语言
 // https://developer.mozilla.org/zh-CN/docs/Web/API/Navigator/language
-let currentLanguage = navigator.language.replace('-', '_').toLowerCase()
+let currentLanguage = navigator.language.replace('-', '_')
 
 // 如果本地缓存记录了语言环境，则使用本地缓存
-let lsLocale = localStorage.getItem('locale') || ''
-if (lsLocale) {
-    currentLanguage = JSON.parse(lsLocale)?.curLocale
+let savedLocale = localStorage.getItem('locale') || ''
+if (savedLocale) {
+    currentLanguage = savedLocale
 }
 
 export const langs = {
-    zh_cn: zh,
+    zh_CN,
     en
 }
 
@@ -29,6 +29,8 @@ const i18n = createI18n({
 export default i18n;
 
 export async function changeLocale(lang: string) {
+
+    localStorage.setItem("locale", lang)
 
     // @ts-ignore
     i18n.global.locale.value = lang

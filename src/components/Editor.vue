@@ -3,13 +3,13 @@
 </template>
 
 <script setup lang="ts">
-
-
 import {ref} from '@vue/reactivity';
 import Vditor from 'vditor';
 import {h, onMounted, watch} from 'vue'
 import {useEditorStore, useSystemStore} from '../stores'
 import {createDirApi, existPath, saveImageApi} from "../api/file.js";
+import {useI18n} from "vue-i18n";
+const {t} = useI18n()
 
 const props = defineProps({
   path: String,
@@ -37,6 +37,7 @@ onMounted(() => {
   vditor.value = new Vditor(editorId, {
     mode: 'wysiwyg',
     height: "100% ",
+    placeholder: t('editor.placeholder'),
     toolbar: [
       {
         hotkey: '⌘s',

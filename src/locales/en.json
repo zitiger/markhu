@@ -1,11 +1,5 @@
 {
   "common": {
-    "home": "home",
-    "about": "About",
-    "tobeCoded": "To be coded",
-    "signIn": "sign in",
-    "signUp": "sign out",
-    "t": "only in en"
   },
   "menu": {
     "open_file": "Open File",
@@ -14,7 +8,50 @@
     "save_file": "Save File",
     "save_all": "Save All",
     "close_file": "Close File"
+  },
+  "dialog": {
+    "button_ok": "Ok",
+    "button_cancel": "Cancel",
+    "button_yes": "Yes",
+    "button_no": "No",
+    "button_save": "Save",
+    "button_not_save": "Do not Save",
+    "create_file": {
+      "title": "Create File",
+      "parent_folder_label": "Parent Folder",
+      "parent_folder_required_message": "Please select Parent Folder",
+      "file_name_label": "File Name",
+      "file_name_required_message": "Please input File Name",
+      "file_exist_message": "Failed to create, it already exists"
+    },
+    "create_dir": {
+      "title": "Create Folder",
+      "parent_folder_label": "Parent Folder",
+      "parent_folder_required_message": "Please select Parent Folder",
+      "folder_name_label": "Folder Name",
+      "folder_name_required_message": "Please input Folder Name",
+      "file_exist_message": "Failed to create, it already exists"
+    },
+    "rename": {
+      "title": "Rename",
+      "name_exist_message": "Failed to rename, it already exists"
+    },
+    "save_all": {
+      "title": "Close Confirm",
+      "content": "Are you sure to close?"
+    }
+  },
+  "resource": {
+    "open_files": {
+      "title": "Open Files",
+      "save_all_files": "Save All Files",
+      "close_all_files": "Close All Files"
+    }
+  },
+  "search": {
+    "keyword_placeholder": "Please enter keyword"
+  },
+  "editor": {
+    "placeholder": "Please input"
   }
-
-
 }

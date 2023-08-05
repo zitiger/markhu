@@ -21,7 +21,7 @@ onMounted(() => {
     'theme_auto': () => useSystemStore().changeTheme('auto'),
     'theme_dark': () => useSystemStore().changeTheme('dark'),
     'theme_light': () => useSystemStore().changeTheme('light'),
-    'lang_zh_cn': () => useSystemStore().setLocale("zh_cn"),
+    'lang_zh_cn': () => useSystemStore().setLocale("zh_CN"),
     'lang_en': () => useSystemStore().setLocale("en"),
   })
   ;

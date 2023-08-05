@@ -7,7 +7,9 @@ import {
 import {useEditorStore} from '../../stores'
 import {useStructureStore} from "../../stores";
 import ResourcePanel from "../panels/ResourcePanel.vue";
+import {useI18n} from "vue-i18n";
 
+const {t} = useI18n();
 const editorStore = useEditorStore()
 const structureStore = (useStructureStore())
 await structureStore.load()
@@ -21,7 +23,6 @@ function focusTab(filepath: string) {
 function removeTab(filepath: string) {
   useEditorStore().close(filepath)
 }
-
 
 function saveAll(e: MouseEvent) {
   e.stopPropagation()
@@ -37,12 +38,12 @@ function closeAll(e: MouseEvent) {
 <template>
   <resource-panel>
     <template v-slot:title>
-      打开的文件
+      {{ t("resource.open_files.title") }}
     </template>
 
     <template v-slot:buttons>
-      <IconFont type="icon-save-all" title="保存所有" @click="saveAll($event)"/>
-      <IconFont type="icon-close-all" title="关闭所有" @click="closeAll($event)"/>
+      <IconFont type="icon-save-all" :title="t('resource.open_files.save_all_files')" @click="saveAll($event)"/>
+      <IconFont type="icon-close-all" :title="t('resource.open_files.close_all_files')" @click="closeAll($event)"/>
     </template>
 
     <template v-slot:content>
@@ -70,7 +71,7 @@ function closeAll(e: MouseEvent) {
 <style scoped>
 .content ul {
   padding: 0;
-  margin:0;
+  margin: 0;
 }
 
 .content li {
@@ -80,10 +81,11 @@ function closeAll(e: MouseEvent) {
   display: flex;
 }
 
-.content li:hover{
+.content li:hover {
   background-color: rgba(255, 255, 255, 0.08);
 }
-.content li.active{
+
+.content li.active {
   background-color: #1668dc !important;
 }
 

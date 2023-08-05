@@ -4,7 +4,9 @@ import {existPath, renameApi} from "../../api/file";
 import {useEditorStore, useStructureStore, useDialogStore, useSystemStore} from '../../stores'
 import {reactive, ref, watch} from "vue";
 import {message} from "ant-design-vue";
+import {useI18n} from "vue-i18n";
 
+const {t} = useI18n()
 let basename = ref('');
 let filepath = ref('');
 let extname = ref('');
@@ -33,7 +35,7 @@ async function doRename() {
 
   let exist = await existPath(newPath);
   if (exist) {
-    message.error('目标名称 ' + basename.value + ' 已经存在');
+    message.error(t("dialog.rename.name_exist_message"));
     return;
   }
 
@@ -46,7 +48,7 @@ async function doRename() {
 </script>
 
 <template>
-  <a-modal v-model:open="useDialogStore().isRenameDialogVisible" title="修改名称" @ok="doRename()">
+  <a-modal v-model:open="useDialogStore().isRenameDialogVisible" :title="t('dialog.rename.title')" @ok="doRename()">
     <a-input v-model:value="basename"/>
   </a-modal>
 </template>

@@ -1,0 +1,57 @@
+{
+  "common": {
+  },
+  "menu": {
+    "open_file": "打开文件",
+    "open_folder": "打开文件夹",
+    "create_file": "创建文件",
+    "save_file": "保存文件",
+    "save_all": "保存所有文件",
+    "close_file": "关闭文件"
+  },
+  "dialog": {
+    "button_ok": "确定",
+    "button_cancel": "取消",
+    "button_yes": "是",
+    "button_no": "否",
+    "button_save": "保存",
+    "button_not_save": "不保存",
+    "create_file": {
+      "title": "创建新文件",
+      "parent_folder_label": "所在目录",
+      "parent_folder_required_message": "请选择所在目录",
+      "file_name_label": "文件名称",
+      "file_name_required_message": "清输入文件名称",
+      "file_exist_message": "创建文件失败，已经存在相同名称"
+    },
+    "create_dir": {
+      "title": "创建新文件夹",
+      "parent_folder_label": "所在目录",
+      "parent_folder_required_message": "请选择所在目录",
+      "folder_name_label": "文件夹名称",
+      "folder_name_required_message": "清输入文件夹名称",
+      "file_exist_message": "创建文件失败，已经存在相同名称"
+    },
+    "rename": {
+      "title": "重命名",
+      "name_exist_message": "重命名失败，已经存在相同名称"
+    },
+    "save_all": {
+      "title": "关闭确认",
+      "content": "确认关闭？"
+    }
+  },
+  "resource": {
+    "open_files": {
+      "title": "打开的文件",
+      "save_all_files": "保存所有文件",
+      "close_all_files": "关闭所有文件"
+    }
+  },
+  "search": {
+    "keyword_placeholder": "输入关键词"
+  },
+  "editor": {
+    "placeholder": "从这里开始输入文档内容"
+  }
+}

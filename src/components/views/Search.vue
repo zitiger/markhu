@@ -3,18 +3,11 @@
   <a-list size="small" bordered :data-source="data" style="height: 100%;overflow-y: auto">
     <template #renderItem="{ item }">
       <a-list-item @click="click(item.path)" style="cursor: pointer">
-
-
-        <a-list-item-meta
-            description="  "
-        >
+        <a-list-item-meta description="  ">
           <template #title>
             {{ item.title }}
           </template>
-
         </a-list-item-meta>
-
-
 
       </a-list-item>
     </template>
