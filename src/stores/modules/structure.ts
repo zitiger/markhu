@@ -1,5 +1,5 @@
 import {defineStore} from 'pinia'
-import {reactive, ref} from 'vue'
+import {reactive, ref, toRaw} from 'vue'
 import {createDirApi, createFileApi, existPath, readFolderApi, removeDirApi, removeFileApi} from "../../api/file";
 import {FileInfo, StructureNode} from "../../api/model";
 import {useSystemStore} from "./system";
@@ -16,7 +16,7 @@ export const useStructureStore = defineStore('structure', {
 
         let path = '';
 
-        let currentDir = ref("/");
+        let currentDir = ref(toRaw(useSystemStore().workspace));
 
         let currentNode = ref<StructureNode>({
             title: "/",
@@ -27,7 +27,7 @@ export const useStructureStore = defineStore('structure', {
         });
 
 
-        return {path,currentDir, currentNode,  list, dir}
+        return {path, currentDir, currentNode, list, dir}
     },
 
     actions: {
@@ -42,13 +42,13 @@ export const useStructureStore = defineStore('structure', {
                 await createDirApi(filepath);
             }
 
-            createNode(this.list, {title: basename, key:filepath,folder: !isFile, path: filepath});
+            createNode(this.list, {title: basename, key: filepath, folder: !isFile, path: filepath});
         },
 
         async rename(from: string, to: string) {
-        await     updateNodePath(this.list, from, to)
+            await updateNodePath(this.list, from, to)
         },
-        async remove(path: string, isFile:boolean) {
+        async remove(path: string, isFile: boolean) {
             if (isFile) {
                 removeFileApi(path)
             } else {
@@ -63,9 +63,12 @@ export const useStructureStore = defineStore('structure', {
         async load() {
 
             let path = useSystemStore().workspace;
-            if(path === ""){
+            if (path === "") {
                 return
             }
+
+            this.currentDir = path;
+
             const aaa = await readFolderApi(path);
 
             this.list.length = 0; // 清空数组
@@ -78,7 +81,7 @@ export const useStructureStore = defineStore('structure', {
             this.dir.push(
                 {
                     title: await this.basename(path),
-                    key:path,
+                    key: path,
                     path: path,
                     folder: false,
                     children: yyy
@@ -138,7 +141,6 @@ export const useStructureStore = defineStore('structure', {
     },
 
 
-
 })
 
 
@@ -185,7 +187,7 @@ async function updateNodePath(list: StructureNode[], oldPath: string, newPath: s
     if (targetNode) {
         targetNode.path = newPath;
         targetNode.key = newPath;
-        targetNode.title =   await path.basename(newPath);
+        targetNode.title = await path.basename(newPath);
     }
 
     return list;

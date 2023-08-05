@@ -29,8 +29,8 @@ await structureStore.load()
 let treeData = (structureStore.list);//ref(await convertList(structureStore.list));
 
 
-const workspace =  computed(() => {
-  return   path.basename(useSystemStore().workspace)
+const workspace = computed(() => {
+  return path.basename(useSystemStore().workspace)
 })
 
 const handleNodeClick = async (selectedKeys: any, e: {
@@ -45,6 +45,7 @@ const handleNodeClick = async (selectedKeys: any, e: {
   if (data.folder) {
     useStructureStore().currentDir = data.path
   } else {
+    useStructureStore().currentDir = data.path.substring(0, data.path.lastIndexOf(path.sep));
     await editorStore.read(data.path)
   }
   // useStructureStore().currentNode = e.node
@@ -107,13 +108,13 @@ function reload() {
 
   <resource-panel style=";overflow: hidden;">
     <template v-slot:title>
-    {{ workspace }}
+      {{ workspace }}
     </template>
 
     <template v-slot:buttons>
-        <IconFont type="icon-create-dir" @click="dialogStore.showCreateDirDialog()"/>
-        <IconFont type="icon-create-file" @click="dialogStore.showCreateFileDialog()"/>
-        <IconFont type="icon-refresh" @click="reload()"/>
+      <IconFont type="icon-create-dir" @click="dialogStore.showCreateDirDialog()"/>
+      <IconFont type="icon-create-file" @click="dialogStore.showCreateFileDialog()"/>
+      <IconFont type="icon-refresh" @click="reload()"/>
     </template>
     <template v-slot:content>
       <a-directory-tree :showIcon="false" :tree-data="treeData" @select="handleNodeClick" class="file-tree">
