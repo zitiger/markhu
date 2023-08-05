@@ -48,6 +48,7 @@ const showContent = ref(true)
 .toolbar .title {
   margin-right: auto;
   padding: 0 5px;
+  font-size: 14px;
 }
 
 .toolbar .buttons :deep(span) {
