@@ -18,6 +18,7 @@ onMounted(() => {
     'save_file': () => useEditorStore().save(useEditorStore().activeFile),
     'save_all': () => useEditorStore().saveAll(),
     'close_file': () => useEditorStore().close(useEditorStore().activeFile),
+    'theme_auto': () => useSystemStore().theme = 'auto',
     'theme_dark': () => useSystemStore().theme = 'dark',
     'theme_light': () => useSystemStore().theme = 'light',
     'lang_zh_cn': () => useSystemStore().setLocale("zh_cn"),
@@ -44,15 +45,31 @@ appWindow.listen('tauri://close-requested', async (event) => {
 
 const currentTheme = reactive({algorithm: theme.darkAlgorithm})
 
-watch(() => useSystemStore().theme, async (newValue, oldCount) => {
-  if (newValue === 'dark') {
-    currentTheme.algorithm = theme.darkAlgorithm
-    document.documentElement.removeAttribute('theme')
-  } else {
+watch(() => useSystemStore().theme, changeTheme);
+
+async function changeTheme(newValue:string){
+  let newTheme = newValue;
+  if (newValue === 'auto') {
+    let systemTheme = await appWindow.theme()
+    if (systemTheme == null) {
+      newTheme = "dark";
+    } else {
+      newTheme = systemTheme;
+    }
+  }
+
+  if (newTheme === 'light') {
     currentTheme.algorithm = theme.defaultAlgorithm
     document.documentElement.setAttribute('theme', 'light')
+  } else {
+    currentTheme.algorithm = theme.darkAlgorithm
+    document.documentElement.removeAttribute('theme')
   }
-});
+}
+
+appWindow.onThemeChanged((theme) => {
+  changeTheme(theme.payload)
+})
 </script>
 
 <template>
@@ -94,12 +111,12 @@ html, body {
   color: var(--mh-text-color);
 }
 
-.icon-button{
+.icon-button {
   padding: 2px;
   border-radius: 2px;
 }
 
-.icon-button:hover{
+.icon-button:hover {
   background-color: var(--mh-icon-button-background-color);
 }
 </style>

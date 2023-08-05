@@ -44,9 +44,11 @@ pub fn get_menu() -> Menu {
         .add_native_item(MenuItem::Paste)
         .add_native_item(MenuItem::SelectAll);
 
+    let theme_auto = CustomMenuItem::new("theme_auto", "Auto");//.accelerator("CmdOrControl+O");
     let theme_dark = CustomMenuItem::new("theme_dark", "Dark");//.accelerator("CmdOrControl+O");
     let theme_light = CustomMenuItem::new("theme_light", "Light");//.accelerator("CmdOrControl+O");
     let theme_menu = Menu::new()
+        .add_item(theme_auto)
         .add_item(theme_dark)
         .add_item(theme_light);
 
