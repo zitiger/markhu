@@ -15,7 +15,7 @@
             <span>
               {{ tab.basename }}
             <div style="display: inline-block;font-size: 10px;width:10px">
-              <IconFont type="icon-yuan" class="tab-state" v-if="useEditorStore().isModified(tab.filepath)"></IconFont>
+              <IconFont type="icon-dot" class="tab-state" v-if="useEditorStore().isModified(tab.filepath)"></IconFont>
               <IconFont type="icon-close" class="tab-remove" @click="removeTab($event,tab.filepath)"/>
             </div>
             </span>

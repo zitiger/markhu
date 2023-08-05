@@ -1,9 +1,5 @@
 <script lang="ts" setup>
 import "vditor/dist/index.css"
-import {
-  CloseOutlined, SaveOutlined
-} from '@ant-design/icons-vue';
-
 import {useEditorStore} from '../../stores'
 import {useStructureStore} from "../../stores";
 import ResourcePanel from "../panels/ResourcePanel.vue";
@@ -52,12 +48,8 @@ function closeAll(e: MouseEvent) {
           <li v-for="file in openedFiles" :class="{ active: file.filepath === useEditorStore().activeFile}">
 
             <span class="button">
-              <close-outlined class="remove-tab" @click="removeTab(file.filepath)"/>
-              <span class="changed" v-if="useEditorStore().isModified(file.filepath)">
-                   <svg viewBox="0 0 20 20" width="20" height="20">
-                    <circle cx="12" cy="12" r="4"/> <!-- 将r属性的值从5缩小到1.67 -->
-                  </svg>
-              </span>
+              <IconFont type="icon-close" class="remove-tab" @click="removeTab(file.filepath)" />
+              <IconFont type="icon-dot" class="changed" v-if="useEditorStore().isModified(file.filepath)"/>
             </span>
             <span class="filename" @click="focusTab(file.filepath)">{{ file.basename }}</span>
           </li>
@@ -89,13 +81,11 @@ function closeAll(e: MouseEvent) {
   background-color: #1668dc !important;
 }
 
-
 .content li .button {
   display: inline-block;
   width: 20px;
   text-align: center;
 }
-
 
 .content li span {
   height: 24px;
@@ -104,12 +94,15 @@ function closeAll(e: MouseEvent) {
 
 .content li .remove-tab {
   display: none;
+  font-size: 12px;
 }
 
 .content li:hover .remove-tab {
   display: inline-block;
 }
-
+.content li .changed {
+  font-size: 10px;
+}
 .content li:hover .changed {
   display: none;
 }
