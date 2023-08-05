@@ -8,8 +8,8 @@ import Vditor from 'vditor';
 import {h, onMounted, watch} from 'vue'
 import {useEditorStore, useSystemStore} from '../stores'
 import {createDirApi, existPath, saveImageApi} from "../api/file.js";
-import {useI18n} from "vue-i18n";
 import {Md5} from "ts-md5";
+import {useI18n} from "vue-i18n";
 
 const {t} = useI18n()
 
@@ -45,7 +45,7 @@ onMounted(() => {
       {
         hotkey: '⌘s',
         name: "openMdFile",
-        tip: "保存",
+        tip: t('editor.button_save'),
         tipPosition: 's',
         icon: svgIcons.save,
         async click() {
@@ -54,7 +54,7 @@ onMounted(() => {
               let cont = vditor.value!.getValue();
               // await saveContentApi(props.path, cont)
               await useEditorStore().save(props.path);
-              message.success('保存成功');
+              message.success(t('editor.save_successfully'));
             }
           }, 1000);
         }

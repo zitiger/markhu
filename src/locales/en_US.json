@@ -50,6 +50,9 @@
       "title": "Open Files",
       "save_all_files": "Save All Files",
       "close_all_files": "Close All Files"
+    },
+    "structure": {
+      "reload_successfully": "Reload successfully"
     }
   },
   "search": {
@@ -60,6 +63,8 @@
     "open_file": "Click file in resource panel"
   },
   "editor": {
-    "placeholder": "Please enter text to start"
+    "button_save": "Save",
+    "placeholder": "Please enter text to start",
+    "save_successfully": "Save successfully"
   }
 }

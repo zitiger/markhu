@@ -19,7 +19,9 @@ import {useStructureStore} from "../../stores";
 import {message, Modal} from "ant-design-vue";
 import {showInFolder} from "../../api/file";
 import ResourcePanel from "../panels/ResourcePanel.vue";
+import {useI18n} from "vue-i18n";
 
+const {t} = useI18n()
 const editorStore = useEditorStore()
 const structureStore = (useStructureStore())
 const dialogStore = useDialogStore()
@@ -99,8 +101,7 @@ const onContextMenuClick = (treeKey: string, menuKey: string) => {
 
 function reload() {
   structureStore.load()
-  message.success('刷新成功');
-
+  message.success(t('resource.structure.reload_successfully'));
 }
 </script>
 

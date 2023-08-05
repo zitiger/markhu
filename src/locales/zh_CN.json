@@ -50,6 +50,9 @@
       "title": "打开的文件",
       "save_all_files": "保存所有文件",
       "close_all_files": "关闭所有文件"
+    },
+    "structure": {
+      "reload_successfully": "重新加载成功"
     }
   },
   "search": {
@@ -60,6 +63,8 @@
     "open_file": "从左侧资源栏打开一个文件"
   },
   "editor": {
-    "placeholder": "从这里开始输入文档内容"
+    "button_save": "保存",
+    "placeholder": "从这里开始输入文档内容",
+    "save_successfully": "保存成功"
   }
 }
