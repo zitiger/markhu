@@ -9,13 +9,15 @@ import {h, onMounted, watch} from 'vue'
 import {useEditorStore, useSystemStore} from '../stores'
 import {createDirApi, existPath, saveImageApi} from "../api/file.js";
 import {useI18n} from "vue-i18n";
+import {Md5} from "ts-md5";
+
 const {t} = useI18n()
 
 const props = defineProps({
   path: String,
 });
 
-const editorId = "vditor" + Math.random().toString(36).substr(2, 9);
+const editorId = "vditor" + Md5.hashStr(props.path || '');
 
 const vditor = ref<Vditor | null>(null);
 
