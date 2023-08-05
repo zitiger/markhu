@@ -40,13 +40,13 @@
     </a-tabs>
   </div>
 
-  <a-modal v-model:open="showConfirm" title="是否保存?">
+  <a-modal v-model:open="showConfirm" :title="t('dialog.save_file.title')">
     <template #footer>
-      <a-button key="back" @click="dispose" type="primary" style="float: left">不保存</a-button>
-      <a-button key="back" @click="cancel">取消</a-button>
-      <a-button key="submit" type="primary" @click="save">保存</a-button>
+      <a-button key="back" @click="dispose" style="float: left">{{t('dialog.button_not_save') }}</a-button>
+      <a-button key="back" @click="cancel">{{t('dialog.button_cancel') }}</a-button>
+      <a-button key="submit" type="primary" @click="save">{{t('dialog.button_save') }}</a-button>
     </template>
-    <p>是否保存对文件的更改？</p>
+    <p>{{t("dialog.save_file.content")}}</p>
   </a-modal>
 
 </template>

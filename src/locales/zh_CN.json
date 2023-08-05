@@ -39,6 +39,10 @@
     "save_all": {
       "title": "关闭确认",
       "content": "确认关闭？"
+    },
+    "save_file": {
+      "title": "关闭确认",
+      "content": "文件未保存，是否进行保存？"
     }
   },
   "resource": {

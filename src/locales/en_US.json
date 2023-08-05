@@ -39,6 +39,10 @@
     "save_all": {
       "title": "Close Confirm",
       "content": "Are you sure to close?"
+    },
+    "save_file": {
+      "title": "Close Confirm",
+      "content": "Are you sure to close?"
     }
   },
   "resource": {
@@ -52,8 +56,8 @@
     "keyword_placeholder": "Please enter keyword"
   },
   "content": {
-      "open_folder": "Click here to open folder",
-      "open_file": "Click file in resource panel"
+    "open_folder": "Click here to open folder",
+    "open_file": "Click file in resource panel"
   },
   "editor": {
     "placeholder": "Please enter text to start"
