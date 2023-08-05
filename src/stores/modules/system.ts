@@ -5,6 +5,7 @@ import {useStructureStore} from "./structure";
 import path from 'path-browserify';
 import i18n from "../../locales";
 import {changeLocale} from "../../locales";
+import {appWindow} from "@tauri-apps/api/window";
 
 export const useSystemStore = defineStore('system', {
     persist: true,
@@ -12,8 +13,9 @@ export const useSystemStore = defineStore('system', {
         const workspace = ref<string>('') //
         const locale = ref(i18n.global.locale.value)
         const theme = ref('dark')
+        const realTheme = ref('dark')
 
-        return {workspace, locale, theme}
+        return {workspace, locale, theme, realTheme}
     },
     getters: {
         assertDir: (state) => path.join(state.workspace, "assets"),
@@ -36,6 +38,21 @@ export const useSystemStore = defineStore('system', {
         async setLocale(lang: any) {
             this.locale = lang
             await changeLocale(lang)
+        },
+
+        async changeTheme(theme: string) {
+            let realTheme = theme;
+            if (theme === 'auto') {
+                let systemTheme = await appWindow.theme()
+                if (systemTheme == null) {
+                    realTheme = "dark";
+                } else {
+                    realTheme = systemTheme;
+                }
+            }
+
+            this.theme = theme;
+            this.realTheme = realTheme
         }
     }
 })

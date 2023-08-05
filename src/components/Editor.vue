@@ -24,20 +24,19 @@ import {message, Modal, theme} from "ant-design-vue";
 import path from "path-browserify";
 import {convertFileSrc} from "@tauri-apps/api/tauri";
 
-
-watch(() => useSystemStore().theme, async (newValue, oldCount) => {
-  if (newValue === 'dark') {
-    vditor.value?.setTheme("dark")
-  } else {
-    vditor.value?.setTheme("classic")
-  }
-});
+watch(() => useSystemStore().realTheme, (newTheme: string) => {
+      if (newTheme !== 'light') {
+        vditor.value?.setTheme("dark")
+      } else {
+        vditor.value?.setTheme("classic")
+      }
+    }
+);
 
 onMounted(() => {
   vditor.value = new Vditor(editorId, {
     mode: 'wysiwyg',
     height: "100% ",
-    theme: 'dark',
     toolbar: [
       {
         hotkey: '⌘s',
@@ -92,7 +91,7 @@ onMounted(() => {
         vditor.value!.setValue(content);
       }
 
-      if (useSystemStore().theme === "dark") {
+      if (useSystemStore().realTheme !== "light") {
         vditor.value!.setTheme("dark")
       } else {
         vditor.value!.setTheme("classic")

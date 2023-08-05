@@ -18,9 +18,9 @@ onMounted(() => {
     'save_file': () => useEditorStore().save(useEditorStore().activeFile),
     'save_all': () => useEditorStore().saveAll(),
     'close_file': () => useEditorStore().close(useEditorStore().activeFile),
-    'theme_auto': () => useSystemStore().theme = 'auto',
-    'theme_dark': () => useSystemStore().theme = 'dark',
-    'theme_light': () => useSystemStore().theme = 'light',
+    'theme_auto': () => useSystemStore().changeTheme('auto'),
+    'theme_dark': () => useSystemStore().changeTheme('dark'),
+    'theme_light': () => useSystemStore().changeTheme('light'),
     'lang_zh_cn': () => useSystemStore().setLocale("zh_cn"),
     'lang_en': () => useSystemStore().setLocale("en"),
   })
@@ -45,19 +45,7 @@ appWindow.listen('tauri://close-requested', async (event) => {
 
 const currentTheme = reactive({algorithm: theme.darkAlgorithm})
 
-watch(() => useSystemStore().theme, changeTheme);
-
-async function changeTheme(newValue:string){
-  let newTheme = newValue;
-  if (newValue === 'auto') {
-    let systemTheme = await appWindow.theme()
-    if (systemTheme == null) {
-      newTheme = "dark";
-    } else {
-      newTheme = systemTheme;
-    }
-  }
-
+watch(() => useSystemStore().realTheme, (newTheme: string) => {
   if (newTheme === 'light') {
     currentTheme.algorithm = theme.defaultAlgorithm
     document.documentElement.setAttribute('theme', 'light')
@@ -65,10 +53,10 @@ async function changeTheme(newValue:string){
     currentTheme.algorithm = theme.darkAlgorithm
     document.documentElement.removeAttribute('theme')
   }
-}
+});
 
 appWindow.onThemeChanged((theme) => {
-  changeTheme(theme.payload)
+  useSystemStore().changeTheme('auto')
 })
 </script>
 
