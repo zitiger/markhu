@@ -1,0 +1,13 @@
+/* 默认dark主题 */
+:root {
+    --mh-primary-color: #1677ff;
+    --mh-text-color: rgba(255, 255, 255, 0.85);
+    --mh-backgournd-color: #111a2c;
+    --mh-border-color: #d9d9d9;
+
+    --mh-sidebar-background-color: #3c383c;
+    --mh-content-background-color: #202021;
+
+    --mh-divider-color: #3c383c;
+    --mh-icon-button-background-color: rgba(212,212,212,0.30);
+}

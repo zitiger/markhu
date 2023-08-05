@@ -1,0 +1,13 @@
+/* light主题 */
+:root[theme='light'] {
+    --mh-primary-color: #1677ff;
+    --mh-text-color: #000;
+    --mh-backgournd-color: #fff;
+    --mh-border-color: #d9d9d9;
+
+    --mh-sidebar-background-color: #ede9ed;
+    --mh-content-background-color: #ffffff;
+
+    --mh-divider-color: #eeeff0;
+    --mh-icon-button-background-color: rgba(212,212,212,0.30);
+}
