@@ -118,7 +118,7 @@ const onContextMenuClick = async (filepath: string, menuKey: string) => {
   display: flex;
   justify-content: center; /* 水平居中 */
   align-items: center; /* 垂直居中 */
-  font-size: 20px;
+  font-size: 30px;
   color: var(--mh-divider-color)
 }
 
