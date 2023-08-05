@@ -1,5 +1,5 @@
 <template>
-  <a-input v-model:value="key" placeholder="输入关键词" size="small"/>
+  <a-input v-model:value="key" :placeholder="t('search.keyword_placeholder')" size="small"/>
   <a-list size="small" bordered :data-source="data" style="height: 100%;overflow-y: auto">
     <template #renderItem="{ item }">
       <a-list-item @click="click(item.path)" style="cursor: pointer">
@@ -18,7 +18,9 @@
 import {computed, ref} from "vue";
 import {useEditorStore, useStructureStore} from "../../stores";
 import {StructureNode} from "../../api/model";
+import {useI18n} from "vue-i18n";
 
+const {t} = useI18n();
 const key = ref<string>('');
 
 function click(path:string){
