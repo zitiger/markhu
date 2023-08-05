@@ -51,7 +51,11 @@
   "search": {
     "keyword_placeholder": "Please enter keyword"
   },
+  "content": {
+      "open_folder": "Click here to open folder",
+      "open_file": "Click file in resource panel"
+  },
   "editor": {
-    "placeholder": "Please input"
+    "placeholder": "Please enter text to start"
   }
 }

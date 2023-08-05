@@ -51,6 +51,10 @@
   "search": {
     "keyword_placeholder": "输入关键词"
   },
+  "content": {
+    "open_folder": "点击这里打开一个文件夹",
+    "open_file": "从左侧资源栏打开一个文件"
+  },
   "editor": {
     "placeholder": "从这里开始输入文档内容"
   }

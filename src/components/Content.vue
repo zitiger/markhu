@@ -1,6 +1,14 @@
 <template>
   <div class="column3">
-    <a-tabs v-model:activeKey="store.activeFile" size="small" hide-add style="height: 100vh">
+    <div class="placeholder" v-if="editableTabs.length ===0">
+      <div v-if="useSystemStore().workspace ===''" @click="useSystemStore().open()">
+        {{ t("content.open_folder") }}
+      </div>
+      <div v-else>
+        {{ t("content.open_file") }}
+      </div>
+    </div>
+    <a-tabs v-else v-model:activeKey="store.activeFile" size="small" hide-add style="height: 100vh">
       <a-tab-pane v-for="tab in editableTabs" :key="tab.filepath" :closable="true">
         <template #tab>
           <a-dropdown :trigger="['contextmenu']">
@@ -45,14 +53,12 @@
 
 <script setup lang="ts">
 import {ref} from '@vue/reactivity';
-import {useDialogStore, useEditorStore, useStructureStore} from '../stores'
+import {useDialogStore, useEditorStore, useStructureStore, useSystemStore} from '../stores'
 import Editor from "./Editor.vue";
-import {CloseOutlined, ExclamationCircleOutlined, QqCircleFilled} from "@ant-design/icons-vue";
-import path from "path-browserify";
-import {Modal} from "ant-design-vue";
-import {createVNode} from "vue";
 import {showInFolder} from "../api/file";
+import {useI18n} from "vue-i18n";
 
+const {t} = useI18n()
 const store = useEditorStore();
 const editableTabs = ref(store.fileCache);
 const showConfirm = ref(false)
@@ -85,25 +91,18 @@ async function save() {
   showConfirm.value = false;
 }
 
-
 const onContextMenuClick = async (filepath: string, menuKey: string) => {
   console.log(menuKey)
   let node = useStructureStore().find(filepath);
   if (node) {
-
-    // if (node.folder) {
-    //   useStructureStore().currentDir = node.path;
-    // } else {
-    //   useStructureStore().currentDir = path.dirname(node.path);
-    // }
 
     if (menuKey === "closeFile") {
       useEditorStore().close(filepath);
     } else if (menuKey === "closeOthers") {
       await useEditorStore().closeOthers(filepath);
     } else if (menuKey === "closeAll") {
-      await  useEditorStore().closeAll();
-    }  else if (menuKey === "showInFolder") {
+      await useEditorStore().closeAll();
+    } else if (menuKey === "showInFolder") {
       await showInFolder(filepath);
     }
   }
@@ -111,6 +110,19 @@ const onContextMenuClick = async (filepath: string, menuKey: string) => {
 </script>
 
 <style>
+
+.column3 .placeholder > div {
+  width: 100%;
+  height: 100vh;
+  text-align: center;
+  display: flex;
+  justify-content: center; /* 水平居中 */
+  align-items: center; /* 垂直居中 */
+  font-size: 20px;
+  color: var(--mh-divider-color)
+}
+
+
 .column3 .ant-tabs .ant-tabs-content-holder {
   overflow-y: auto !important;
 }
@@ -135,19 +147,17 @@ const onContextMenuClick = async (filepath: string, menuKey: string) => {
   display: none;
 }
 
-.ant-tabs .ant-tabs-tab+.ant-tabs-tab{
+.ant-tabs .ant-tabs-tab + .ant-tabs-tab {
   margin-left: 15px;
 }
 
-.ant-tabs .ant-tabs-tab .anticon{
+.ant-tabs .ant-tabs-tab .anticon {
   margin-right: 0 !important;
 }
 
 .ant-tabs-tab:hover .tab-remove {
   display: inline-block;
 }
-
-
 
 
 .ant-tabs-tab:hover .tab-state {
