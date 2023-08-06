@@ -58,7 +58,6 @@ onUnmounted(() => {
   position: relative;
   user-select: none; /* 禁止文字选择 */
   -webkit-user-select: none;
-//padding-right: 4px;
 }
 
 .right-column {
