@@ -72,7 +72,7 @@ onUnmounted(() => {
   bottom: 0;
   width: 1px;
   cursor: col-resize;
-  z-index: 100;
+  z-index: 89;
   background-color: var(--mh-divider-color);
 }
 
