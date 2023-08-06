@@ -28,6 +28,7 @@ fn main() {
             cmd::exist_path,
             cmd::show_in_folder,
             cmd::change_menu_title,
+            cmd::set_menu_selected ,
             cmd::move_to_trash
         ])
         .run(tauri::generate_context!())

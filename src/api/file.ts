@@ -196,7 +196,15 @@ export async function changeMenuTitle(id:string, title:string) {
         throw error;
     }
 }
-
+export async function setMenuSelected(id:string, selected:boolean) {
+    try {
+        await invoke('set_menu_selected',{id, selected});
+    } catch (error) {
+        // 处理错误
+        console.error(error);
+        throw error;
+    }
+}
 export async function moveToTrashApi(path:string) {
     try {
         await invoke('move_to_trash',{path});

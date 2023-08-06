@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import Navigator from "./components/Navigator.vue";
 import Content from "./components/Content.vue";
-import {listenMenuEvent, changeMenuTitle} from "./api/file";
+import {listenMenuEvent, setMenuSelected} from "./api/file";
 import {useDialogStore, useEditorStore, useStructureStore, useSystemStore} from "./stores";
 import {onMounted, reactive, watch} from "vue";
 import Dialogs from "./components/Dialogs.vue";
@@ -21,8 +21,8 @@ onMounted(() => {
     'theme_auto': () => useSystemStore().changeTheme('auto'),
     'theme_dark': () => useSystemStore().changeTheme('dark'),
     'theme_light': () => useSystemStore().changeTheme('light'),
-    'lang_zh_cn': () => useSystemStore().setLocale("zh_CN"),
-    'lang_en_us': () => useSystemStore().setLocale("en_US"),
+    'locale_zh_cn': () => useSystemStore().setLocale("zh_CN"),
+    'locale_en_us': () => useSystemStore().setLocale("en_US"),
     'mode_wysiwyg': () => useEditorStore().editMode = 'wysiwyg',
     'mode_ir': () => useEditorStore().editMode = 'ir',
     'mode_sv': () => useEditorStore().editMode = 'sv',
@@ -36,6 +36,20 @@ watch(() => useEditorStore().activeFile, async (newValue, oldCount) => {
   await appWindow.setTitle(title)
 });
 
+
+watch(() => useSystemStore().theme, async (newValue, oldValue) => {
+  if (oldValue) {
+    await setMenuSelected("theme_" + oldValue, false)
+  }
+  await setMenuSelected("theme_" + newValue, true)
+}, {immediate: true});
+
+watch(() => useSystemStore().locale, async (newValue, oldValue) => {
+  if (oldValue) {
+    await setMenuSelected("locale_" + oldValue.toLowerCase(), false)
+  }
+  await setMenuSelected("locale_" + newValue.toLowerCase(), true)
+}, {immediate: true});
 
 // 监听当前窗口的关闭请求事件
 appWindow.listen('tauri://close-requested', async (event) => {

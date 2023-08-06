@@ -52,11 +52,11 @@ pub fn get_menu() -> Menu {
         .add_item(theme_dark)
         .add_item(theme_light);
 
-    let lang_zh_cn = CustomMenuItem::new("lang_zh_cn", "中文");//.accelerator("CmdOrControl+O");
-    let lang_en = CustomMenuItem::new("lang_en_us", "English");//.accelerator("CmdOrControl+O");
-    let lang_menu = Menu::new()
-        .add_item(lang_zh_cn)
-        .add_item(lang_en);
+    let locale_zh_cn = CustomMenuItem::new("locale_zh_cn", "中文");//.accelerator("CmdOrControl+O");
+    let locale_en_us = CustomMenuItem::new("locale_en_us", "English");//.accelerator("CmdOrControl+O");
+    let locale_menu = Menu::new()
+        .add_item(locale_zh_cn)
+        .add_item(locale_en_us);
 
     let mode_wysiwyg = CustomMenuItem::new("mode_wysiwyg", "WYSIWYG");//.accelerator("CmdOrControl+O");
     let mode_ir = CustomMenuItem::new("mode_ir", "Instant Rendering");//.accelerator("CmdOrControl+O");
@@ -82,7 +82,7 @@ pub fn get_menu() -> Menu {
         .add_submenu(Submenu::new("File", file_menu))
         // .add_submenu(Submenu::new("Edit", edit_menu))
         .add_submenu(Submenu::new("Theme", theme_menu))
-        .add_submenu(Submenu::new("Language", lang_menu))
+        .add_submenu(Submenu::new("Language", locale_menu))
         .add_submenu(Submenu::new("Editor", editor_menu))
     // .add_submenu(Submenu::new("Window", window_menu))
 }

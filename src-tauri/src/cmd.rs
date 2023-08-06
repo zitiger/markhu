@@ -15,7 +15,7 @@ use fork::{daemon, Fork}; // dep: fork = "0.1"
 // 定义一个结构体，表示文件或文件夹的信息
 #[derive(Debug, Deserialize, Serialize)]
 pub struct FileInfo {
-    is_file: bool, // 用于标记是文件还是文件夹
+    is_file: bool,
     create_time: i64,
     update_time: i64,
     count: u64,
@@ -31,13 +31,13 @@ pub fn get_md_in_folder(event: String) -> Option<String> {
 }
 
 #[command]
-pub fn create_dir(path:String) -> Option<String> {
+pub fn create_dir(path: String) -> Option<String> {
     let file = fs::create_dir_all(&path);
 
     match file {
         Ok(_) => {
-            return Some(path)
-        },
+            return Some(path);
+        }
         Err(e) => {
             println!("error create dir===={}", e);
             return None;
@@ -46,13 +46,13 @@ pub fn create_dir(path:String) -> Option<String> {
 }
 
 #[command]
-pub fn create_file(path:String) -> Option<String> {
+pub fn create_file(path: String) -> Option<String> {
     let file = fs::File::create(&path);
 
     match file {
         Ok(_) => {
-            return Some(path)
-        },
+            return Some(path);
+        }
         Err(e) => {
             println!("error create file===={}", e);
             return None;
@@ -155,13 +155,14 @@ pub fn remove_dir_all(path: String) -> Option<String> {
     fs::remove_dir_all(path).expect("remove dir error");
     Some("OK".to_string())
 }
+
 #[command]
 pub fn exist_path(path: &str) -> bool {
     Path::new(path).exists()
 }
 
 #[command]
-pub fn save_image(path: String, data: Vec<u8>) -> Option<String>{
+pub fn save_image(path: String, data: Vec<u8>) -> Option<String> {
     let mut file = fs::File::create(path).expect("create image error");
     file.write_all(&data).expect("write file error");
     Some("OK".to_string())
@@ -216,8 +217,8 @@ pub fn show_in_folder(path: String) {
 }
 
 #[tauri::command]
-pub fn change_menu_title(window: tauri::Window, id:String, title:String) ->Option<String> {
-    let menu_handle =  window.menu_handle();
+pub fn change_menu_title(window: tauri::Window, id: String, title: String) -> Option<String> {
+    let menu_handle = window.menu_handle();
     std::thread::spawn(move || {
         menu_handle.get_item(&id).set_title(title).expect("Failed");
     });
@@ -225,6 +226,20 @@ pub fn change_menu_title(window: tauri::Window, id:String, title:String) ->Optio
     Some("OK".to_string())
 }
 
+#[tauri::command]
+pub fn set_menu_selected(window: tauri::Window, id: String, selected: bool) -> Option<String> {
+    let menu_handle = window.menu_handle();
+    let handle = menu_handle.try_get_item(&id);
+
+    if handle.is_some() {
+        std::thread::spawn(move || {
+            menu_handle.get_item(&id).set_selected(selected).expect("Failed");
+        });
+    }else {
+        println!("没有找到菜单：{}", &id)
+    }
+    Some("OK".to_string())
+}
 
 #[tauri::command]
 pub fn move_to_trash(path: String) -> Option<String> {
