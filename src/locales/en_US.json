@@ -7,7 +7,14 @@
     "create_file": "Create File",
     "save_file": "Save File",
     "save_all": "Save All",
-    "close_file": "Close File"
+    "close_file": "Close File",
+    "theme_auto": "Auto",
+    "theme_dark": "Dark",
+    "theme_light": "Light",
+    "mode_wysiwyg": "WYSIWYG",
+    "mode_ir": "Instant Rendering",
+    "mode_sv": "Split View",
+    "mode_fullscreen": "Toggle Full Screen"
   },
   "dialog": {
     "button_ok": "Ok",

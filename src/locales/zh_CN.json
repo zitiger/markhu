@@ -7,7 +7,14 @@
     "create_file": "创建文件",
     "save_file": "保存文件",
     "save_all": "保存所有文件",
-    "close_file": "关闭文件"
+    "close_file": "关闭文件",
+    "theme_auto": "自动",
+    "theme_dark": "深色",
+    "theme_light": "浅色",
+    "mode_wysiwyg": "所见即所得",
+    "mode_ir": "即时渲染",
+    "mode_sv": "分屏预览",
+    "mode_fullscreen": "切换全屏"
   },
   "dialog": {
     "button_ok": "确定",
