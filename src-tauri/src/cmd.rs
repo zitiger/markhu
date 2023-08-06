@@ -140,19 +140,19 @@ fn read_folder_recursively(path: String) -> Option<Vec<FileInfo>> {
 
 #[command]
 pub fn rename_file(from: String, to: String) -> Option<String> {
-    fs::rename(from, to).expect("write file error");
+    fs::rename(from, to).expect("rename file error");
     Some("OK".to_string())
 }
 
 #[command]
 pub fn remove_file(path: String) -> Option<String> {
-    fs::remove_file(path).expect("write file error");
+    fs::remove_file(path).expect("remove file error");
     Some("OK".to_string())
 }
 
 #[command]
 pub fn remove_dir_all(path: String) -> Option<String> {
-    fs::remove_dir_all(path).expect("write file error");
+    fs::remove_dir_all(path).expect("remove dir error");
     Some("OK".to_string())
 }
 #[command]
@@ -162,7 +162,7 @@ pub fn exist_path(path: &str) -> bool {
 
 #[command]
 pub fn save_image(path: String, data: Vec<u8>) -> Option<String>{
-    let mut file = fs::File::create(path).expect("write file error");
+    let mut file = fs::File::create(path).expect("create image error");
     file.write_all(&data).expect("write file error");
     Some("OK".to_string())
 }
