@@ -35,14 +35,14 @@ pub fn get_menu() -> Menu {
         .add_item(close_file)
         ;
 
-    let edit_menu = Menu::new()
-        .add_native_item(MenuItem::Undo)
-        .add_native_item(MenuItem::Redo)
-        .add_native_item(MenuItem::Separator)
-        .add_native_item(MenuItem::Cut)
-        .add_native_item(MenuItem::Copy)
-        .add_native_item(MenuItem::Paste)
-        .add_native_item(MenuItem::SelectAll);
+    /*    let edit_menu = Menu::new()
+            .add_native_item(MenuItem::Undo)
+            .add_native_item(MenuItem::Redo)
+            .add_native_item(MenuItem::Separator)
+            .add_native_item(MenuItem::Cut)
+            .add_native_item(MenuItem::Copy)
+            .add_native_item(MenuItem::Paste)
+            .add_native_item(MenuItem::SelectAll);*/
 
     let theme_auto = CustomMenuItem::new("theme_auto", "Auto");//.accelerator("CmdOrControl+O");
     let theme_dark = CustomMenuItem::new("theme_dark", "Dark");//.accelerator("CmdOrControl+O");
@@ -70,11 +70,11 @@ pub fn get_menu() -> Menu {
         .add_item(mode_fullscreen)
         ;
 
-    let window_menu = Menu::new()
-        .add_native_item(MenuItem::Minimize)
-        .add_native_item(MenuItem::Zoom)
-        .add_native_item(MenuItem::Hide)
-        .add_native_item(MenuItem::Quit);
+    /*    let window_menu = Menu::new()
+            .add_native_item(MenuItem::Minimize)
+            .add_native_item(MenuItem::Zoom)
+            .add_native_item(MenuItem::Hide)
+            .add_native_item(MenuItem::Quit);*/
 
     // add all our childs to the menu (order is how they'll appear)
     Menu::new()
@@ -84,5 +84,5 @@ pub fn get_menu() -> Menu {
         .add_submenu(Submenu::new("Theme", theme_menu))
         .add_submenu(Submenu::new("Language", lang_menu))
         .add_submenu(Submenu::new("Editor", editor_menu))
-        // .add_submenu(Submenu::new("Window", window_menu))
+    // .add_submenu(Submenu::new("Window", window_menu))
 }
