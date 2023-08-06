@@ -61,10 +61,14 @@ pub fn get_menu() -> Menu {
     let mode_wysiwyg = CustomMenuItem::new("mode_wysiwyg", "WYSIWYG");//.accelerator("CmdOrControl+O");
     let mode_ir = CustomMenuItem::new("mode_ir", "Instant Rendering");//.accelerator("CmdOrControl+O");
     let mode_sv = CustomMenuItem::new("mode_sv", "Split View");//.accelerator("CmdOrControl+O");
+    let mode_fullscreen = CustomMenuItem::new("mode_fullscreen", "Toggle Full Screen");//.accelerator("CmdOrControl+O");
     let editor_menu = Menu::new()
         .add_item(mode_wysiwyg)
         .add_item(mode_ir)
-        .add_item(mode_sv);
+        .add_item(mode_sv)
+        .add_native_item(MenuItem::Separator)
+        .add_item(mode_fullscreen)
+        ;
 
     let window_menu = Menu::new()
         .add_native_item(MenuItem::Minimize)

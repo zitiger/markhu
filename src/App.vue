@@ -26,6 +26,7 @@ onMounted(() => {
     'mode_wysiwyg': () => useEditorStore().editMode = 'wysiwyg',
     'mode_ir': () => useEditorStore().editMode = 'ir',
     'mode_sv': () => useEditorStore().editMode = 'sv',
+    'mode_fullscreen': () => useEditorStore().toggleFullscreenMode(),
   })
   ;
 })

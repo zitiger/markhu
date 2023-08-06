@@ -13,12 +13,13 @@ type File = {
 
 export const useEditorStore = defineStore('editor', {
     state: () => {
-        const fileCache = ref<File[]>([]) //
-        const activeFile = ref<string>('') //
-        const changedFiles = ref<string[]>([]) //
-        const editMode = ref<'wysiwyg' | 'ir' | 'sv'>('wysiwyg') //
+        const fileCache = ref<File[]>([])
+        const activeFile = ref<string>('')
+        const changedFiles = ref<string[]>([])
+        const editMode = ref<'wysiwyg' | 'ir' | 'sv'>('wysiwyg')
+        const fullscreenMode = ref<boolean>(false)
 
-        return {fileCache, activeFile, changedFiles,editMode}
+        return {fileCache, activeFile, changedFiles, editMode, fullscreenMode}
     },
     actions: {
         isModified(path: string) {
@@ -92,7 +93,7 @@ export const useEditorStore = defineStore('editor', {
             } else if (selected === null) {
                 // user cancelled the selection
             } else {
-              await this.read(selected)
+                await this.read(selected)
             }
 
         },
@@ -172,6 +173,12 @@ export const useEditorStore = defineStore('editor', {
             }
 
             console.log("active", this.activeFile);
+        },
+
+        toggleFullscreenMode() {
+            if (this.activeFile != null && this.activeFile.length > 0) {
+                this.fullscreenMode = !this.fullscreenMode
+            }
         }
     }
 })

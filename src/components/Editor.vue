@@ -41,6 +41,15 @@ watch(() => useEditorStore().editMode, (newMode: 'wysiwyg' | 'ir' | 'sv') => {
     }
 );
 
+watch(() => useEditorStore().fullscreenMode, (newMode: boolean) => {
+      if (newMode) {
+        document.querySelector("#" + editorId)?.classList.add("vditor--fullscreen")
+      } else {
+        document.querySelector("#" + editorId)?.classList.remove("vditor--fullscreen")
+      }
+    }
+);
+
 onMounted(() => {
   vditor.value = init('wysiwyg');
 });
