@@ -52,7 +52,9 @@ export const useStructureStore = defineStore('structure', {
 
             createNode(this.list, {title: basename, key: filepath, folder: !isFile, path: filepath});
         },
-
+        move(from: string, to: string) {
+            moveNode(this.list, from, to)
+        },
         async rename(from: string, to: string) {
             await updateNodePath(this.list, from, to)
         },

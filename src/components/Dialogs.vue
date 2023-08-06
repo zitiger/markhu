@@ -3,6 +3,7 @@ import CreateDirDialog from "./dialogs/CreateDirDialog.vue";
 import CreateFileDialog from "./dialogs/CreateFileDialog.vue";
 import RenameDialog from "./dialogs/RenameDialog.vue";
 import SaveAllDialog from "./dialogs/SaveAllDialog.vue";
+import MoveDialog from "./dialogs/MoveDialog.vue";
 </script>
 
 <template>
@@ -10,7 +11,7 @@ import SaveAllDialog from "./dialogs/SaveAllDialog.vue";
   <create-file-dialog></create-file-dialog>
   <save-all-dialog></save-all-dialog>
   <rename-dialog></rename-dialog>
-
+  <move-dialog></move-dialog>
 </template>
 <style>
 

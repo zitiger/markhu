@@ -59,6 +59,7 @@ const onContextMenuClick = (treeKey: string, menuKey: string) => {
   console.log(`treeKey: ${treeKey}, menuKey: ${menuKey}`);
   let node = useStructureStore().find(treeKey);
   if (node) {
+    useStructureStore().currentNode = node
 
     if (node.folder) {
       useStructureStore().currentDir = node.path;
@@ -70,8 +71,9 @@ const onContextMenuClick = (treeKey: string, menuKey: string) => {
       useDialogStore().showCreateFileDialog();
     } else if (menuKey === "createDir") {
       useDialogStore().showCreateDirDialog();
+    } else if (menuKey === "move") {
+      useDialogStore().showMoveDialog();
     } else if (menuKey === "rename") {
-      useStructureStore().currentNode = node
       useDialogStore().showRenameDialog();
     } else if (menuKey === "remove") {
       let fullPath = node.path;
@@ -127,6 +129,8 @@ function reload() {
               <a-menu @click="(event:any) => onContextMenuClick(treeKey, event.key)">
                 <a-menu-item key="createFile">{{t('resource.structure.context_menu.create_file')}}</a-menu-item>
                 <a-menu-item key="createDir">{{t('resource.structure.context_menu.create_folder')}}</a-menu-item>
+                <a-menu-divider></a-menu-divider>
+                <a-menu-item key="move">Move</a-menu-item>
                 <a-menu-divider></a-menu-divider>
                 <a-menu-item key="rename">{{t('resource.structure.context_menu.rename')}}</a-menu-item>
                 <a-menu-item key="remove">{{t('resource.structure.context_menu.remove')}}</a-menu-item>

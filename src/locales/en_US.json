@@ -43,6 +43,12 @@
       "title": "Rename",
       "name_exist_message": "Failed to rename, it already exists"
     },
+    "move": {
+      "title": "Move",
+      "path_exist_message": "Failed to move, it already exists",
+      "old_folder_label": "Current Folder",
+      "new_folder_label": "Target Folder"
+    },
     "save_all": {
       "title": "Close Confirm",
       "content": "Are you sure to close?"
