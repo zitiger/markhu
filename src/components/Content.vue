@@ -1,6 +1,6 @@
 <template>
   <div class="column3">
-    <div class="placeholder" v-if="editableTabs.length ===0">
+    <div class="empty-hint" v-if="editableTabs.length ===0">
       <div v-if="useSystemStore().workspace ===''" @click="useSystemStore().open()">
         {{ t("content.empty_hint.open_folder") }}
       </div>
@@ -111,7 +111,7 @@ const onContextMenuClick = async (filepath: string, menuKey: string) => {
 
 <style>
 
-.column3 .placeholder > div {
+.column3 .empty-hint > div {
   width: 100%;
   height: 100vh;
   text-align: center;
@@ -119,9 +119,8 @@ const onContextMenuClick = async (filepath: string, menuKey: string) => {
   justify-content: center; /* 水平居中 */
   align-items: center; /* 垂直居中 */
   font-size: 30px;
-  color: var(--mh-divider-color)
+  color: var(--mh-hint-message-color)
 }
-
 
 .column3 .ant-tabs .ant-tabs-content-holder {
   overflow-y: auto !important;
