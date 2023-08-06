@@ -35,14 +35,14 @@ pub fn get_menu() -> Menu {
         .add_item(close_file)
         ;
 
-    /*    let edit_menu = Menu::new()
+   let edit_menu = Menu::new()
             .add_native_item(MenuItem::Undo)
             .add_native_item(MenuItem::Redo)
             .add_native_item(MenuItem::Separator)
             .add_native_item(MenuItem::Cut)
             .add_native_item(MenuItem::Copy)
             .add_native_item(MenuItem::Paste)
-            .add_native_item(MenuItem::SelectAll);*/
+            .add_native_item(MenuItem::SelectAll);
 
     let theme_auto = CustomMenuItem::new("theme_auto", "Auto");//.accelerator("CmdOrControl+O");
     let theme_dark = CustomMenuItem::new("theme_dark", "Dark");//.accelerator("CmdOrControl+O");
@@ -80,7 +80,7 @@ pub fn get_menu() -> Menu {
     Menu::new()
         .add_submenu(Submenu::new("MarkHu", about_menu)) // 第一个菜单项代表当前应用，这里的title字段无效
         .add_submenu(Submenu::new("File", file_menu))
-        // .add_submenu(Submenu::new("Edit", edit_menu))
+        .add_submenu(Submenu::new("Edit", edit_menu))
         .add_submenu(Submenu::new("Theme", theme_menu))
         .add_submenu(Submenu::new("Language", locale_menu))
         .add_submenu(Submenu::new("Editor", editor_menu))
