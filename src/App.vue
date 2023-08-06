@@ -23,6 +23,9 @@ onMounted(() => {
     'theme_light': () => useSystemStore().changeTheme('light'),
     'lang_zh_cn': () => useSystemStore().setLocale("zh_CN"),
     'lang_en_us': () => useSystemStore().setLocale("en_US"),
+    'mode_wysiwyg': () => useEditorStore().editMode = 'wysiwyg',
+    'mode_ir': () => useEditorStore().editMode = 'ir',
+    'mode_sv': () => useEditorStore().editMode = 'sv',
   })
   ;
 })

@@ -16,8 +16,9 @@ export const useEditorStore = defineStore('editor', {
         const fileCache = ref<File[]>([]) //
         const activeFile = ref<string>('') //
         const changedFiles = ref<string[]>([]) //
+        const editMode = ref<'wysiwyg' | 'ir' | 'sv'>('wysiwyg') //
 
-        return {fileCache, activeFile, changedFiles}
+        return {fileCache, activeFile, changedFiles,editMode}
     },
     actions: {
         isModified(path: string) {

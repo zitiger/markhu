@@ -58,6 +58,14 @@ pub fn get_menu() -> Menu {
         .add_item(lang_zh_cn)
         .add_item(lang_en);
 
+    let mode_wysiwyg = CustomMenuItem::new("mode_wysiwyg", "WYSIWYG");//.accelerator("CmdOrControl+O");
+    let mode_ir = CustomMenuItem::new("mode_ir", "Instant Rendering");//.accelerator("CmdOrControl+O");
+    let mode_sv = CustomMenuItem::new("mode_sv", "Split View");//.accelerator("CmdOrControl+O");
+    let editor_menu = Menu::new()
+        .add_item(mode_wysiwyg)
+        .add_item(mode_ir)
+        .add_item(mode_sv);
+
     let window_menu = Menu::new()
         .add_native_item(MenuItem::Minimize)
         .add_native_item(MenuItem::Zoom)
@@ -71,5 +79,6 @@ pub fn get_menu() -> Menu {
         .add_submenu(Submenu::new("Edit", edit_menu))
         .add_submenu(Submenu::new("Theme", theme_menu))
         .add_submenu(Submenu::new("Language", lang_menu))
+        .add_submenu(Submenu::new("Editor", editor_menu))
         .add_submenu(Submenu::new("Window", window_menu))
 }
