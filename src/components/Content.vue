@@ -2,10 +2,10 @@
   <div class="column3">
     <div class="placeholder" v-if="editableTabs.length ===0">
       <div v-if="useSystemStore().workspace ===''" @click="useSystemStore().open()">
-        {{ t("content.open_folder") }}
+        {{ t("content.empty_hint.open_folder") }}
       </div>
       <div v-else>
-        {{ t("content.open_file") }}
+        {{ t("content.empty_hint.open_file") }}
       </div>
     </div>
     <a-tabs v-else v-model:activeKey="store.activeFile" size="small" hide-add style="height: 100vh">
@@ -22,11 +22,11 @@
 
             <template #overlay>
               <a-menu @click="(event:any) => onContextMenuClick(tab.filepath, event.key)">
-                <a-menu-item key="closeFile">关闭</a-menu-item>
-                <a-menu-item key="closeOthers">关闭其他</a-menu-item>
-                <a-menu-item key="closeAll">关闭所有</a-menu-item>
+                <a-menu-item key="closeFile">{{t('content.context_menu.close_file')}}</a-menu-item>
+                <a-menu-item key="closeOthers">{{t('content.context_menu.close_others')}}</a-menu-item>
+                <a-menu-item key="closeAll">{{t('content.context_menu.close_all')}}</a-menu-item>
                 <a-menu-divider></a-menu-divider>
-                <a-menu-item key="showInFolder">在Finder中显示</a-menu-item>
+                <a-menu-item key="showInFolder">{{t('content.context_menu.show_in_folder')}}</a-menu-item>
               </a-menu>
             </template>
           </a-dropdown>

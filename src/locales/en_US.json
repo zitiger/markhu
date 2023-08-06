@@ -52,15 +52,30 @@
       "close_all_files": "Close All Files"
     },
     "structure": {
-      "reload_successfully": "Reload successfully"
+      "reload_successfully": "Reload successfully",
+      "context_menu": {
+        "create_file": "New File",
+        "create_folder": "New Folder",
+        "rename": "Rename",
+        "remove": "Remove",
+        "show_in_folder": "Show in Folder"
+      }
     }
   },
   "search": {
     "keyword_placeholder": "Please enter keyword"
   },
   "content": {
-    "open_folder": "Click here to open folder",
-    "open_file": "Click file in resource panel"
+    "empty_hint": {
+      "open_folder": "Click here to open folder",
+      "open_file": "Click file in resource panel"
+    },
+    "context_menu": {
+      "close_file": "Close File",
+      "close_others": "Close Others",
+      "close_all": "Close All",
+      "show_in_folder": "Show in Folder"
+    }
   },
   "editor": {
     "button_save": "Save",

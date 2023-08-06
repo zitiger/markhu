@@ -52,15 +52,30 @@
       "close_all_files": "关闭所有文件"
     },
     "structure": {
-      "reload_successfully": "重新加载成功"
+      "reload_successfully": "重新加载成功",
+      "context_menu": {
+        "create_file": "新建文件",
+        "create_folder": "新建文件夹",
+        "rename": "重命名",
+        "remove": "删除",
+        "show_in_folder": "在文件夹中显示"
+      }
     }
   },
   "search": {
     "keyword_placeholder": "输入关键词"
   },
   "content": {
-    "open_folder": "点击这里打开一个文件夹",
-    "open_file": "从左侧资源栏打开一个文件"
+    "empty_hint": {
+      "open_folder": "点击这里打开一个文件夹",
+      "open_file": "从左侧资源栏打开一个文件"
+    },
+    "context_menu": {
+      "close_file": "关闭文件",
+      "close_others": "关闭其他",
+      "close_all": "关闭所有",
+      "show_in_folder": "在文件夹中显示"
+    }
   },
   "editor": {
     "button_save": "保存",

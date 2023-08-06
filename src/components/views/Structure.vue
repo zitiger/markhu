@@ -125,13 +125,13 @@ function reload() {
             <span><folder-outlined v-if="folder"/> <file-outlined v-else/> {{ title }}</span>
             <template #overlay>
               <a-menu @click="(event:any) => onContextMenuClick(treeKey, event.key)">
-                <a-menu-item key="createFile">新建文件</a-menu-item>
-                <a-menu-item key="createDir">新建文件夹</a-menu-item>
+                <a-menu-item key="createFile">{{t('resource.structure.context_menu.create_file')}}</a-menu-item>
+                <a-menu-item key="createDir">{{t('resource.structure.context_menu.create_folder')}}</a-menu-item>
                 <a-menu-divider></a-menu-divider>
-                <a-menu-item key="rename">重命名</a-menu-item>
-                <a-menu-item key="remove">删除</a-menu-item>
+                <a-menu-item key="rename">{{t('resource.structure.context_menu.rename')}}</a-menu-item>
+                <a-menu-item key="remove">{{t('resource.structure.context_menu.remove')}}</a-menu-item>
                 <a-menu-divider></a-menu-divider>
-                <a-menu-item key="showInFolder">在Finder中显示</a-menu-item>
+                <a-menu-item key="showInFolder">{{t('resource.structure.context_menu.show_in_folder')}}</a-menu-item>
               </a-menu>
             </template>
           </a-dropdown>
