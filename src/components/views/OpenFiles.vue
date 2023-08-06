@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import "vditor/dist/index.css"
 import {useEditorStore} from '../../stores'
 import {useStructureStore} from "../../stores";
 import ResourcePanel from "../panels/ResourcePanel.vue";

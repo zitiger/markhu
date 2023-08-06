@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import "vditor/dist/index.css"
 import path from "path-browserify"
 
 import {

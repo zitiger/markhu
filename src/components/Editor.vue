@@ -3,6 +3,7 @@
 </template>
 
 <script setup lang="ts">
+import "vditor/dist/index.css"
 import {ref} from '@vue/reactivity';
 import Vditor from 'vditor';
 import {h, onMounted, watch} from 'vue'
@@ -17,7 +18,7 @@ const props = defineProps({
   path: String,
 });
 
-const editorId = "vditor" + Md5.hashStr(props.path || '');
+const editorId = "editor-" + Md5.hashStr(props.path || '');
 
 const vditor = ref<Vditor | null>(null);
 
