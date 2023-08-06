@@ -1,6 +1,14 @@
 import {defineStore} from 'pinia'
 import {reactive, ref, toRaw} from 'vue'
-import {createDirApi, createFileApi, existPath, readFolderApi, removeDirApi, removeFileApi} from "../../api/file";
+import {
+    createDirApi,
+    createFileApi,
+    existPath,
+    moveToTrashApi,
+    readFolderApi,
+    removeDirApi,
+    removeFileApi
+} from "../../api/file";
 import {FileInfo, StructureNode} from "../../api/model";
 import {useSystemStore} from "./system";
 import path from "path-browserify";
@@ -49,11 +57,14 @@ export const useStructureStore = defineStore('structure', {
             await updateNodePath(this.list, from, to)
         },
         async remove(path: string, isFile: boolean) {
-            if (isFile) {
-                removeFileApi(path)
-            } else {
-                removeDirApi(path)
-            }
+            // if (isFile) {
+            //     removeFileApi(path)
+            // } else {
+            //     removeDirApi(path)
+            // }
+
+            await moveToTrashApi(path)
+
             deleteNode(this.list, path)
         },
 

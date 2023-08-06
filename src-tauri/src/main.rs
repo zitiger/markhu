@@ -27,7 +27,8 @@ fn main() {
             cmd::remove_dir_all,
             cmd::exist_path,
             cmd::show_in_folder,
-            cmd::change_menu_title
+            cmd::change_menu_title,
+            cmd::move_to_trash
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

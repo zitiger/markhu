@@ -224,3 +224,10 @@ pub fn change_menu_title(window: tauri::Window, id:String, title:String) ->Optio
 
     Some("OK".to_string())
 }
+
+
+#[tauri::command]
+pub fn move_to_trash(path: String) -> Option<String> {
+    trash::delete(path).expect("move to trash error");
+    Some("OK".to_string())
+}

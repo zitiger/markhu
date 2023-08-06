@@ -197,3 +197,13 @@ export async function changeMenuTitle(id:string, title:string) {
     }
 }
 
+export async function moveToTrashApi(path:string) {
+    try {
+        await invoke('move_to_trash',{path});
+    } catch (error) {
+        // 处理错误
+        console.error(error);
+        throw error;
+    }
+}
+
