@@ -6,6 +6,7 @@ mod menu;
 fn main() {
     tauri::Builder::default()
         .plugin(tauri_plugin_fs_watch::init())
+        .plugin(tauri_plugin_window_state::Builder::default().build())
         .menu(menu::get_menu())
         .on_menu_event(|event| {
             let menu_id = event.menu_item_id();
