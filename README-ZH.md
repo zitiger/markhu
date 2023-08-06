@@ -1,44 +1,45 @@
-# MarkHu
+# MarkHu 📝
 
-MarkHu 是一个 Markdown 编辑器，也是一个基于文件系统的笔记系统。它是一个桌面应用，支持 Mac，Windows 和 Linux。它基于 Tauri，一个使用 Rust+Vue3+Ant Design Vue+Vditor 的框架。
+MarkHu是一个桌面应用，让你可以编辑和管理你的Markdown文件和笔记。它支持Mac，Windows和Linux平台。它基于[Tauri]，一个提供轻量级和安全的方式来创建跨平台桌面应用的框架。
+它使用[Vue3]作为前端框架，[Ant Design Vue]作为UI库，[Vditor]作为Markdown编辑器。
 
-## 功能
+![MarkHu截图](#graphic_art("MarkHu的截图"))
 
-- 三种编辑模式：所见即所得（WYSIWYG），即时渲染（IR），分屏预览（SV）。你可以根据你的喜好和屏幕大小切换不同的模式。
-- 拖拽或者粘贴剪切板上传图片。图片会存储在本地，和 Markdown 文件在同一个文件夹。
-- 自动保存内容，防止意外丢失。你也可以使用快捷键保存、打开或者创建新文件。
-- 粘贴 HTML 并自动转换为 Markdown。这对于从网页或者其他来源复制内容很有用。
-- 多语言支持，内置中文、英文等本地化。
-- 多主题支持，内置 Dark 和 Light 主题，或者跟随系统主题。
+## 功能 🚀
 
-## 架构（技术栈）
+- 三种编辑模式：WYSIWYG（所见即所得），IR（即时渲染），和SV（分屏预览）。你可以根据你的喜好和屏幕大小切换它们。🔄
+- 拖拽或者从剪切板粘贴上传图片。你也可以从本地或远程源插入图片。🖼️
+- 自动保存内容，防止意外丢失。你也可以把你的文件导出为HTML或PDF。💾
+- 粘贴HTML并自动转换为Markdown。你也可以把Markdown复制为HTML。📋
+- 多语言支持，内置中文，英文和其他本地化。🌐
+- 多主题支持，内置暗色，亮色主题，或者跟随系统主题。🎨
 
-MarkHu 使用了以下技术：
+## 架构（技术栈） 🏗️
 
-- [Tauri]，一个用于构建所有主流桌面平台的小巧、高速的二进制文件的框架。
-- [Rust]，一种让每个人都能构建可靠和高效软件的语言。
-- [Vue 3]，一个用于构建用户界面的渐进式框架。
-- [Ant Design Vue]，一套高质量的 Vue 组件库。
-- [Vditor]，一个用 TypeScript 编写的开源 Markdown 编辑器。
+MarkHu使用以下技术构建：
 
-## 如何运行这个项目
+- [Tauri]：一个允许你使用网络技术构建原生应用的框架。它提供了一种轻量级和安全的方式来创建跨平台桌面应用。
+- [Rust]：一种提供性能，可靠性和生产力的编程语言。它用来编写MarkHu的核心逻辑，并与文件系统和原生API交互。
+- [Vue3]：一个用于构建用户界面的渐进式框架。它用来创建MarkHu的前端，并提供响应性和组合特性。
+- [Ant Design Vue]：一个遵循Ant Design规范并提供一套高质量组件的UI库。
+- [Vditor]：一个基于浏览器的Markdown编辑器，支持WYSIWYG，IR和SV模式。它还提供了丰富的功能，如图片上传，代码高亮，图表，数学，mermaid等。
 
-要运行这个项目，你需要在你的系统上安装 [yarn]。然后按照以下步骤操作：
+## 如何运行这个项目 🏃‍♂️
+
+要运行这个项目，你需要在你的系统上安装[Node.js]，[Yarn]和[Rust]。然后按照以下步骤：
 
 1. 克隆这个仓库：`git clone https://github.com/zitiger/markhu.git`
 2. 进入项目目录：`cd markhu`
 3. 安装依赖：`yarn install`
-4. 启动开发服务器：`yarn tauri dev`
-5. 享受使用 MarkHu 编辑 Markdown 文件吧！
+4. 运行开发服务器：`yarn tauri dev`
+5. 享受吧！😊
 
-## 如何下载软件
+## 如何下载软件 💻
 
-如果你想下载预编译好的二进制文件，你可以去 [发布页面] 选择最新版本。然后下载对应平台的文件并在你的系统上运行。
+如果你想下载软件而不需要自己构建，你可以去[Release页面]下载最新版本的软件。你也可以在那里查看更新日志和以前的版本。
 
-或者，你也可以使用以下链接直接下载软件：
+## 反馈和贡献 💬
 
-- [MarkHu for Mac] https://github.com/zitiger/markhu/releases
-- [MarkHu for Windows] https://github.com/zitiger/markhu/releases
-- [MarkHu for Linux] https://github.com/zitiger/markhu/releases
+如果你对MarkHu有任何反馈，建议或问题，请随时在GitHub上开启一个issue或者一个pull request。我感谢你的帮助和支持！🙏
 
-我希望这能够帮助你完成你的项目。如果你有任何反馈或者建议，请随时联系我。
+感谢你使用MarkHu！希望你喜欢它！😄

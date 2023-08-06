@@ -1,44 +1,43 @@
-# MarkHu - Tauri based Markdown editor
+# MarkHu 📝
 
-MarkHu is a Markdown editor and a file system-based note-taking system. It is a desktop application that supports Mac, Windows, and Linux. It is based on Tauri, a framework that uses Rust+Vue3+Ant Design Vue+Vditor.
+MarkHu is a desktop application that allows you to edit and manage your Markdown files and notes. It supports Mac, Windows, and Linux platforms. It is based on [Tauri], a framework that provides a lightweight and secure way to create cross-platform desktop applications with a web front-end.
+It uses [Vue3] as the front-end framework, [Ant Design Vue] as the UI library, and [Vditor] as the Markdown editor.
 
-## Features
+## Features 🚀
 
-- Three editing modes: WYSIWYG (what you see is what you get), IR (instant rendering), and SV (split view). You can switch between them according to your preference and screen size.
-- Drag and drop or paste from clipboard to upload images. The images are stored locally in the same folder as the Markdown file.
-- Auto-save content to prevent accidental loss. You can also use keyboard shortcuts to save, open, or create new files.
-- Paste HTML and automatically convert it to Markdown. This is useful for copying content from web pages or other sources.
-- Multi-language support, with built-in localization for Chinese, English, and more.
-- Multi-theme support, with built-in Dark and Light themes, or follow the system theme.
+- Three editing modes: WYSIWYG (what you see is what you get), IR (instant rendering), and SV (split view). You can switch between them according to your preference and screen size. 🔄
+- Drag and drop or paste from clipboard to upload images. You can also insert images from local or remote sources. 🖼️
+- Auto-save content to prevent accidental loss. You can also export your files as HTML or PDF. 💾
+- Paste HTML and convert it to Markdown automatically. You can also copy Markdown as HTML. 📋
+- Multi-language support, with built-in Chinese, English, and other localizations. 🌐
+- Multi-theme support, with built-in Dark, Light themes, or follow the system theme. 🎨
 
-## Architecture (Tech Stack)
+## Architecture (Tech Stack) 🏗️
 
-MarkHu uses the following technologies:
+MarkHu is built with the following technologies:
 
-- [Tauri], a framework for building tiny, blazing fast binaries for all major desktop platforms.
-- [Rust], a language empowering everyone to build reliable and efficient software.
-- [Vue 3], a progressive framework for building user interfaces.
-- [Ant Design Vue], a set of high-quality Vue components out of the box.
-- [Vditor], an open source Markdown editor written in TypeScript.
+- [Tauri]: A framework that allows you to build native apps with web technologies. It provides a lightweight and secure way to create cross-platform desktop applications with a web front-end.
+- [Rust]: A programming language that offers performance, reliability, and productivity. It is used to write the core logic of MarkHu and interact with the file system and native APIs.
+- [Vue3]: A progressive framework for building user interfaces. It is used to create the front-end of MarkHu and provide reactivity and composition features.
+- [Ant Design Vue]: A UI library that follows the Ant Design specification and provides a set of high-quality components for Vue3.
+- [Vditor]: A browser-based Markdown editor that supports WYSIWYG, IR, and SV modes. It also provides rich features such as image upload, code highlight, chart, math, mermaid, etc.
 
-## How to run this project
+## How to run this project 🏃‍♂️
 
-To run this project, you need to have [yarn] installed on your system. Then follow these steps:
+To run this project, you need to have [Node.js], [Yarn], and [Rust] installed on your system. Then follow these steps:
 
 1. Clone this repository: `git clone https://github.com/zitiger/markhu.git`
 2. Enter the project directory: `cd markhu`
 3. Install the dependencies: `yarn install`
-4. Start the development server: `yarn tauri dev`
-5. Enjoy editing Markdown files with MarkHu!
+4. Run the development server: `yarn tauri dev`
+5. Enjoy! 😊
 
-## How to download the software
+## How to download the software 💻
 
-If you want to download the pre-built binaries for your platform, you can go to the [releases page] and choose the latest version. Then download the corresponding file and run it on your system.
+If you want to download the software without building it yourself, you can go to the [releases page] and download the latest version for your platform. You can also check the changelog and previous versions there.
 
-Alternatively, you can use the following links to download the software directly:
+## Feedback and contribution 💬
 
-- [MarkHu for Mac] https://github.com/zitiger/markhu/releases
-- [MarkHu for Windows] https://github.com/zitiger/markhu/releases
-- [MarkHu for Linux] https://github.com/zitiger/markhu/releases
+If you have any feedback, suggestions, or issues with MarkHu, please feel free to open an issue or a pull request on GitHub. I appreciate your help and support! 🙏
 
-I hope this helps you with your project. If you have any feedback or suggestions, please feel free to contact me.
+Thank you for using MarkHu! I hope you enjoy it! 😄
