@@ -26,7 +26,6 @@
     "create_file": {
       "title": "Create File",
       "parent_folder_label": "Parent Folder",
-      "parent_folder_required_message": "Please select Parent Folder",
       "file_name_label": "File Name",
       "file_name_required_message": "Please input File Name",
       "file_exist_message": "Failed to create, it already exists"
@@ -34,7 +33,6 @@
     "create_dir": {
       "title": "Create Folder",
       "parent_folder_label": "Parent Folder",
-      "parent_folder_required_message": "Please select Parent Folder",
       "folder_name_label": "Folder Name",
       "folder_name_required_message": "Please input Folder Name",
       "file_exist_message": "Failed to create, it already exists"

@@ -26,7 +26,6 @@
     "create_file": {
       "title": "创建新文件",
       "parent_folder_label": "所在目录",
-      "parent_folder_required_message": "请选择所在目录",
       "file_name_label": "文件名称",
       "file_name_required_message": "清输入文件名称",
       "file_exist_message": "创建文件失败，已经存在相同名称"
@@ -34,7 +33,6 @@
     "create_dir": {
       "title": "创建新文件夹",
       "parent_folder_label": "所在目录",
-      "parent_folder_required_message": "请选择所在目录",
       "folder_name_label": "文件夹名称",
       "folder_name_required_message": "清输入文件夹名称",
       "file_exist_message": "创建文件失败，已经存在相同名称"
