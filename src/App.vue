@@ -51,6 +51,13 @@ watch(() => useSystemStore().locale, async (newValue, oldValue) => {
   await setMenuSelected("locale_" + newValue.toLowerCase(), true)
 }, {immediate: true});
 
+watch(() => useEditorStore().editMode, async (newValue, oldValue) => {
+  if (oldValue) {
+    await setMenuSelected("mode_" + oldValue, false)
+  }
+  await setMenuSelected("mode_" + newValue, true)
+}, {immediate: true});
+
 // 监听当前窗口的关闭请求事件
 appWindow.listen('tauri://close-requested', async (event) => {
 
