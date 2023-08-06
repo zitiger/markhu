@@ -58,6 +58,10 @@ watch(() => useEditorStore().editMode, async (newValue, oldValue) => {
   await setMenuSelected("mode_" + newValue, true)
 }, {immediate: true});
 
+watch(() => useEditorStore().fullscreenMode, async (newValue, oldValue) => {
+  await setMenuSelected("mode_fullscreen", newValue)
+}, {immediate: true});
+
 // 监听当前窗口的关闭请求事件
 appWindow.listen('tauri://close-requested', async (event) => {
 
