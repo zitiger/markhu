@@ -19,13 +19,11 @@ function removeTab(filepath: string) {
   useEditorStore().close(filepath)
 }
 
-function saveAll(e: MouseEvent) {
-  e.stopPropagation()
+function saveAll() {
   useEditorStore().saveAll();
 }
 
-function closeAll(e: MouseEvent) {
-  e.stopPropagation()
+function closeAll() {
   useEditorStore().closeAll();
 }
 </script>
@@ -37,8 +35,8 @@ function closeAll(e: MouseEvent) {
     </template>
 
     <template v-slot:buttons>
-      <IconFont type="icon-save-all" :title="t('resource.open_files.save_all_files')" @click="saveAll($event)"/>
-      <IconFont type="icon-close-all" :title="t('resource.open_files.close_all_files')" @click="closeAll($event)"/>
+      <IconFont type="icon-save-all" :title="t('resource.open_files.save_all_files')" @click.stop="saveAll()"/>
+      <IconFont type="icon-close-all" :title="t('resource.open_files.close_all_files')" @click.stop="closeAll()"/>
     </template>
 
     <template v-slot:content>
