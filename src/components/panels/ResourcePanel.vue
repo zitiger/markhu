@@ -49,6 +49,9 @@ const showContent = ref(true)
   margin-right: auto;
   padding: 0 5px;
   font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .toolbar .buttons :deep(span) {
