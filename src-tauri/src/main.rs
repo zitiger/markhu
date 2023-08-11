@@ -2,6 +2,7 @@
 
 mod cmd;
 mod menu;
+mod search;
 
 fn main() {
     tauri::Builder::default()
@@ -29,7 +30,8 @@ fn main() {
             cmd::show_in_folder,
             cmd::change_menu_title,
             cmd::set_menu_selected ,
-            cmd::move_to_trash
+            cmd::move_to_trash,
+            search::search_text
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

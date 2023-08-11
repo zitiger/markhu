@@ -1,74 +1,81 @@
-<template>
-  <a-input v-model:value="key" :placeholder="t('search.keyword_placeholder')" size="small"/>
-  <a-list size="small" bordered :data-source="data" style="height: 100%;overflow-y: auto">
-    <template #renderItem="{ item }">
-      <a-list-item @click="click(item.path)" style="cursor: pointer">
-        <a-list-item-meta description="  ">
-          <template #title>
-            {{ item.title }}
-          </template>
-        </a-list-item-meta>
-
-      </a-list-item>
-    </template>
-  </a-list>
-</template>
-
 <script setup lang="ts">
-import {computed, ref} from "vue";
-import {useEditorStore, useStructureStore} from "../../stores";
-import {StructureNode} from "../../api/model";
+import {computed, onMounted, reactive, ref} from "vue";
+import {useEditorStore, useStructureStore, useSystemStore} from "../../stores";
+import {StructureNode, SearchResult, SearchMatch} from "../../api/model";
 import {useI18n} from "vue-i18n";
+import ResourcePanel from "../panels/ResourcePanel.vue";
+import {searchTextApi} from "../../api/file";
+import path from "path-browserify";
 
 const {t} = useI18n();
 const key = ref<string>('');
+const data = reactive<SearchResult[]>([]);
 
-function click(path:string){
-
-  useEditorStore().read(path)
-
+function click(path: string, match: SearchMatch) {
+  useEditorStore().read(path);
 }
 
-
-function flatten(node: StructureNode): StructureNode[] {
-  // 定义一个空的数组，用于存放当前节点和子节点的结果
-  let result: StructureNode[] = [];
-  // 将当前节点添加到结果数组中
-  if(!node.folder){
-  result.push(node);}
-  // 如果当前节点有子节点，遍历子节点并递归调用函数，然后使用concat方法合并结果
-  if (node.children) {
-    for (let child of node.children) {
-      result = result.concat(flatten(child));
-    }
-  }
-  // 返回结果数组
-  return result;
-}
-
-
-const data = computed(() => {
-  let copy: StructureNode[] = JSON.parse(JSON.stringify(useStructureStore().list));
-
-// 定义一个空的结果数组
-  let result: StructureNode[] = [];
-
-// 遍历list中的每个节点，并调用递归函数，然后使用concat方法合并结果
-  for (let node of copy) {
-
-    result = result.concat(flatten(node));
-  }
+async function change() {
+  data.length = 0
 
   if (key.value.length > 0) {
-    result = result.filter((s) => {
-      return s.title.indexOf(key.value) > -1;
-    })
+    let res = await searchTextApi(useSystemStore().workspace, key.value, 5)
+    data.push(...res)
   }
-  return result;
-})
-
+}
 </script>
 
-<style scoped>
+<template>
+  <a-input v-model:value="key" :placeholder="t('search.keyword_placeholder')" size="small" @change="change"/>
+  <div class="search-container">
+    <resource-panel v-for="file in data">
+      <template v-slot:title>
+        {{ path.basename(file.filepath) }}
+      </template>
 
+      <template v-slot:buttons>
+        <a-badge :count="file.matches.length"/>
+      </template>
+      <template v-slot:content>
+        <ul>
+          <li v-for="match in file.matches" class="match" @click="click(file.filepath, match)">
+            {{ match.prefix }}
+            <span style="background-color: yellow">{{ key }}</span>
+            {{ match.suffix }}
+          </li>
+        </ul>
+      </template>
+    </resource-panel>
+  </div>
+</template>
+
+<style scoped>
+.search-container {
+  overflow-y: auto;
+  height: 100%;
+  padding-bottom: 20px;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  list-style-type: none;
+  cursor: pointer;
+}
+
+
+.match {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 5px 10px 5px 25px;
+  font-size: 13px;
+}
+
+.match:hover {
+  background-color: var(--mh-icon-button-background-color);
+}
 </style>

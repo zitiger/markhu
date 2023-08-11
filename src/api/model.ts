@@ -7,8 +7,6 @@ export interface FileInfo {
     children: FileInfo[]; // 可选属性，表示子文件或文件夹
 }
 
-
-
 export interface StructureNode {
     title: string
     path: string
@@ -16,17 +14,12 @@ export interface StructureNode {
     folder: boolean
     children?: StructureNode[]
 }
-
-//
-//
-//
-// export interface TreeNode {
-//     title: string
-//     path: string
-//  key:string
-//     folder: boolean
-//     children?: StructureNode[]
-// }
-
-
-
+export interface SearchResult {
+    filepath: string;
+    matches: SearchMatch[];
+}
+export interface SearchMatch {
+    prefix: string;
+    suffix: string;
+    row_num: number;
+}
