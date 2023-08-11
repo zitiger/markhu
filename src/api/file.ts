@@ -1,6 +1,6 @@
 import {invoke} from "@tauri-apps/api";
 import {listen} from "@tauri-apps/api/event";
-import {FileInfo} from "./model";
+import {FileInfo, SearchResult} from "./model";
 
 export interface RustFileInfo {
     count: number;
@@ -176,7 +176,7 @@ export async function saveImageApi(path: string, data: any): Promise<void> {
     }
 }
 
-export async function showInFolder(path:string) {
+export async function showInFolder(path: string) {
 
     try {
         await invoke('show_in_folder', {path});
@@ -187,27 +187,9 @@ export async function showInFolder(path:string) {
     }
 }
 
-export async function changeMenuTitle(id:string, title:string) {
+export async function changeMenuTitle(id: string, title: string) {
     try {
-        await invoke('change_menu_title',{id, title});
-    } catch (error) {
-        // 处理错误
-        console.error(error);
-        throw error;
-    }
-}
-export async function setMenuSelected(id:string, selected:boolean) {
-    try {
-        await invoke('set_menu_selected',{id, selected});
-    } catch (error) {
-        // 处理错误
-        console.error(error);
-        throw error;
-    }
-}
-export async function moveToTrashApi(path:string) {
-    try {
-        await invoke('move_to_trash',{path});
+        await invoke('change_menu_title', {id, title});
     } catch (error) {
         // 处理错误
         console.error(error);
@@ -215,3 +197,34 @@ export async function moveToTrashApi(path:string) {
     }
 }
 
+export async function setMenuSelected(id: string, selected: boolean) {
+    try {
+        await invoke('set_menu_selected', {id, selected});
+    } catch (error) {
+        // 处理错误
+        console.error(error);
+        throw error;
+    }
+}
+
+export async function moveToTrashApi(path: string) {
+    try {
+        await invoke('move_to_trash', {path});
+    } catch (error) {
+        // 处理错误
+        console.error(error);
+        throw error;
+    }
+}
+
+export async function searchTextApi(path: string, keyword: string, length: number):Promise<SearchResult[]> {
+    try {
+    let res =    await invoke('search_text', {path, keyword, length}) as SearchResult[];
+
+    return res;
+    } catch (error) {
+        // 处理错误
+        console.error(error);
+        throw error;
+    }
+}
