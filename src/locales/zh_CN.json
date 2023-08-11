@@ -25,17 +25,17 @@
     "button_not_save": "不保存",
     "create_file": {
       "title": "创建新文件",
-      "parent_folder_label": "所在目录",
+      "parent_folder_label": "所在文件夹",
       "file_name_label": "文件名称",
-      "file_name_required_message": "清输入文件名称",
-      "file_exist_message": "创建文件失败，已经存在相同名称"
+      "file_name_required_message": "请输入文件名称",
+      "file_exist_message": "创建文件失败，已经存在相同名称的文件"
     },
     "create_dir": {
       "title": "创建新文件夹",
       "parent_folder_label": "所在目录",
       "folder_name_label": "文件夹名称",
-      "folder_name_required_message": "清输入文件夹名称",
-      "file_exist_message": "创建文件失败，已经存在相同名称"
+      "folder_name_required_message": "请输入文件夹名称",
+      "file_exist_message": "创建文件夹失败，已经存在相同名称的文件夹"
     },
     "rename": {
       "title": "重命名",
@@ -43,17 +43,17 @@
     },
     "move": {
       "title": "移动",
-      "path_exist_message": "移动失败，目标文件夹中已经存在",
+      "path_exist_message": "移动失败，目标文件夹中已经存在相同名称",
       "old_folder_label": "当前文件夹",
       "new_folder_label": "目标文件夹"
     },
     "save_all": {
-      "title": "关闭确认",
-      "content": "确认关闭？"
+      "title": "是否保存？",
+      "content": "有文件尚未保存，是否在关闭前进行保存？"
     },
     "save_file": {
-      "title": "关闭确认",
-      "content": "文件未保存，是否进行保存？"
+      "title": "是否保存?",
+      "content": "有文件尚未保存，是否在关闭前进行保存？"
     }
   },
   "resource": {
@@ -79,7 +79,7 @@
   "content": {
     "empty_hint": {
       "open_folder": "点击这里打开一个文件夹",
-      "open_file": "从左侧资源栏打开一个文件"
+      "open_file": "点击左侧资源栏打开一个文件"
     },
     "context_menu": {
       "close_file": "关闭文件",
@@ -90,7 +90,7 @@
   },
   "editor": {
     "button_save": "保存",
-    "placeholder": "从这里开始输入文档内容",
+    "placeholder": "从这里输入文档内容",
     "save_successfully": "保存成功"
   }
 }
