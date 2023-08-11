@@ -2,6 +2,7 @@
 import {useEditorStore, useStructureStore, useDialogStore, useSystemStore} from '../../stores'
 import {appWindow} from '@tauri-apps/api/window'
 import {useI18n} from "vue-i18n";
+import path from "path-browserify";
 
 const {t} = useI18n();
 const dialogStore = useDialogStore();
@@ -30,9 +31,18 @@ async function save() {
       <a-button @click="cancel">{{ t("dialog.button_cancel") }}</a-button>
       <a-button type="primary" @click="save">{{ t("dialog.button_save") }}</a-button>
     </template>
-    <p>{{t("dialog.save_all.content")}}</p>
+    <p>{{ t("dialog.save_all.content") }}</p>
+    <ul>
+      <li v-for="item in useEditorStore().changedFiles">{{ path.basename(item) }}</li>
+    </ul>
   </a-modal>
 
 </template>
-<style>
+<style scoped>
+ul {
+  padding:10px;
+}
+li {
+  list-style-type: none;
+}
 </style>
