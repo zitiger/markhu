@@ -12,12 +12,12 @@
       <a-tab-pane v-for="tab in editableTabs" :key="tab.filepath" :closable="true">
         <template #tab>
           <a-dropdown :trigger="['contextmenu']">
-            <span>
-              {{ tab.basename }}
-            <div style="display: inline-block;font-size: 10px;width:10px">
+            <span :title="tab.basename">
+              {{ shortenFileName(tab.basename) }}
+            <span style="display: inline-block;font-size: 10px;width:10px">
               <IconFont type="icon-dot" class="tab-state" v-if="useEditorStore().isModified(tab.filepath)"></IconFont>
-              <IconFont type="icon-close" class="tab-remove" @click="removeTab($event,tab.filepath)"/>
-            </div>
+              <IconFont type="icon-close" class="tab-remove" @click.stop="removeTab($event,tab.filepath)"/>
+            </span>
             </span>
 
             <template #overlay>
@@ -64,9 +64,22 @@ const editableTabs = ref(store.fileCache);
 const showConfirm = ref(false)
 const closingFilepath = ref('')
 
+function shortenFileName(fileName: string): string {
+  const maxLength = 40;
+  const lastDotIndex = fileName.lastIndexOf('.');
+  const extension = fileName.substring(lastDotIndex);
+  const fileNameWithoutExtension = fileName.substring(0, lastDotIndex);
+  let shortenedFileName = fileNameWithoutExtension;
+
+  if (fileName.length > maxLength) {
+    const maxLengthWithoutExtension = maxLength - extension.length - 3; // 3 是省略号的长度
+    shortenedFileName = fileNameWithoutExtension.substring(0, maxLengthWithoutExtension) + '...';
+  }
+
+  return shortenedFileName + extension;
+}
 
 const removeTab = (event: MouseEvent, targetName: string) => {
-  event.stopPropagation()
   console.log("event", event)
   if (store.isModified(targetName)) {
     closingFilepath.value = targetName
@@ -147,7 +160,7 @@ const onContextMenuClick = async (filepath: string, menuKey: string) => {
 }
 
 .ant-tabs .ant-tabs-tab + .ant-tabs-tab {
-  margin-left: 15px;
+  margin-left: 30px;
 }
 
 .ant-tabs .ant-tabs-tab .anticon {
