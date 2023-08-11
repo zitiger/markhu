@@ -67,9 +67,12 @@ function init(mode: 'wysiwyg' | 'ir' | 'sv') {
       // emojiTail: '<a href="https://ld246.com/settings/function" target="_blank">设置常用表情</a>',
       emoji,
     },
+    counter: {
+      enable: true,
+      type: 'text'
+    },
     toolbar,
     after: async () => {
-      // vditor.value is a instance of Vditor now and thus can be safely used here
       if (props.path != null) {
         let content = useEditorStore().getContent(props.path);
         vditor.value!.setValue(content);
@@ -82,7 +85,6 @@ function init(mode: 'wysiwyg' | 'ir' | 'sv') {
       }
     },
     input: async (content) => {
-      // vditor.value is a instance of Vditor now and thus can be safely used here
       if (props.path != null) {
         useEditorStore().modify(props.path, content)
       }

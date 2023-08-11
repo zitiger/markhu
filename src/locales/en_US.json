@@ -48,12 +48,12 @@
       "new_folder_label": "Target Folder"
     },
     "save_all": {
-      "title": "Close Confirm",
-      "content": "Are you sure to close?"
+      "title": "Save Changes?",
+      "content": "Do you want to save the changes you made to files?"
     },
     "save_file": {
-      "title": "Close Confirm",
-      "content": "Are you sure to close?"
+      "title": "Save Changes?",
+      "content": "Do you want to save the changes you made to file?"
     }
   },
   "resource": {
@@ -78,8 +78,8 @@
   },
   "content": {
     "empty_hint": {
-      "open_folder": "Click here to open folder",
-      "open_file": "Click file in resource panel"
+      "open_folder": "Click to Open Folder",
+      "open_file": "Click File in Left Resource Panel"
     },
     "context_menu": {
       "close_file": "Close File",
@@ -90,7 +90,7 @@
   },
   "editor": {
     "button_save": "Save",
-    "placeholder": "Please enter text to start",
+    "placeholder": "Please enter text here to start",
     "save_successfully": "Save successfully"
   }
 }
