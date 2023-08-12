@@ -15,6 +15,7 @@ onMounted(() => {
     'open_file': () => useEditorStore().open(),
     'open_folder': () => useSystemStore().open(),
     'create_file': () => useDialogStore().showCreateFileDialog(),
+    'create_folder': () => useDialogStore().showCreateDirDialog(),
     'save_file': () => useEditorStore().save(useEditorStore().activeFile),
     'save_all': () => useEditorStore().saveAll(),
     'close_file': () => useEditorStore().close(useEditorStore().activeFile),
