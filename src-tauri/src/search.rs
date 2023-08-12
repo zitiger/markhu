@@ -1,6 +1,5 @@
-use tauri::{command};
 use serde::{Deserialize, Serialize};
-
+/*
 // 定义一个main函数，用于测试index_of函数
 fn main1() {
     // 定义一个UTF-8字符串，包含中英文和表情符号
@@ -52,7 +51,7 @@ fn main3() {
     // 调用find_text函数，限制匹配次数为2，打印结果数组
     println!("{:?}", find_text(2, source, keyword, 99, 9));
 }
-
+*/
 
 // 定义一个index_of函数，接受两个字符串参数：source和target
 // 返回target在source中第一次出现的位置（以字符为单位），如果没有找到则返回-1
@@ -135,7 +134,7 @@ fn find_text(row_num: usize, source: &str, keyword: &str, pre_length: usize, suf
     // 定义一个空的数组，用于存储结果
     let mut result: Vec<Match> = Vec::new();
     // 定义一个变量，用于记录当前已经找到的匹配次数
-    let mut count = 0;
+    // let mut count = 0;
     // 定义一个变量，用于记录当前查找的起始位置
     let mut start = 0;
     // // 如果match_num为0或负数，则表示不限制匹配次数，否则表示最多匹配match_num次
@@ -169,7 +168,7 @@ fn find_text(row_num: usize, source: &str, keyword: &str, pre_length: usize, suf
             row_num,
         });
         // 更新已经找到的匹配次数和查找的起始位置
-        count += 1;
+        // count += 1;
         start = pos + keyword.len();
         // 如果达到了限制，则跳出循环
         // if !limit && count == match_num {
