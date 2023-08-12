@@ -87,6 +87,12 @@ pub fn get_menu() -> Menu {
         open_recent_menu = open_recent_menu.add_item(CustomMenuItem::new(history_file_id, "--"));
     }
     open_recent_menu = open_recent_menu.add_native_item(MenuItem::Separator);
+
+    let more_history = CustomMenuItem::new("more_history", "更多历史记录");//.accelerator("CmdOrControl+O");
+    open_recent_menu = open_recent_menu.add_item(more_history);
+
+    open_recent_menu = open_recent_menu.add_native_item(MenuItem::Separator);
+
     let clear_history = CustomMenuItem::new("clear_history", "清除历史记录");//.accelerator("CmdOrControl+O");
     open_recent_menu = open_recent_menu.add_item(clear_history);
 

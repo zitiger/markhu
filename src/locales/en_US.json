@@ -9,6 +9,7 @@
     "save_file": "Save File",
     "save_all": "Save All",
     "close_file": "Close File",
+    "more_history": "More History File",
     "clear_history": "Clear History",
     "theme_auto": "Auto",
     "theme_dark": "Dark",
@@ -56,6 +57,10 @@
     "save_file": {
       "title": "Save Changes?",
       "content": "Do you want to save the changes you made to file?"
+    },
+    "history_file": {
+      "keyword_placeholder": "Enter keyword to filter",
+      "title": "History File"
     }
   },
   "resource": {

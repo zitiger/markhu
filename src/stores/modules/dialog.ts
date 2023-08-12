@@ -9,13 +9,15 @@ export const useDialogStore = defineStore('dialog', {
         const isRenameDialogVisible = ref<boolean>(false) //
         const isSaveAllDialogVisible = ref<boolean>(false) //
         const isMoveDialogVisible = ref<boolean>(false) //
+        const isHistoryFileDialogVisible = ref<boolean>(false) //
 
         return {
             isCreateFileDialogVisible,
             isCreateDirDialogVisible,
             isSaveAllDialogVisible,
             isRenameDialogVisible,
-            isMoveDialogVisible
+            isMoveDialogVisible,
+            isHistoryFileDialogVisible
         }
     },
     actions: {
@@ -58,6 +60,14 @@ export const useDialogStore = defineStore('dialog', {
         hideMoveDialog() {
             console.log("hideMoveDialog");
             this.isMoveDialogVisible = false;
+        },
+        showHistoryFileDialog() {
+            console.log("showHistoryFileDialog");
+            this.isHistoryFileDialogVisible = true;
+        },
+        hideHistoryFileDialog() {
+            console.log("hideHistoryFileDialog");
+            this.isHistoryFileDialogVisible = false;
         }
     }
 })

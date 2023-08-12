@@ -38,6 +38,7 @@ onMounted(() => {
     'history_file_7': () => useEditorStore().readHistory(7),
     'history_file_8': () => useEditorStore().readHistory(8),
     'history_file_9': () => useEditorStore().readHistory(9),
+    'more_history': () => useDialogStore().showHistoryFileDialog(),
     'clear_history': () => useSystemStore().clearHistory(),
   })
   ;

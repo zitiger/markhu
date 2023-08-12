@@ -9,6 +9,7 @@
     "save_file": "保存文件",
     "save_all": "保存所有文件",
     "close_file": "关闭文件",
+    "more_history": "更多历史文件",
     "clear_history": "清除历史文件",
     "theme_auto": "自动",
     "theme_dark": "深色",
@@ -56,6 +57,10 @@
     "save_file": {
       "title": "是否保存?",
       "content": "有文件尚未保存，是否在关闭前进行保存？"
+    },
+    "history_file": {
+      "keyword_placeholder": "输入关键词搜索",
+      "title": "历史文件"
     }
   },
   "resource": {
