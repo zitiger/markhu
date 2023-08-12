@@ -15,7 +15,9 @@ export const useSystemStore = defineStore('system', {
         const theme = ref('dark')
         const realTheme = ref('dark')
 
-        return {workspace, locale, theme, realTheme}
+        const history = ref<string[]>([])
+
+        return {workspace, locale, theme, realTheme, history}
     },
     getters: {
         assertDir: (state) => path.join(state.workspace, "assets"),
@@ -53,6 +55,22 @@ export const useSystemStore = defineStore('system', {
 
             this.theme = theme;
             this.realTheme = realTheme
+        },
+        async addHistory(filepath: string) {
+            if (this.history.includes(filepath)) {
+                const index = this.history.indexOf(filepath);
+                if (index !== -1) {
+                    this.history.splice(index, 1);
+                }
+            }
+            this.history.push(filepath);
+
+            while (this.history.length > 50) {
+                this.history.shift();
+            }
+        },
+        async clearHistory() {
+            this.history.length = 0;
         }
     }
 })

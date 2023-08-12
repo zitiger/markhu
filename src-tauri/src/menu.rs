@@ -24,9 +24,22 @@ pub fn get_menu() -> Menu {
             aboutmetadata,
         ));
 
+    // Create History Menu
+    let mut open_recent_menu = Menu::new();
+    for i in 0..=9 {
+        let history_file_id = format!("history_file_{}", i);
+        open_recent_menu = open_recent_menu.add_item( CustomMenuItem::new(history_file_id, "--"));
+    }
+    open_recent_menu = open_recent_menu.add_native_item(MenuItem::Separator);
+    let clear_history = CustomMenuItem::new("clear_history", "清除历史记录");//.accelerator("CmdOrControl+O");
+    open_recent_menu = open_recent_menu.add_item(clear_history);
+
+    let open_recent = Submenu::new("Open Recent Files", open_recent_menu);
+
     let file_menu = Menu::new()
         .add_item(open_file)
         .add_item(open_folder)
+        .add_submenu(open_recent)
         .add_native_item(MenuItem::Separator)
         .add_item(create_file)
         .add_item(create_folder)
@@ -37,14 +50,14 @@ pub fn get_menu() -> Menu {
         .add_item(close_file)
         ;
 
-   let edit_menu = Menu::new()
-            .add_native_item(MenuItem::Undo)
-            .add_native_item(MenuItem::Redo)
-            .add_native_item(MenuItem::Separator)
-            .add_native_item(MenuItem::Cut)
-            .add_native_item(MenuItem::Copy)
-            .add_native_item(MenuItem::Paste)
-            .add_native_item(MenuItem::SelectAll);
+    let edit_menu = Menu::new()
+        .add_native_item(MenuItem::Undo)
+        .add_native_item(MenuItem::Redo)
+        .add_native_item(MenuItem::Separator)
+        .add_native_item(MenuItem::Cut)
+        .add_native_item(MenuItem::Copy)
+        .add_native_item(MenuItem::Paste)
+        .add_native_item(MenuItem::SelectAll);
 
     let theme_auto = CustomMenuItem::new("theme_auto", "Auto");//.accelerator("CmdOrControl+O");
     let theme_dark = CustomMenuItem::new("theme_dark", "Dark");//.accelerator("CmdOrControl+O");

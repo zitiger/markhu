@@ -4,6 +4,7 @@ import path from "path-browserify";
 import {getContentApi, saveContentApi} from "../../api/file";
 import {convertFileSrc} from "@tauri-apps/api/tauri";
 import {confirm, open} from '@tauri-apps/api/dialog';
+import {useSystemStore} from "./system";
 
 type File = {
     basename: string
@@ -113,8 +114,18 @@ export const useEditorStore = defineStore('editor', {
             }
 
             this.activeFile = filepath;
-        },
 
+            await useSystemStore().addHistory(filepath);
+        },
+        async readHistory(index: number) {
+            let length = useSystemStore().history.length;
+
+            let historyIndex = length - 1 - index;
+            if (historyIndex >= 0) {
+                let filepath = useSystemStore().history[historyIndex];
+                await this.read(filepath);
+            }
+        },
         async closeAll() {
             await this.closeOthers(null)
         },
