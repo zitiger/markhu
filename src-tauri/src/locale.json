@@ -1,0 +1,18 @@
+{
+  "us_EN": {
+    "file": "File",
+    "edit": "Edit",
+    "theme": "Theme",
+    "language": "Language",
+    "editor": "Editor",
+    "open_recent_files": "Open Recent Files"
+  },
+  "zh_CN": {
+    "file": "文件",
+    "edit": "编辑",
+    "theme": "主题",
+    "language": "语言",
+    "editor": "编辑器",
+    "open_recent_files": "打开最近的文件"
+  }
+}
