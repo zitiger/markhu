@@ -5,6 +5,7 @@ export const useDialogStore = defineStore('dialog', {
     state: () => {
 
         const isCreateFileDialogVisible = ref<boolean>(false) //
+        const isSaveAsDialogVisible = ref<boolean>(false) //
         const isCreateDirDialogVisible = ref<boolean>(false) //
         const isRenameDialogVisible = ref<boolean>(false) //
         const isSaveAllDialogVisible = ref<boolean>(false) //
@@ -13,11 +14,12 @@ export const useDialogStore = defineStore('dialog', {
 
         return {
             isCreateFileDialogVisible,
+            isSaveAsDialogVisible,
             isCreateDirDialogVisible,
             isSaveAllDialogVisible,
             isRenameDialogVisible,
             isMoveDialogVisible,
-            isHistoryFileDialogVisible
+            isHistoryFileDialogVisible,
         }
     },
     actions: {
@@ -28,6 +30,14 @@ export const useDialogStore = defineStore('dialog', {
         hideCreateFileDialog() {
             console.log("hideCreateFileDialog");
             this.isCreateFileDialogVisible = false;
+        },
+        showSaveAsDialog() {
+            console.log("showSaveAsDialog");
+            this.isSaveAsDialogVisible = true;
+        },
+        hideSaveAsDialog() {
+            console.log("hideSaveAsDialog");
+            this.isSaveAsDialogVisible = false;
         },
         showCreateDirDialog() {
             console.log("showCreateDirDialog");

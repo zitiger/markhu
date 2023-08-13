@@ -55,7 +55,27 @@ export const useEditorStore = defineStore('editor', {
                 this.changedFiles.splice(changedIndex, 1)
             }
         },
+        async saveAs(currentFilepath: string, newFilepath: string) {
+            const cacheIndex = this.find(currentFilepath);
+            if (cacheIndex > -1) {
+                const file = this.fileCache[cacheIndex]
+                if (file == null) {
+                    return;
+                }
+                file.filepath = newFilepath;
+                file.basename = path.basename(newFilepath)
 
+                const content = toLocalPath(file.content);
+                await saveContentApi(newFilepath, content);
+            }
+
+            const changedIndex = this.changedFiles.indexOf(currentFilepath);
+            if (changedIndex >= 1) {
+                this.changedFiles.splice(changedIndex, 1)
+            }
+
+            this.activeFile = newFilepath;
+        },
         async saveAll() {
             let filesToSave: string[] = []
             for (const filepath of this.changedFiles) {

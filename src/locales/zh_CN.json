@@ -7,6 +7,7 @@
     "create_file": "创建文件",
     "create_folder": "新建文件夹",
     "save_file": "保存文件",
+    "save_as": "另存为",
     "save_all": "保存所有文件",
     "close_file": "关闭文件",
     "close_all": "关闭所有",
@@ -29,6 +30,13 @@
     "button_not_save": "不保存",
     "create_file": {
       "title": "创建新文件",
+      "parent_folder_label": "所在文件夹",
+      "file_name_label": "文件名称",
+      "file_name_required_message": "请输入文件名称",
+      "file_exist_message": "创建文件失败，已经存在相同名称的文件"
+    },
+    "save_as": {
+      "title": "另存为",
       "parent_folder_label": "所在文件夹",
       "file_name_label": "文件名称",
       "file_name_required_message": "请输入文件名称",

@@ -7,6 +7,7 @@
     "create_file": "Create File",
     "create_folder": "Create Folder",
     "save_file": "Save File",
+    "save_as": "Save As",
     "save_all": "Save All",
     "close_file": "Close File",
     "close_all": "Close All",
@@ -29,6 +30,13 @@
     "button_not_save": "Do not Save",
     "create_file": {
       "title": "Create File",
+      "parent_folder_label": "Parent Folder",
+      "file_name_label": "File Name",
+      "file_name_required_message": "Please input File Name",
+      "file_exist_message": "Failed to create, it already exists"
+    },
+    "save_as": {
+      "title": "Save As",
       "parent_folder_label": "Parent Folder",
       "file_name_label": "File Name",
       "file_name_required_message": "Please input File Name",

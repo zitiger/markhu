@@ -10,6 +10,7 @@ export async function initMenu() {
         'create_file': () => useDialogStore().showCreateFileDialog(),
         'create_folder': () => useDialogStore().showCreateDirDialog(),
         'save_file': () => useEditorStore().save(useEditorStore().activeFile),
+        'save_as': () => useDialogStore().showSaveAsDialog(),
         'save_all': () => useEditorStore().saveAll(),
         'close_file': () => useEditorStore().close(useEditorStore().activeFile),
         'close_all': () => useEditorStore().closeAll(),

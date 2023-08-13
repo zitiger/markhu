@@ -72,7 +72,8 @@ pub fn get_menu() -> Menu {
     let create_file = CustomMenuItem::new("create_file", "创建文件").accelerator("CmdOrControl+N");
     let create_folder = CustomMenuItem::new("create_folder", "创建文件夹").accelerator("CmdOrControl+R");
     let save_file = CustomMenuItem::new("save_file", "保存文件").accelerator("CmdOrControl+S");
-    let save_all = CustomMenuItem::new("save_all", "保存所有").accelerator("CmdOrControl+Shift+S");
+    let save_as = CustomMenuItem::new("save_as", "另存为").accelerator("CmdOrControl+Shift+S");
+    let save_all = CustomMenuItem::new("save_all", "保存所有").accelerator("CmdOrControl+Option+S");
     let close_file = CustomMenuItem::new("close_file", "关闭文件").accelerator("CmdOrControl+W");
     let close_all = CustomMenuItem::new("close_all", "关闭所有").accelerator("CmdOrControl+W");
     let about_menu = Menu::new()
@@ -108,6 +109,7 @@ pub fn get_menu() -> Menu {
         .add_item(create_folder)
         .add_native_item(MenuItem::Separator)
         .add_item(save_file)
+        .add_item(save_as)
         .add_item(save_all)
         .add_native_item(MenuItem::Separator)
         .add_item(close_file)
