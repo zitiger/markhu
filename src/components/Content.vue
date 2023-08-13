@@ -65,18 +65,16 @@ const showConfirm = ref(false)
 const closingFilepath = ref('')
 
 function shortenFileName(fileName: string): string {
-  const maxLength = 40;
-  const lastDotIndex = fileName.lastIndexOf('.');
-  const extension = fileName.substring(lastDotIndex);
-  const fileNameWithoutExtension = fileName.substring(0, lastDotIndex);
-  let shortenedFileName = fileNameWithoutExtension;
-
-  if (fileName.length > maxLength) {
-    const maxLengthWithoutExtension = maxLength - extension.length - 3; // 3 是省略号的长度
-    shortenedFileName = fileNameWithoutExtension.substring(0, maxLengthWithoutExtension) + '...';
+  // 如果文件名的长度小于等于 50，直接返回文件名
+  if (fileName.length <= 50) {
+    return fileName;
   }
-
-  return shortenedFileName + extension;
+  // 如果文件名部分的长度大于 40，截取前 30 个字符和后 10 个字符，用 ... 连接起来
+  if (fileName.length > 40) {
+    fileName = fileName.slice(0, 30) + '...' + fileName.slice(-10);
+  }
+  // 返回新的文件名
+  return fileName;
 }
 
 const removeTab = (event: MouseEvent, targetName: string) => {
