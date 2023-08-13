@@ -74,6 +74,7 @@ pub fn get_menu() -> Menu {
     let save_file = CustomMenuItem::new("save_file", "保存文件").accelerator("CmdOrControl+S");
     let save_all = CustomMenuItem::new("save_all", "保存所有").accelerator("CmdOrControl+Shift+S");
     let close_file = CustomMenuItem::new("close_file", "关闭文件").accelerator("CmdOrControl+W");
+    let close_all = CustomMenuItem::new("close_all", "关闭所有").accelerator("CmdOrControl+W");
     let about_menu = Menu::new()
         .add_native_item(MenuItem::About(
             "MarkHu".to_string(),
@@ -110,6 +111,7 @@ pub fn get_menu() -> Menu {
         .add_item(save_all)
         .add_native_item(MenuItem::Separator)
         .add_item(close_file)
+        .add_item(close_all)
         ;
 
     let edit_menu = Menu::new()

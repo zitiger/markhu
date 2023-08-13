@@ -12,6 +12,7 @@ export async function initMenu() {
         'save_file': () => useEditorStore().save(useEditorStore().activeFile),
         'save_all': () => useEditorStore().saveAll(),
         'close_file': () => useEditorStore().close(useEditorStore().activeFile),
+        'close_all': () => useEditorStore().closeAll(),
         'theme_auto': () => useSystemStore().changeTheme('auto'),
         'theme_dark': () => useSystemStore().changeTheme('dark'),
         'theme_light': () => useSystemStore().changeTheme('light'),

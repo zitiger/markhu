@@ -9,6 +9,7 @@
     "save_file": "保存文件",
     "save_all": "保存所有文件",
     "close_file": "关闭文件",
+    "close_all": "关闭所有",
     "more_history": "更多历史文件",
     "clear_history": "清除历史文件",
     "theme_auto": "自动",
