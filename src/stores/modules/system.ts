@@ -4,7 +4,6 @@ import {open} from '@tauri-apps/api/dialog';
 import {useStructureStore} from "./structure";
 import path from 'path-browserify';
 import i18n from "../../locales";
-import {changeLocale} from "../../locales";
 import {appWindow} from "@tauri-apps/api/window";
 
 export const useSystemStore = defineStore('system', {
@@ -39,7 +38,7 @@ export const useSystemStore = defineStore('system', {
 
         async setLocale(lang: any) {
             this.locale = lang
-            await changeLocale(lang)
+            // await changeLocale(lang)
         },
 
         async changeTheme(theme: string) {

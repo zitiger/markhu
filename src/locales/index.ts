@@ -33,39 +33,3 @@ const i18n = createI18n({
 })
 
 export default i18n;
-
-export async function changeLocale(lang: string) {
-
-    localStorage.setItem("locale", lang)
-
-    // @ts-ignore
-    i18n.global.locale.value = lang
-
-    const langMap = new Map(Object.entries(langs));
-    const langJson = langMap.get(lang);
-    if (langJson == null) {
-        return
-    }
-
-    const menuJson = langJson.menu;
-    const menuMap = new Map(Object.entries(menuJson));
-
-    const convertedMap = convertKeysToSnakeCase(menuMap)
-
-    convertedMap.forEach((value, key) => {
-        changeMenuTitle(key, value);
-        // console.log(`Key: ${key}, Value: ${value}`);
-    });
-}
-
-
-function convertKeysToSnakeCase(map: Map<string, any>): Map<string, any> {
-    const convertedMap = new Map<string, any>();
-
-    for (const [key, value] of map.entries()) {
-        const snakeCaseKey = key.replace(/[A-Z]/g, (match) => `_${match.toLowerCase()}`);
-        convertedMap.set(snakeCaseKey, value);
-    }
-
-    return convertedMap;
-}
