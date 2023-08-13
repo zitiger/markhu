@@ -67,15 +67,15 @@ pub fn get_menu() -> Menu {
     aboutmetadata = aboutmetadata.license("MIT".to_string());
 
     // 创建自定义的菜单项
-    let open_file = CustomMenuItem::new("open_file", "打开文件").accelerator("CmdOrControl+O");
-    let open_folder = CustomMenuItem::new("open_folder", "打开文件夹").accelerator("CmdOrControl+D");
-    let create_file = CustomMenuItem::new("create_file", "创建文件").accelerator("CmdOrControl+N");
-    let create_folder = CustomMenuItem::new("create_folder", "创建文件夹").accelerator("CmdOrControl+R");
-    let save_file = CustomMenuItem::new("save_file", "保存文件").accelerator("CmdOrControl+S");
-    let save_as = CustomMenuItem::new("save_as", "另存为").accelerator("CmdOrControl+Shift+S");
-    let save_all = CustomMenuItem::new("save_all", "保存所有").accelerator("CmdOrControl+Option+S");
-    let close_file = CustomMenuItem::new("close_file", "关闭文件").accelerator("CmdOrControl+W");
-    let close_all = CustomMenuItem::new("close_all", "关闭所有").accelerator("CmdOrControl+W");
+    let open_file = CustomMenuItem::new("open_file", "Open File").accelerator("CmdOrControl+O");
+    let open_folder = CustomMenuItem::new("open_folder", "Open Folder").accelerator("CmdOrControl+D");
+    let create_file = CustomMenuItem::new("create_file", "Create File").accelerator("CmdOrControl+N");
+    let create_folder = CustomMenuItem::new("create_folder", "Create Folder").accelerator("CmdOrControl+R");
+    let save_file = CustomMenuItem::new("save_file", "Save File").accelerator("CmdOrControl+S");
+    let save_as = CustomMenuItem::new("save_as", "Save As").accelerator("CmdOrControl+Shift+S");
+    let save_all = CustomMenuItem::new("save_all", "Save All").accelerator("CmdOrControl+Option+S");
+    let close_file = CustomMenuItem::new("close_file", "Close File").accelerator("CmdOrControl+W");
+    let close_all = CustomMenuItem::new("close_all", "Close All").accelerator("CmdOrControl+W");
     let about_menu = Menu::new()
         .add_native_item(MenuItem::About(
             "MarkHu".to_string(),
@@ -90,12 +90,12 @@ pub fn get_menu() -> Menu {
     }
     open_recent_menu = open_recent_menu.add_native_item(MenuItem::Separator);
 
-    let more_history = CustomMenuItem::new("more_history", "更多历史记录");//.accelerator("CmdOrControl+O");
+    let more_history = CustomMenuItem::new("more_history", "More History");//.accelerator("CmdOrControl+O");
     open_recent_menu = open_recent_menu.add_item(more_history);
 
     open_recent_menu = open_recent_menu.add_native_item(MenuItem::Separator);
 
-    let clear_history = CustomMenuItem::new("clear_history", "清除历史记录");//.accelerator("CmdOrControl+O");
+    let clear_history = CustomMenuItem::new("clear_history", "Clear History");//.accelerator("CmdOrControl+O");
     open_recent_menu = open_recent_menu.add_item(clear_history);
 
     let open_recent = Submenu::new(get_menu_title(locale, "open_recent_files"), open_recent_menu);
