@@ -13,6 +13,7 @@ import {FileInfo, StructureNode} from "../../api/model";
 import {useSystemStore} from "./system";
 import path from "path-browserify";
 import {useDialogStore} from "./dialog";
+import {useEditorStore} from "./editor";
 
 
 export const useStructureStore = defineStore('structure', {
@@ -56,6 +57,12 @@ export const useStructureStore = defineStore('structure', {
             moveNode(this.list, from, to)
         },
         async rename(from: string, to: string) {
+            let index = useEditorStore().fileCache.findIndex(file => file.filepath === from)
+            if (index > -1) {
+                useEditorStore().fileCache[index].basename = path.basename(to);
+                useEditorStore().fileCache[index].filepath = to;
+            }
+
             await updateNodePath(this.list, from, to)
         },
         async remove(path: string, isFile: boolean) {
