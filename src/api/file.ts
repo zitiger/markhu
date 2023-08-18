@@ -187,19 +187,9 @@ export async function showInFolder(path: string) {
     }
 }
 
-export async function changeMenuTitle(id: string, title: string) {
+export async function setMenuSelected(menuId: string, selected: boolean) {
     try {
-        await invoke('change_menu_title', {id, title});
-    } catch (error) {
-        // 处理错误
-        console.error(error);
-        throw error;
-    }
-}
-
-export async function setMenuSelected(id: string, selected: boolean) {
-    try {
-        await invoke('set_menu_selected', {id, selected});
+        await invoke('set_menu_selected', {menuId, selected});
     } catch (error) {
         // 处理错误
         console.error(error);
@@ -217,11 +207,46 @@ export async function moveToTrashApi(path: string) {
     }
 }
 
-export async function searchTextApi(path: string, keyword: string, length: number):Promise<SearchResult[]> {
+export async function searchTextApi(path: string, keyword: string, length: number): Promise<SearchResult[]> {
     try {
-    let res =    await invoke('search_text', {path, keyword, length}) as SearchResult[];
+        let res = await invoke('search_text', {path, keyword, length}) as SearchResult[];
 
-    return res;
+        return res;
+    } catch (error) {
+        // 处理错误
+        console.error(error);
+        throw error;
+    }
+}
+
+export async function getTheme(): Promise<string> {
+    try {
+        let res = await invoke('get_theme') as string;
+
+        return res;
+    } catch (error) {
+        // 处理错误
+        console.error(error);
+        throw error;
+    }
+}
+
+
+export async function setMenuText(menuId:string,textArray:string[]) {
+    try {
+        await invoke('set_menu_text', {menuId,textArray}) ;
+
+    } catch (error) {
+        // 处理错误
+        console.error(error);
+        throw error;
+    }
+}
+
+
+export async function changeRecentMenu( filepathArray: string[]) {
+    try {
+        await invoke('change_recent_menu', { filepathArray});
     } catch (error) {
         // 处理错误
         console.error(error);

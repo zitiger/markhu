@@ -1,4 +1,4 @@
-import {changeMenuTitle, listenMenuEvent, setMenuSelected} from "./file";
+import {changeRecentMenu, listenMenuEvent, setMenuSelected, setMenuText} from "./file";
 import {useDialogStore, useEditorStore, useSystemStore} from "../stores";
 import {watch} from "vue";
 import i18n, {langs} from "../locales";
@@ -24,18 +24,18 @@ export async function initMenu() {
         'mode_ir': () => useEditorStore().editMode = 'ir',
         'mode_sv': () => useEditorStore().editMode = 'sv',
         'mode_fullscreen': () => useEditorStore().toggleFullscreenMode(),
-        'history_file_0': () => useEditorStore().readHistory(0),
-        'history_file_1': () => useEditorStore().readHistory(1),
-        'history_file_2': () => useEditorStore().readHistory(2),
-        'history_file_3': () => useEditorStore().readHistory(3),
-        'history_file_4': () => useEditorStore().readHistory(4),
-        'history_file_5': () => useEditorStore().readHistory(5),
-        'history_file_6': () => useEditorStore().readHistory(6),
-        'history_file_7': () => useEditorStore().readHistory(7),
-        'history_file_8': () => useEditorStore().readHistory(8),
-        'history_file_9': () => useEditorStore().readHistory(9),
-        'more_history': () => useDialogStore().showHistoryFileDialog(),
-        'clear_history': () => useSystemStore().clearHistory(),
+        'open_recent_0': () => useEditorStore().readHistory(0),
+        'open_recent_1': () => useEditorStore().readHistory(1),
+        'open_recent_2': () => useEditorStore().readHistory(2),
+        'open_recent_3': () => useEditorStore().readHistory(3),
+        'open_recent_4': () => useEditorStore().readHistory(4),
+        'open_recent_5': () => useEditorStore().readHistory(5),
+        'open_recent_6': () => useEditorStore().readHistory(6),
+        'open_recent_7': () => useEditorStore().readHistory(7),
+        'open_recent_8': () => useEditorStore().readHistory(8),
+        'open_recent_9': () => useEditorStore().readHistory(9),
+        'more_recent': () => useDialogStore().showHistoryFileDialog(),
+        'clear_recent': () => useSystemStore().clearHistory(),
     });
 
     watch(() => useSystemStore().theme, async (newValue, oldValue) => {
@@ -51,7 +51,7 @@ export async function initMenu() {
         }
         await setMenuSelected("locale_" + newValue.toLowerCase(), true)
 
-       await changeLocale(newValue);
+        await changeLocale(newValue);
     }, {immediate: true});
 
     watch(() => useEditorStore().editMode, async (newValue, oldValue) => {
@@ -67,16 +67,8 @@ export async function initMenu() {
 
     watch(() => useSystemStore().history, async (newValue, oldValue) => {
 
-        for (let i = 0; i < 10; i++) {
-            let menuId = "history_file_" + i;
+        await changeRecentMenu(newValue);
 
-            if (i < newValue.length) {
-                let filepath = newValue[newValue.length - 1 - i];
-                await changeMenuTitle(menuId, filepath);
-            } else {
-                await changeMenuTitle(menuId, "--");
-            }
-        }
     }, {immediate: true, deep: true});
 }
 
@@ -95,23 +87,8 @@ export async function changeLocale(lang: string) {
     }
 
     const menuJson = langJson.menu;
-    const menuMap = new Map(Object.entries(menuJson));
-
-    const convertedMap = convertKeysToSnakeCase(menuMap)
-
-    convertedMap.forEach((value, key) => {
-        changeMenuTitle(key, value);
-        console.log(`Key: ${key}, Value: ${value}`);
-    });
-}
-
-function convertKeysToSnakeCase(map: Map<string, any>): Map<string, any> {
-    const convertedMap = new Map<string, any>();
-
-    for (const [key, value] of map.entries()) {
-        const snakeCaseKey = key.replace(/[A-Z]/g, (match) => `_${match.toLowerCase()}`);
-        convertedMap.set(snakeCaseKey, value);
+    for (let menuJsonKey in menuJson) {
+        // @ts-ignore
+        await setMenuText(menuJsonKey, menuJson[menuJsonKey]);
     }
-
-    return convertedMap;
 }

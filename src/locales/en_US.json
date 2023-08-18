@@ -2,24 +2,13 @@
   "common": {
   },
   "menu": {
-    "open_file": "Open File",
-    "open_folder": "Open Folder",
-    "create_file": "Create File",
-    "create_folder": "Create Folder",
-    "save_file": "Save File",
-    "save_as": "Save As",
-    "save_all": "Save All",
-    "close_file": "Close File",
-    "close_all": "Close All",
-    "more_history": "More History File",
-    "clear_history": "Clear History",
-    "theme_auto": "Auto",
-    "theme_dark": "Dark",
-    "theme_light": "Light",
-    "mode_wysiwyg": "WYSIWYG",
-    "mode_ir": "Instant Rendering",
-    "mode_sv": "Split View",
-    "mode_fullscreen": "Toggle Full Screen"
+    "app_menu": ["MarkHu","About","-","Services","-","Hide","Hide Others","Show All","-","Quit"],
+    "file_menu": ["File","Create File", "Create Folder", "-","Open File","Open Folder","-","Save File","Save As","Save All","-","Close File","Close All"],
+    "recent_menu":["Open Recent","More Recent Files","Clear Recent Files"],
+    "edit_menu": ["Edit","Undo","Redo","-","Cut","Copy","Paste","Select All"],
+    "theme_menu": ["Theme","Auto", "Dark","Light"],
+    "locale_menu": ["Locale"],
+    "mode_menu": ["Mode","WYSIWYG", "Instant Rendering","Split View","Toggle Full Screen"]
   },
   "dialog": {
     "button_ok": "Ok",

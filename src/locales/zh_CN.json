@@ -2,24 +2,13 @@
   "common": {
   },
   "menu": {
-    "open_file": "打开文件",
-    "open_folder": "打开文件夹",
-    "create_file": "创建文件",
-    "create_folder": "新建文件夹",
-    "save_file": "保存文件",
-    "save_as": "另存为",
-    "save_all": "保存所有文件",
-    "close_file": "关闭文件",
-    "close_all": "关闭所有",
-    "more_history": "更多历史文件",
-    "clear_history": "清除历史文件",
-    "theme_auto": "自动",
-    "theme_dark": "深色",
-    "theme_light": "浅色",
-    "mode_wysiwyg": "所见即所得",
-    "mode_ir": "即时渲染",
-    "mode_sv": "分屏预览",
-    "mode_fullscreen": "切换全屏"
+    "app_menu": ["MarkHu","关于","-","服务","-","隐藏","隐藏其他","显示所有","-","退出"],
+    "file_menu": ["文件","新建文件", "新建文件夹", "-","打开文件","打开文件夹","-","保存文件","另存为","保存所有文件","-","关闭文件","关闭所有"],
+    "recent_menu":["最近打开文件","更多打开记录","清除打开记录"],
+    "edit_menu": ["编辑","撤销","恢复","-","剪切","拷贝","粘贴","全选"],
+    "theme_menu": ["主题","自动", "深色","浅色"],
+    "locale_menu": ["语言"],
+    "mode_menu": ["模式","所见即所得", "即时渲染","分屏预览","切换全屏"]
   },
   "dialog": {
     "button_ok": "确定",

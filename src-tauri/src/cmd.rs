@@ -23,13 +23,6 @@ pub struct FileInfo {
     children: Option<Vec<FileInfo>>, // 用于存储子项，如果是文件则为None
 }
 
-
-#[command]
-pub fn get_md_in_folder(event: String) -> Option<String> {
-    println!("the path is {}", event);
-    Some("test".to_string())
-}
-
 #[command]
 pub fn create_dir(path: String) -> Option<String> {
     let file = fs::create_dir_all(&path);
@@ -217,28 +210,14 @@ pub fn show_in_folder(path: String) {
 }
 
 #[tauri::command]
-pub fn change_menu_title(window: tauri::Window, id: String, title: String) -> Option<String> {
-    let menu_handle = window.menu_handle();
-    std::thread::spawn(move || {
-        menu_handle.get_item(&id).set_title(title).expect("Failed");
-    });
+pub fn get_theme(window: tauri::Window) -> Option<String> {
+    let theme = window.theme();
 
-    Some("OK".to_string())
-}
-
-#[tauri::command]
-pub fn set_menu_selected(window: tauri::Window, id: String, selected: bool) -> Option<String> {
-    let menu_handle = window.menu_handle();
-    let handle = menu_handle.try_get_item(&id);
-
-    if handle.is_some() {
-        std::thread::spawn(move || {
-            menu_handle.get_item(&id).set_selected(selected).expect("Failed");
-        });
-    }else {
-        println!("没有找到菜单：{}", &id)
+    if theme.is_ok() {
+        Some(theme.unwrap().to_string())
+    } else {
+        Some("dark".to_string())
     }
-    Some("OK".to_string())
 }
 
 #[tauri::command]
