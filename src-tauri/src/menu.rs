@@ -1,8 +1,8 @@
-use tauri::{AppHandle, Error, Manager, Runtime};
-use tauri::menu::{AboutMetadata, CheckMenuItem, Menu, MenuItem, PredefinedMenuItem, Submenu};
+use tauri::{AppHandle, Error, Manager, Runtime, Window};
+use tauri::menu::{AboutMetadata, CheckMenuItem, Menu, MenuItem, PredefinedMenuItem, Submenu, SubmenuBuilder};
 
 pub fn build_menu<R: Runtime>(app_handle: &AppHandle<R>) -> std::result::Result<Menu<R>, Error> {
-    let app_menu = tauri::menu::SubmenuBuilder::with_id(app_handle, "app_menu", "&File").build()?;
+    let app_menu =  SubmenuBuilder::with_id(app_handle, "app_menu", "&File").build()?;
 
     let about_metadata = AboutMetadata {
         name: Some("MarkHu".to_string()),
@@ -30,7 +30,7 @@ pub fn build_menu<R: Runtime>(app_handle: &AppHandle<R>) -> std::result::Result<
         &PredefinedMenuItem::quit(app_handle, Some("Quit")),
     ]).expect("TODO: panic message");
 
-    let file_menu = tauri::menu::SubmenuBuilder::with_id(app_handle, "file_menu", "&File").build()?;
+    let file_menu = SubmenuBuilder::with_id(app_handle, "file_menu", "&File").build()?;
 
 
     let create_file = MenuItem::with_id(app_handle, "create_file", "Create File", true, Some("CmdOrControl+N"));
@@ -66,7 +66,7 @@ pub fn build_menu<R: Runtime>(app_handle: &AppHandle<R>) -> std::result::Result<
     let more_recent = MenuItem::with_id(app_handle, "more_recent", "More", true, None);
     let clear_recent = MenuItem::with_id(app_handle, "clear_recent", "Clear", true, None);
 
-    let recent_menu = tauri::menu::SubmenuBuilder::with_id(app_handle, "recent_menu", "Open Recent").build()?;
+    let recent_menu = SubmenuBuilder::with_id(app_handle, "recent_menu", "Open Recent").build()?;
     recent_menu.append_items(&[
         &more_recent,
         &clear_recent,
@@ -81,7 +81,7 @@ pub fn build_menu<R: Runtime>(app_handle: &AppHandle<R>) -> std::result::Result<
 
     file_menu.append(&recent_menu).expect("TODO: panic message");
 
-    let edit_menu = tauri::menu::SubmenuBuilder::with_id(app_handle, "edit_menu", "&Edit").build()?;
+    let edit_menu = SubmenuBuilder::with_id(app_handle, "edit_menu", "&Edit").build()?;
     edit_menu.append_items(&[
         &PredefinedMenuItem::undo(app_handle, Some("Undo")),
         &PredefinedMenuItem::redo(app_handle, Some("Redo")),
@@ -97,7 +97,7 @@ pub fn build_menu<R: Runtime>(app_handle: &AppHandle<R>) -> std::result::Result<
     let theme_dark = CheckMenuItem::with_id(app_handle, "theme_dark", "Dark", true, false, None);//.accelerator("CmdOrControl+O");
     let theme_light = CheckMenuItem::with_id(app_handle, "theme_light", "Light", true, false, None);//.accelerator("CmdOrControl+O");
 
-    let theme_menu = tauri::menu::SubmenuBuilder::with_id(app_handle, "theme_menu", "&Theme").build()?;
+    let theme_menu = SubmenuBuilder::with_id(app_handle, "theme_menu", "&Theme").build()?;
     theme_menu.append_items(&[
         &theme_auto,
         &theme_dark,
@@ -106,7 +106,7 @@ pub fn build_menu<R: Runtime>(app_handle: &AppHandle<R>) -> std::result::Result<
 
     let locale_zh_cn = CheckMenuItem::with_id(app_handle, "locale_zh_cn", "中文", true, false, None);//.accelerator("CmdOrControl+O");
     let locale_en_us = CheckMenuItem::with_id(app_handle, "locale_en_us", "English", true, false, None);//.accelerator("CmdOrControl+O");
-    let locale_menu = tauri::menu::SubmenuBuilder::with_id(app_handle, "locale_menu", "&Locale").build()?;
+    let locale_menu = SubmenuBuilder::with_id(app_handle, "locale_menu", "&Locale").build()?;
     locale_menu.append_items(&[
         &locale_zh_cn,
         &locale_en_us
@@ -116,7 +116,7 @@ pub fn build_menu<R: Runtime>(app_handle: &AppHandle<R>) -> std::result::Result<
     let mode_ir = CheckMenuItem::with_id(app_handle, "mode_ir", "Instant Rendering", true, false, None);//.accelerator("CmdOrControl+O");
     let mode_sv = CheckMenuItem::with_id(app_handle, "mode_sv", "Split View", true, false, None);//.accelerator("CmdOrControl+O");
     let mode_fullscreen = CheckMenuItem::with_id(app_handle, "mode_fullscreen", "Toggle Full Screen", true, false, None);//.accelerator("CmdOrControl+O");
-    let mode_menu = tauri::menu::SubmenuBuilder::with_id(app_handle, "mode_menu", "&Mode").build()?;
+    let mode_menu = SubmenuBuilder::with_id(app_handle, "mode_menu", "&Mode").build()?;
     mode_menu.append_items(&[
         &mode_wysiwyg,
         &mode_ir,
@@ -150,7 +150,7 @@ pub fn build_menu<R: Runtime>(app_handle: &AppHandle<R>) -> std::result::Result<
 }
 
 #[tauri::command]
-pub fn set_menu_selected(window: tauri::Window, menu_id: String, selected: bool) {
+pub fn set_menu_selected(window: Window, menu_id: String, selected: bool) {
     let menu_bar = window.app_handle().menu().unwrap();
     let submenus = menu_bar.items().unwrap();
 
@@ -166,9 +166,8 @@ pub fn set_menu_selected(window: tauri::Window, menu_id: String, selected: bool)
     }
 }
 
-
 #[tauri::command]
-pub fn set_menu_text<R: tauri::Runtime>(window: tauri::Window<R>, menu_id: String, text_array: Vec<String>) {
+pub fn set_menu_text<R: Runtime>(window: Window<R>, menu_id: String, text_array: Vec<String>) {
     if text_array.len() == 0 {
         return;
     }
@@ -194,9 +193,9 @@ pub fn set_menu_text<R: tauri::Runtime>(window: tauri::Window<R>, menu_id: Strin
     }
 }
 
-pub fn update_text<R: tauri::Runtime>(submenu: &Submenu<R>, text_array: Vec<String>) {
+pub fn update_text<R: Runtime>(submenu: &Submenu<R>, text_array: Vec<String>) {
     let mut text_index = 1;
-    for menu_item in submenu.items().unwrap().iter().enumerate() {
+    for menu_item in submenu.items().unwrap().iter() {
         if text_index >= text_array.len() {
             break;
         }
@@ -224,7 +223,7 @@ pub fn update_text<R: tauri::Runtime>(submenu: &Submenu<R>, text_array: Vec<Stri
 }
 
 #[tauri::command]
-pub fn change_recent_menu<R: tauri::Runtime>(window: tauri::Window<R>, filepath_array: Vec<String>) {
+pub fn change_recent_menu<R: Runtime>(window: Window<R>, filepath_array: Vec<String>) {
     println!("change_recent_menu");
     let menu_bar = window.app_handle().menu().unwrap();
 
