@@ -1,8 +1,7 @@
 <script lang="ts" setup>
 import Navigator from "./components/Navigator.vue";
 import Content from "./components/Content.vue";
-import { listenMenuEvent, set_menu_text, setMenuSelected} from "./api/file";
-import {useDialogStore, useEditorStore, useStructureStore, useSystemStore} from "./stores";
+import {useDialogStore, useEditorStore, useSystemStore} from "./stores";
 import {onMounted, reactive, watch} from "vue";
 import Dialogs from "./components/Dialogs.vue";
 import { getCurrent } from '@tauri-apps/plugin-window';

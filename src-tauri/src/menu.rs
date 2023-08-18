@@ -196,9 +196,7 @@ pub fn set_menu_text<R: tauri::Runtime>(window: tauri::Window<R>, menu_id: Strin
 
 pub fn update_text<R: tauri::Runtime>(submenu: &Submenu<R>, text_array: Vec<String>) {
     let mut text_index = 1;
-    for (index, menu_item) in submenu.items().unwrap().iter().enumerate() {
-        println!("4");
-
+    for (menu_item) in submenu.items().unwrap().iter().enumerate() {
         if text_index >= text_array.len() {
             break;
         }
@@ -222,8 +220,6 @@ pub fn update_text<R: tauri::Runtime>(submenu: &Submenu<R>, text_array: Vec<Stri
             check_item.unwrap().set_text(text).expect("TODO: panic message");
             text_index += 1;
         }
-
-        println!("Index: {}, Value: {:?}", index, menu_item.id());
     }
 }
 

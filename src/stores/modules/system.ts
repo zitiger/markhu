@@ -4,7 +4,6 @@ import {open} from '@tauri-apps/plugin-dialog';
 import {useStructureStore} from "./structure";
 import path from 'path-browserify';
 import i18n from "../../locales";
-import {getCurrent} from "@tauri-apps/plugin-window";
 import {getTheme} from "../../api/file";
 
 export const useSystemStore = defineStore('system', {
