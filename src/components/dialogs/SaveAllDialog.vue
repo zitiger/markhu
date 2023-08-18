@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import {useEditorStore, useStructureStore, useDialogStore, useSystemStore} from '../../stores'
-import {appWindow} from '@tauri-apps/api/window'
+import {getCurrent} from '@tauri-apps/plugin-window'
 import {useI18n} from "vue-i18n";
 import path from "path-browserify";
 
@@ -10,7 +10,7 @@ const editStore = useEditorStore();
 
 async function dispose() {
   dialogStore.hideSaveAllDialog();
-  await appWindow.close()
+  await getCurrent().close()
 }
 
 function cancel() {
@@ -20,7 +20,7 @@ function cancel() {
 async function save() {
   await editStore.saveAll()
   dialogStore.hideSaveAllDialog();
-  await appWindow.close()
+  await getCurrent().close()
 }
 </script>
 

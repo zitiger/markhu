@@ -4,19 +4,13 @@ mod cmd;
 mod menu;
 mod search;
 
+
 fn main() {
     tauri::Builder::default()
-        .plugin(tauri_plugin_fs_watch::init())
-        .plugin(tauri_plugin_window_state::Builder::default().build())
-        .menu(menu::get_menu())
-        .on_menu_event(|event| {
-            let menu_id = event.menu_item_id();
-            event.window().emit("top_menu_event", menu_id).expect("test");
-            // 自定义菜单的点击事件
-            println!("你刚才点击了:{:?}", event.menu_item_id());
-        })
+        .plugin(tauri_plugin_shell::init())
+        .plugin(tauri_plugin_window::init())
+        .menu(menu::build_menu)
         .invoke_handler(tauri::generate_handler![
-            cmd::get_md_in_folder,
             cmd::create_dir,
             cmd::create_file,
             cmd::save_content,
@@ -28,10 +22,12 @@ fn main() {
             cmd::remove_dir_all,
             cmd::exist_path,
             cmd::show_in_folder,
-            cmd::change_menu_title,
-            cmd::set_menu_selected ,
+            menu::set_menu_selected ,
+            cmd::get_theme,
             cmd::move_to_trash,
-            search::search_text
+            search::search_text,
+            menu::set_menu_text,
+            menu::change_recent_menu
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

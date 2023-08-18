@@ -1,9 +1,9 @@
 import {defineStore} from 'pinia'
 import {ref, watch} from 'vue'
-import path from "path-browserify";
+import {path} from "@tauri-apps/api";
 import {getContentApi, saveContentApi} from "../../api/file";
 import {convertFileSrc} from "@tauri-apps/api/tauri";
-import {confirm, open} from '@tauri-apps/api/dialog';
+import {confirm, open} from '@tauri-apps/plugin-dialog';
 import {useSystemStore} from "./system";
 
 type File = {
@@ -63,7 +63,7 @@ export const useEditorStore = defineStore('editor', {
                     return;
                 }
                 file.filepath = newFilepath;
-                file.basename = path.basename(newFilepath)
+                file.basename = await path.basename(newFilepath)
 
                 const content = toLocalPath(file.content);
                 await saveContentApi(newFilepath, content);

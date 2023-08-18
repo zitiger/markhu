@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import Navigator from "./components/Navigator.vue";
 import Content from "./components/Content.vue";
-import {changeMenuTitle, listenMenuEvent, setMenuSelected} from "./api/file";
+import { listenMenuEvent, set_menu_text, setMenuSelected} from "./api/file";
 import {useDialogStore, useEditorStore, useStructureStore, useSystemStore} from "./stores";
 import {onMounted, reactive, watch} from "vue";
 import Dialogs from "./components/Dialogs.vue";
-import {appWindow} from '@tauri-apps/api/window'
+import { getCurrent } from '@tauri-apps/plugin-window';
 
 import SplitterPanel from "./components/panels/SplitterPanel.vue";
 import {theme} from "ant-design-vue";
@@ -17,18 +17,19 @@ onMounted(async () => {
 
 watch(() => useEditorStore().activeFile, async (newValue, oldCount) => {
   const title = newValue === "" ? "MarkHu" : newValue
-  await appWindow.setTitle(title)
+  await getCurrent().setTitle(title)
 });
 
 
 // 监听当前窗口的关闭请求事件
-appWindow.listen('tauri://close-requested', async (event) => {
+getCurrent().listen('tauri://close-requested', async (event) => {
 
   if (useEditorStore().changedFiles.length > 0) {
     useDialogStore().showSaveAllDialog();
   } else {
-    await appWindow.close();
+    await getCurrent().close();
   }
+
 })
 
 const currentTheme = reactive({algorithm: theme.darkAlgorithm})
@@ -43,7 +44,7 @@ watch(() => useSystemStore().realTheme, (newTheme: string) => {
   }
 }, {immediate: true});
 
-appWindow.onThemeChanged((theme) => {
+getCurrent().onThemeChanged((theme) => {
   useSystemStore().changeTheme('auto')
 })
 </script>
