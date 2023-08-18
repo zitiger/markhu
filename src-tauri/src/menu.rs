@@ -196,7 +196,7 @@ pub fn set_menu_text<R: tauri::Runtime>(window: tauri::Window<R>, menu_id: Strin
 
 pub fn update_text<R: tauri::Runtime>(submenu: &Submenu<R>, text_array: Vec<String>) {
     let mut text_index = 1;
-    for (menu_item) in submenu.items().unwrap().iter().enumerate() {
+    for menu_item in submenu.items().unwrap().iter().enumerate() {
         if text_index >= text_array.len() {
             break;
         }
