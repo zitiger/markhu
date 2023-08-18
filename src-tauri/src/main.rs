@@ -7,8 +7,10 @@ mod search;
 
 fn main() {
     tauri::Builder::default()
+        .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_window::init())
+        .plugin(tauri_plugin_window_state::Builder::default().build())
         .menu(menu::build_menu)
         .invoke_handler(tauri::generate_handler![
             cmd::create_dir,

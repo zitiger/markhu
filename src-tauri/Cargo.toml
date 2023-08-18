@@ -17,6 +17,7 @@ tauri = { version = "2.0.0-alpha", features = [] }
 tauri-plugin-window = "2.0.0-alpha"
 tauri-plugin-shell = "2.0.0-alpha"
 tauri-plugin-window-state = "2.0.0-alpha"
+tauri-plugin-dialog = "2.0.0-alpha"
 
 trash = "3.0"
 

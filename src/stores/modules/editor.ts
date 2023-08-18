@@ -114,7 +114,7 @@ export const useEditorStore = defineStore('editor', {
             } else if (selected === null) {
                 // user cancelled the selection
             } else {
-                await this.read(selected)
+                await this.read(selected.path)
             }
 
         },
