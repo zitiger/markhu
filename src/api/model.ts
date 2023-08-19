@@ -23,3 +23,9 @@ export interface SearchMatch {
     suffix: string;
     row_num: number;
 }
+
+export interface OutlineNode {
+    title: string;
+    key: string;
+    children?: OutlineNode[];
+}

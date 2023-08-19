@@ -26,6 +26,7 @@ import svgIcons from '../assets/vditor-toolbar-svg'
 import {message, Modal, theme} from "ant-design-vue";
 import path from "../api/path";
 import {convertFileSrc} from "@tauri-apps/api/tauri";
+import {useOutlineStore} from "../stores/modules/outline";
 
 watch(() => useSystemStore().realTheme, (newTheme: string) => {
       if (newTheme !== 'light') {
@@ -83,10 +84,13 @@ function init(mode: 'wysiwyg' | 'ir' | 'sv') {
       } else {
         vditor.value!.setTheme("classic")
       }
+
+      useOutlineStore().extract()
     },
     input: async (content) => {
       if (props.path != null) {
         useEditorStore().modify(props.path, content)
+        useOutlineStore().extract();
       }
     },
     upload: {
