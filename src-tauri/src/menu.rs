@@ -2,7 +2,6 @@ use tauri::{AppHandle, Error, Manager, Runtime, Window};
 use tauri::menu::{AboutMetadata, CheckMenuItem, Menu, MenuItem, PredefinedMenuItem, Submenu, SubmenuBuilder};
 
 pub fn build_menu<R: Runtime>(app_handle: &AppHandle<R>) -> std::result::Result<Menu<R>, Error> {
-    let app_menu =  SubmenuBuilder::with_id(app_handle, "app_menu", "&File").build()?;
 
     let about_metadata = AboutMetadata {
         name: Some("MarkHu".to_string()),
@@ -18,6 +17,7 @@ pub fn build_menu<R: Runtime>(app_handle: &AppHandle<R>) -> std::result::Result<
         icon: None,//Some(Icon::new("path/to/icon.png")),
     };
 
+    let app_menu =  SubmenuBuilder::with_id(app_handle, "app_menu", "&File").build()?;
     app_menu.append_items(&[
         &PredefinedMenuItem::about(app_handle, Some("About"), Some(about_metadata)),
         &PredefinedMenuItem::separator(app_handle),
@@ -26,26 +26,19 @@ pub fn build_menu<R: Runtime>(app_handle: &AppHandle<R>) -> std::result::Result<
         &PredefinedMenuItem::hide(app_handle, Some("Hide")),
         &PredefinedMenuItem::hide_others(app_handle, Some("Hide Others")),
         &PredefinedMenuItem::show_all(app_handle, Some("Show All")),
-        &PredefinedMenuItem::separator(app_handle),
-        &PredefinedMenuItem::quit(app_handle, Some("Quit")),
     ]).expect("TODO: panic message");
-
-    let file_menu = SubmenuBuilder::with_id(app_handle, "file_menu", "&File").build()?;
-
 
     let create_file = MenuItem::with_id(app_handle, "create_file", "Create File", true, Some("CmdOrControl+N"));
     let create_folder = MenuItem::with_id(app_handle, "create_folder", "Create Folder", true, Some("Shift+CmdOrControl+N"));
     let open_file = MenuItem::with_id(app_handle, "open_file", "Open File", true, Some("Shift+CmdOrControl+O"));
     let open_folder = MenuItem::with_id(app_handle, "open_folder", "Open Folder", true, Some("CmdOrControl+O"));
-
-
     let save_file = MenuItem::with_id(app_handle, "save_file", "Save File", true, Some("CmdOrControl+S"));
     let save_as = MenuItem::with_id(app_handle, "save_as", "Save As", true, Some("Shift+CmdOrControl+S"));
     let save_all = MenuItem::with_id(app_handle, "save_all", "Save All", true, Some("Alt+CmdOrControl+S"));
     let close_file = MenuItem::with_id(app_handle, "close_file", "Close File", true, Some("CmdOrControl+W"));
     let close_all = MenuItem::with_id(app_handle, "close_all", "Close All", true, Some("Shift+CmdOrControl+W"));
 
-
+    let file_menu = SubmenuBuilder::with_id(app_handle, "file_menu", "&File").build()?;
     file_menu.append_items(&[
         &create_file,
         &create_folder,
