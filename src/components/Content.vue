@@ -2,10 +2,10 @@
   <div class="column3">
     <div class="empty-hint" v-if="editableTabs.length ===0">
       <div v-if="useSystemStore().workspace ===''" @click="useSystemStore().open()">
-        {{ t("content.empty_hint.open_folder") }}
+        <a-empty class="empty_result" :description="t('content.empty_hint.open_folder') "/>
       </div>
       <div v-else>
-        {{ t("content.empty_hint.open_file") }}
+        <a-empty class="empty_result" :description="t('content.empty_hint.open_file') "/>
       </div>
     </div>
     <a-tabs v-else v-model:activeKey="store.activeFile" size="small" hide-add style="height: 100vh">
@@ -129,10 +129,14 @@ const onContextMenuClick = async (filepath: string, menuKey: string) => {
   display: flex;
   justify-content: center; /* 水平居中 */
   align-items: center; /* 垂直居中 */
-  font-size: 30px;
-  color: var(--mh-hint-message-color)
+
 }
 
+.column3 .empty-hint .ant-empty-description{
+  font-size: 20px !important;
+  color: var(--mh-hint-message-color) !important;
+
+}
 .column3 .ant-tabs .ant-tabs-content-holder {
   overflow-y: auto !important;
 }
