@@ -34,16 +34,16 @@ pub fn build_menu<R: Runtime>(app_handle: &AppHandle<R>) -> std::result::Result<
 
 
     let create_file = MenuItem::with_id(app_handle, "create_file", "Create File", true, Some("CmdOrControl+N"));
-    let create_folder = MenuItem::with_id(app_handle, "create_folder", "Create Folder", true, Some("CmdOrControl+R"));
-    let open_file = MenuItem::with_id(app_handle, "open_file", "Open File", true, Some("CmdOrControl+O"));
-    let open_folder = MenuItem::with_id(app_handle, "open_folder", "Open Folder", true, Some("CmdOrControl+D"));
+    let create_folder = MenuItem::with_id(app_handle, "create_folder", "Create Folder", true, Some("Shift+CmdOrControl+N"));
+    let open_file = MenuItem::with_id(app_handle, "open_file", "Open File", true, Some("Shift+CmdOrControl+O"));
+    let open_folder = MenuItem::with_id(app_handle, "open_folder", "Open Folder", true, Some("CmdOrControl+O"));
 
 
     let save_file = MenuItem::with_id(app_handle, "save_file", "Save File", true, Some("CmdOrControl+S"));
-    let save_as = MenuItem::with_id(app_handle, "save_as", "Save As", true, Some("CmdOrControl+Shift+S"));
-    let save_all = MenuItem::with_id(app_handle, "save_all", "Save All", true, Some("CmdOrControl+Option+S"));
+    let save_as = MenuItem::with_id(app_handle, "save_as", "Save As", true, Some("Shift+CmdOrControl+S"));
+    let save_all = MenuItem::with_id(app_handle, "save_all", "Save All", true, Some("Alt+CmdOrControl+S"));
     let close_file = MenuItem::with_id(app_handle, "close_file", "Close File", true, Some("CmdOrControl+W"));
-    let close_all = MenuItem::with_id(app_handle, "close_all", "Close All", true, Some("CmdOrControl+W"));
+    let close_all = MenuItem::with_id(app_handle, "close_all", "Close All", true, Some("Shift+CmdOrControl+W"));
 
 
     file_menu.append_items(&[
