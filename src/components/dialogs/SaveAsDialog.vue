@@ -4,7 +4,7 @@ import {useEditorStore, useStructureStore, useDialogStore, useSystemStore} from 
 import {reactive, ref, watch} from "vue";
 import {message} from "ant-design-vue";
 import {useI18n} from "vue-i18n";
-import path from "path-browserify";
+import path from "../../api/path";
 
 const {t} = useI18n();
 const formRef = ref();

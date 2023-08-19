@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import path from "path-browserify"
+import path from "../../api/path";
 
 import {
   FolderAddOutlined,

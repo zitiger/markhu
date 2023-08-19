@@ -11,10 +11,8 @@ import {
 } from "../../api/file";
 import {FileInfo, StructureNode} from "../../api/model";
 import {useSystemStore} from "./system";
-import path from "path-browserify";
-import {useDialogStore} from "./dialog";
 import {useEditorStore} from "./editor";
-
+import path from "../../api/path";
 
 export const useStructureStore = defineStore('structure', {
     state: () => {

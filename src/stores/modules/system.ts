@@ -2,9 +2,9 @@ import {defineStore} from 'pinia'
 import {ref} from 'vue'
 import {open} from '@tauri-apps/plugin-dialog';
 import {useStructureStore} from "./structure";
-import path from 'path-browserify';
 import i18n from "../../locales";
 import {getTheme} from "../../api/file";
+import path from "../../api/path";
 
 export const useSystemStore = defineStore('system', {
     persist: true,

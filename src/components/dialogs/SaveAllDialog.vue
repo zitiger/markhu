@@ -2,7 +2,7 @@
 import {useEditorStore, useStructureStore, useDialogStore, useSystemStore} from '../../stores'
 import {getCurrent} from '@tauri-apps/plugin-window'
 import {useI18n} from "vue-i18n";
-import path from "path-browserify";
+import path from "../../api/path";
 
 const {t} = useI18n();
 const dialogStore = useDialogStore();

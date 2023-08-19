@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import {useEditorStore, useStructureStore, useDialogStore, useSystemStore} from '../../stores'
 import {useI18n} from "vue-i18n";
-import path from "path-browserify";
+import path from "../../api/path";
 import {reactive, ref, watch} from "vue";
 
 const {t} = useI18n();

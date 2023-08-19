@@ -24,7 +24,7 @@ const vditor = ref<Vditor | null>(null);
 
 import svgIcons from '../assets/vditor-toolbar-svg'
 import {message, Modal, theme} from "ant-design-vue";
-import path from "path-browserify";
+import path from "../api/path";
 import {convertFileSrc} from "@tauri-apps/api/tauri";
 
 watch(() => useSystemStore().realTheme, (newTheme: string) => {

@@ -5,7 +5,7 @@ import {StructureNode, SearchResult, SearchMatch} from "../../api/model";
 import {useI18n} from "vue-i18n";
 import ResourcePanel from "../panels/ResourcePanel.vue";
 import {searchTextApi} from "../../api/file";
-import path from "path-browserify";
+import path from "../../api/path";
 
 const {t} = useI18n();
 const key = ref<string>('');
