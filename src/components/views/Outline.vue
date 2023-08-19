@@ -1,9 +1,9 @@
 <template>
   <div v-html="desc"></div>
-  <div v-if="useOutlineStore().outlines.length===0">
+  <div v-if="outlines.length===0">
     <a-empty class="empty_result" :description="t('outline.empty_hint')"/>
   </div>
-  <a-tree v-else :tree-data="useOutlineStore().outlines" block-node @select="scrollTo">
+  <a-tree v-else :tree-data="outlines" block-node @select="scrollTo">
   </a-tree>
 
 </template>
@@ -16,7 +16,7 @@ const {t} = useI18n();
 
 const desc = ref('')
 
-// const treeData = ref<OutlineNode[]>([]);
+const outlines = useOutlineStore().outlines;
 
 function scrollTo(key: string) {
   document.getElementById(key)?.scrollIntoView({behavior: 'smooth'})
