@@ -8,7 +8,8 @@
     "edit_menu": ["Edit","Undo","Redo","-","Cut","Copy","Paste","Select All"],
     "theme_menu": ["Theme","Auto", "Dark","Light"],
     "locale_menu": ["Locale"],
-    "mode_menu": ["Mode","WYSIWYG", "Instant Rendering","Split View","Toggle Full Screen"]
+    "mode_menu": ["Mode","WYSIWYG", "Instant Rendering","Split View","Toggle Full Screen"],
+    "window_menu": ["Window","Minimize", "Zoom/Maximize","Fullscreen"]
   },
   "dialog": {
     "button_ok": "Ok",

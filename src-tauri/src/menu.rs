@@ -124,6 +124,13 @@ pub fn build_menu<R: Runtime>(app_handle: &AppHandle<R>) -> std::result::Result<
         &mode_fullscreen
     ]).expect("TODO: panic message");
 
+    let window_menu = SubmenuBuilder::with_id(app_handle, "window_menu", "&Window").build()?;
+    window_menu.append_items(&[
+        &PredefinedMenuItem::minimize(app_handle, Some("Minimize")),
+        &PredefinedMenuItem::maximize(app_handle, Some("Zoom")),
+        &PredefinedMenuItem::fullscreen(app_handle, Some("Fullscreen")),
+    ]).expect("TODO: panic message");
+
     let menu = Menu::with_items(
         app_handle,
         &[
@@ -132,7 +139,8 @@ pub fn build_menu<R: Runtime>(app_handle: &AppHandle<R>) -> std::result::Result<
             &edit_menu,
             &theme_menu,
             &locale_menu,
-            &mode_menu
+            &mode_menu,
+            &window_menu
         ])?;
 
 
