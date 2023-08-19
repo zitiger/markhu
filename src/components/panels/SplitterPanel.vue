@@ -2,9 +2,9 @@
   <div class="container">
     <div class="left-column" :style="{ flex: `${leftFlex}` }">
       <slot name="left"></slot>
-      <div class="drag-handle" @mousedown="startDrag"></div>
     </div>
     <div class="right-column">
+      <div class="drag-handle" @mousedown="startDrag"></div>
       <slot name="right"></slot>
     </div>
   </div>
@@ -55,12 +55,12 @@ onUnmounted(() => {
 
 .left-column {
   overflow: hidden;
-  position: relative;
   user-select: none; /* 禁止文字选择 */
   -webkit-user-select: none;
 }
 
 .right-column {
+  position: relative;
   overflow-x: hidden;
   width: 100%;
 }
@@ -68,7 +68,7 @@ onUnmounted(() => {
 .drag-handle {
   position: absolute;
   top: 0;
-  right: 0;
+  left: 0;
   bottom: 0;
   width: 1px;
   cursor: col-resize;
