@@ -10,7 +10,7 @@
       <div class="title">
         <slot name="title"></slot>
       </div>
-      <div class="buttons" @click.stop="()=>{}">
+      <div class="buttons">
         <slot name="buttons"></slot>
       </div>
     </div>
@@ -52,6 +52,10 @@ const showContent = ref(true)
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.toolbar .buttons {
+  white-space: nowrap;
 }
 
 .toolbar .buttons :deep(span) {
