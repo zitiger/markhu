@@ -79,7 +79,8 @@
     }
   },
   "search": {
-    "keyword_placeholder": "输入关键词"
+    "keyword_placeholder": "输入关键词",
+    "empty_result": "没有找到"
   },
   "content": {
     "empty_hint": {

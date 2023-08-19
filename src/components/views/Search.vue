@@ -16,19 +16,27 @@ function click(path: string, match: SearchMatch) {
 }
 
 async function change() {
-  data.length = 0
 
   if (key.value.length > 0) {
     let res = await searchTextApi(useSystemStore().workspace, key.value, 5)
+    data.length = 0
     data.push(...res)
+  }else{
+    data.length = 0
   }
 }
 </script>
 
 <template>
-  <a-input v-model:value="key" :placeholder="t('search.keyword_placeholder')" size="small" @change="change"/>
+  <a-input v-model:value="key" :placeholder="t('search.keyword_placeholder')" @change="change" allow-clear/>
   <div class="search-container">
-    <resource-panel v-for="file in data">
+    <div v-if="data.length===0&& key.length>0">
+      <a-empty class="empty_result" :description="t('search.empty_result')"/>
+    </div>
+    <div v-else-if=" key.length===0">
+      <a-empty class="empty_result" :description="t('search.keyword_placeholder')"/>
+    </div>
+    <resource-panel v-for="file in data" v-if="data.length!==0">
       <template v-slot:title>
         {{ path.basename(file.filepath) }}
       </template>
@@ -46,6 +54,7 @@ async function change() {
         </ul>
       </template>
     </resource-panel>
+
   </div>
 </template>
 
@@ -54,6 +63,10 @@ async function change() {
   overflow-y: auto;
   height: 100%;
   padding-bottom: 20px;
+}
+
+.empty_result {
+  margin-top:50px;
 }
 
 ul {
