@@ -82,7 +82,9 @@
     "keyword_placeholder": "输入关键词",
     "empty_result": "没有找到"
   },
-  "content": {
+  "outline":{
+    "empty_hint": "文档中没有大纲"
+  },"content": {
     "empty_hint": {
       "open_folder": "点击这里打开一个文件夹",
       "open_file": "点击左侧资源栏打开一个文件"

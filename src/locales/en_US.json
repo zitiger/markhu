@@ -82,6 +82,9 @@
     "keyword_placeholder": "Please enter keyword",
     "empty_result": "No Result Found"
   },
+  "outline":{
+    "empty_hint": "No Outline in Document"
+  },
   "content": {
     "empty_hint": {
       "open_folder": "Click to Open Folder",

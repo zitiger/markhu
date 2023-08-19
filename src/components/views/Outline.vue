@@ -1,10 +1,16 @@
 <template>
   <div v-html="desc"></div>
-  <a-tree :tree-data="treeData" block-node @select="scrollTo">
+  <div v-if="treeData.length===0">
+    <a-empty class="empty_result" :description="t('outline.empty_hint')"/>
+  </div>
+  <a-tree v-else :tree-data="treeData" block-node @select="scrollTo">
   </a-tree>
+
 </template>
 <script lang="ts" setup>
 import {ref} from "vue";
+import {useI18n} from "vue-i18n";
+const {t} = useI18n();
 
 const desc = ref('')
 const treeData = ref<OutlineNode[]>([]);
