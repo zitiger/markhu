@@ -142,8 +142,6 @@ pub fn build_menu<R: Runtime>(app_handle: &AppHandle<R>) -> std::result::Result<
         if app.get_focused_window().is_some() {
             app.get_focused_window().unwrap().emit("top_menu_event", menu_id).expect("test");
         }
-        // 自定义菜单的点击事件
-        println!("你刚才点击了:{:?}", menu_id);
     });
 
     Ok(menu)
@@ -157,8 +155,6 @@ pub fn set_menu_selected(window: Window, menu_id: String, selected: bool) {
     for submenu in submenus {
         let item = submenu.as_submenu().unwrap().get(&menu_id);
         if item.is_some() {
-            println!("item{:?},{:?},{:?}", submenu.id(), menu_id, selected);
-
             if item.unwrap().as_check_menuitem().is_some() {
                 submenu.as_submenu().unwrap().get(&menu_id).unwrap().as_check_menuitem().unwrap().set_checked(selected).expect("TODO: panic message");
             }
@@ -180,15 +176,10 @@ pub fn set_menu_text<R: Runtime>(window: Window<R>, menu_id: String, text_array:
     }
 
     if submenu_option.clone().unwrap().as_submenu().is_some() {
-        println!("3");
-
         let menu_item_kind = submenu_option.unwrap();
         let submenu = menu_item_kind.as_submenu().unwrap();
 
         submenu.set_text(text_array.get(0).unwrap()).expect("TODO: panic message");
-
-        println!("lll==={:?}", text_array.get(0).unwrap());
-
         update_text(submenu, text_array);
     }
 }
@@ -224,7 +215,6 @@ pub fn update_text<R: Runtime>(submenu: &Submenu<R>, text_array: Vec<String>) {
 
 #[tauri::command]
 pub fn change_recent_menu<R: Runtime>(window: Window<R>, filepath_array: Vec<String>) {
-    println!("change_recent_menu");
     let menu_bar = window.app_handle().menu().unwrap();
 
     let submenu_file = menu_bar.get("file_menu").unwrap();

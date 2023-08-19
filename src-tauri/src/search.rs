@@ -250,6 +250,5 @@ fn search_keyword_in_file(path: &str, keyword: &str, pre_length: usize, suf_leng
 
 #[tauri::command]
 pub fn search_text(path: String, keyword: String, length: usize) -> Vec<SearchResult> {
-    println!("{:?},{:?},{:?}", path, keyword, length);
     search_keyword_in_file(path.as_str(), keyword.as_str(), length, length * 2)
 }
