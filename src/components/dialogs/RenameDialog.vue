@@ -49,7 +49,8 @@ async function doRename() {
 
 <template>
   <a-modal v-model:open="useDialogStore().isRenameDialogVisible" :title="t('dialog.rename.title')" @ok="doRename()">
-    <a-input v-model:value="basename"/>
+    <a-input v-model:value="basename" :addon-after="'.'+extname" v-if="extname.length>0"/>
+    <a-input v-model:value="basename" v-else/>
   </a-modal>
 </template>
 <style>
