@@ -108,13 +108,14 @@ pub fn build_menu<R: Runtime>(app_handle: &AppHandle<R>) -> std::result::Result<
     let mode_wysiwyg = CheckMenuItem::with_id(app_handle, "mode_wysiwyg", "WYSIWYG", true, false, None);//.accelerator("CmdOrControl+O");
     let mode_ir = CheckMenuItem::with_id(app_handle, "mode_ir", "Instant Rendering", true, false, None);//.accelerator("CmdOrControl+O");
     let mode_sv = CheckMenuItem::with_id(app_handle, "mode_sv", "Split View", true, false, None);//.accelerator("CmdOrControl+O");
-    let mode_fullscreen = CheckMenuItem::with_id(app_handle, "mode_fullscreen", "Toggle Full Screen", true, false, None);//.accelerator("CmdOrControl+O");
+    let mode_zen = CheckMenuItem::with_id(app_handle, "mode_zen", "Toggle Zen Mod", true, false, None);//.accelerator("CmdOrControl+O");
     let mode_menu = SubmenuBuilder::with_id(app_handle, "mode_menu", "&Mode").build()?;
     mode_menu.append_items(&[
         &mode_wysiwyg,
         &mode_ir,
         &mode_sv,
-        &mode_fullscreen
+        &PredefinedMenuItem::separator(app_handle),
+        &mode_zen
     ]).expect("TODO: panic message");
 
     let window_menu = SubmenuBuilder::with_id(app_handle, "window_menu", "&Window").build()?;

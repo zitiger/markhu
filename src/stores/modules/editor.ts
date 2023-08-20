@@ -18,9 +18,9 @@ export const useEditorStore = defineStore('editor', {
         const activeFile = ref<string>('')
         const changedFiles = ref<string[]>([])
         const editMode = ref<'wysiwyg' | 'ir' | 'sv'>('wysiwyg')
-        const fullscreenMode = ref<boolean>(false)
+        const zenMode = ref<boolean>(false)
 
-        return {fileCache, activeFile, changedFiles, editMode, fullscreenMode}
+        return {fileCache, activeFile, changedFiles, editMode, zenMode}
     },
     actions: {
         isModified(path: string) {
@@ -206,9 +206,9 @@ export const useEditorStore = defineStore('editor', {
             console.log("active", this.activeFile);
         },
 
-        toggleFullscreenMode() {
+        toggleZenMode() {
             if (this.activeFile != null && this.activeFile.length > 0) {
-                this.fullscreenMode = !this.fullscreenMode
+                this.zenMode = !this.zenMode
             }
         }
     }

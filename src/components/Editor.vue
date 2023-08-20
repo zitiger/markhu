@@ -43,7 +43,7 @@ watch(() => useEditorStore().editMode, (newMode: 'wysiwyg' | 'ir' | 'sv') => {
     }
 );
 
-watch(() => useEditorStore().fullscreenMode, (newMode: boolean) => {
+watch(() => useEditorStore().zenMode, (newMode: boolean) => {
       if (newMode) {
         document.querySelector("#" + editorId)?.classList.add("vditor--fullscreen")
       } else {

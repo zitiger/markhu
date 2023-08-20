@@ -23,7 +23,7 @@ export async function initMenu() {
         'mode_wysiwyg': () => useEditorStore().editMode = 'wysiwyg',
         'mode_ir': () => useEditorStore().editMode = 'ir',
         'mode_sv': () => useEditorStore().editMode = 'sv',
-        'mode_fullscreen': () => useEditorStore().toggleFullscreenMode(),
+        'mode_zen': () => useEditorStore().toggleZenMode(),
         'open_recent_0': () => useEditorStore().readHistory(0),
         'open_recent_1': () => useEditorStore().readHistory(1),
         'open_recent_2': () => useEditorStore().readHistory(2),
@@ -61,8 +61,8 @@ export async function initMenu() {
         await setMenuSelected("mode_" + newValue, true)
     }, {immediate: true});
 
-    watch(() => useEditorStore().fullscreenMode, async (newValue, oldValue) => {
-        await setMenuSelected("mode_fullscreen", newValue)
+    watch(() => useEditorStore().zenMode, async (newValue, oldValue) => {
+        await setMenuSelected("mode_zen", newValue)
     }, {immediate: true});
 
     watch(() => useSystemStore().history, async (newValue, oldValue) => {
