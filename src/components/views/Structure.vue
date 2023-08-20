@@ -114,9 +114,9 @@ function reload() {
     </template>
 
     <template v-slot:buttons>
-      <IconFont type="icon-create-dir" @click="dialogStore.showCreateDirDialog()"/>
-      <IconFont type="icon-create-file" @click="dialogStore.showCreateFileDialog()"/>
-      <IconFont type="icon-refresh" @click="reload()"/>
+      <IconFont type="icon-create-dir" @click.stop="dialogStore.showCreateDirDialog()"/>
+      <IconFont type="icon-create-file" @click.stop="dialogStore.showCreateFileDialog()"/>
+      <IconFont type="icon-refresh" @click.stop="reload()"/>
     </template>
     <template v-slot:content>
       <a-directory-tree :showIcon="false" :tree-data="treeData" @select="handleNodeClick" class="file-tree">
