@@ -73,6 +73,7 @@
       "context_menu": {
         "create_file": "新建文件",
         "create_folder": "新建文件夹",
+        "move": "移动",
         "rename": "重命名",
         "remove": "删除",
         "show_in_folder": "在文件夹中显示"

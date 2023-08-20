@@ -73,6 +73,7 @@
       "context_menu": {
         "create_file": "New File",
         "create_folder": "New Folder",
+        "move": "Move",
         "rename": "Rename",
         "remove": "Remove",
         "show_in_folder": "Show in Folder"

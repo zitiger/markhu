@@ -129,7 +129,7 @@ function reload() {
                 <a-menu-item key="createFile">{{t('resource.structure.context_menu.create_file')}}</a-menu-item>
                 <a-menu-item key="createDir">{{t('resource.structure.context_menu.create_folder')}}</a-menu-item>
                 <a-menu-divider></a-menu-divider>
-                <a-menu-item key="move">Move</a-menu-item>
+                <a-menu-item key="move">{{t('resource.structure.context_menu.move')}}</a-menu-item>
                 <a-menu-divider></a-menu-divider>
                 <a-menu-item key="rename">{{t('resource.structure.context_menu.rename')}}</a-menu-item>
                 <a-menu-item key="remove">{{t('resource.structure.context_menu.remove')}}</a-menu-item>
