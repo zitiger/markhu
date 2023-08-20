@@ -1,63 +1,6 @@
-use std::str::Split;
 use tauri::{AboutMetadata, CustomMenuItem, Menu, MenuItem, Submenu};
-use tauri::api::os::locale;
-use std::fs;
-use serde_json::Value;
 
-fn get_locale() -> String {
-    // 获取系统的locale
-    let system_locale = match locale() {
-        Some(locale) => locale,
-        None => "en_US".to_string(),
-    };
-
-    // 用"-"分割语言标签
-    let mut parts: Split<&str> = system_locale.split("-");
-    // 获取第一部分和最后一部分
-    let first = parts.next().unwrap_or("");
-    let last = parts.last().unwrap_or("");
-    // 用_合并第一部分和最后一部分
-    let result = format!("{}_{}", first, last);
-
-    // 返回结果
-    result
-}
-
-fn get_menu_title(locale:  &str, menu_key: &str) -> String {
-    // 从文件中读取json字符串
-    let json_str = fs::read_to_string("src/locale.json").unwrap();
-    // 将json字符串解析成Value类型
-    let json_value: Value = serde_json::from_str(&json_str).unwrap();
-    // 将Value类型转换成HashMap<String, Value>类型
-    let json_map = json_value.as_object().unwrap();
-
-    // 如果找不到对应的语言，就使用英语的
-    let fallback = json_map.get("us_EN");
-    let fallback_map = fallback.unwrap().as_object().unwrap().clone();
-
-    let lang_map = match json_map.get(locale) {
-        Some(s) => s.as_object().unwrap().clone(),
-        None => fallback_map.clone(),
-    };
-
-    let default_title = Value::String(menu_key.to_string());
-    let title = match lang_map.get(menu_key) {
-        // 如果返回Some，就获取其中的字符串
-        Some(title) => title,
-        // 如果返回None，就打印一个默认信息
-        None => fallback_map.get(menu_key).unwrap_or(&default_title),
-    };
-
-    title.as_str().unwrap_or("").to_string()
-}
-
-// 自定义菜单栏
 pub fn get_menu() -> Menu {
-    // Bind the return value of get_locale() to a variable
-    let locale_string = get_locale();
-    // Call the .as_str() method on the variable
-    let locale = locale_string.as_str();
-
     let authors = vec!["zitiger".to_string()];
     let mut aboutmetadata = AboutMetadata::new();
     aboutmetadata = aboutmetadata.version("0.1.0");
@@ -98,7 +41,7 @@ pub fn get_menu() -> Menu {
     let clear_history = CustomMenuItem::new("clear_history", "Clear History");//.accelerator("CmdOrControl+O");
     open_recent_menu = open_recent_menu.add_item(clear_history);
 
-    let open_recent = Submenu::new(get_menu_title(locale, "open_recent_files"), open_recent_menu);
+    let open_recent = Submenu::new("Open Recent", open_recent_menu);
 
     let file_menu = Menu::new()
         .add_item(open_file)
@@ -160,10 +103,10 @@ pub fn get_menu() -> Menu {
     // add all our childs to the menu (order is how they'll appear)
     Menu::new()
         .add_submenu(Submenu::new("MarkHu", about_menu)) // 第一个菜单项代表当前应用，这里的title字段无效
-        .add_submenu(Submenu::new(get_menu_title(locale, "file"), file_menu))
-        .add_submenu(Submenu::new(get_menu_title(locale, "edit"), edit_menu))
-        .add_submenu(Submenu::new(get_menu_title(locale, "theme"), theme_menu))
-        .add_submenu(Submenu::new(get_menu_title(locale, "language"), locale_menu))
-        .add_submenu(Submenu::new(get_menu_title(locale, "editor"), editor_menu))
+        .add_submenu(Submenu::new("File", file_menu))
+        .add_submenu(Submenu::new("Edit", edit_menu))
+        .add_submenu(Submenu::new("Theme", theme_menu))
+        .add_submenu(Submenu::new("Language", locale_menu))
+        .add_submenu(Submenu::new("Editor", editor_menu))
     // .add_submenu(Submenu::new("Window", window_menu))
 }
