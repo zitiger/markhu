@@ -5,6 +5,7 @@ import {getContentApi, openFileApi, saveContentApi} from "../../api/file";
 import {convertFileSrc} from "@tauri-apps/api/tauri";
 import {confirm, open} from '@tauri-apps/plugin-dialog';
 import {useSystemStore} from "./system";
+import {message} from 'ant-design-vue';
 
 type File = {
     basename: string
@@ -16,11 +17,12 @@ export const useEditorStore = defineStore('editor', {
     state: () => {
         const fileCache = ref<File[]>([])
         const activeFile = ref<string>('')
+        const closingFile = ref<string>('')
         const changedFiles = ref<string[]>([])
         const editMode = ref<'wysiwyg' | 'ir' | 'sv'>('wysiwyg')
         const zenMode = ref<boolean>(false)
 
-        return {fileCache, activeFile, changedFiles, editMode, zenMode}
+        return {fileCache, activeFile, closingFile, changedFiles, editMode, zenMode}
     },
     actions: {
         isModified(path: string) {
@@ -195,6 +197,12 @@ export const useEditorStore = defineStore('editor', {
                         this.activeFile = this.fileCache[index - 1].filepath
                     }
                 }
+            }
+
+
+            let changedIndex = this.changedFiles.indexOf(filepath);
+            if(changedIndex>-1){
+                this.changedFiles.splice(changedIndex, 1);
             }
 
             console.log("active", this.activeFile);

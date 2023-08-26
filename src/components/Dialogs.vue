@@ -6,6 +6,7 @@ import SaveAllDialog from "./dialogs/SaveAllDialog.vue";
 import MoveDialog from "./dialogs/MoveDialog.vue";
 import HistoryFileDialog from "./dialogs/HistoryFileDialog.vue";
 import SaveAsDialog from "./dialogs/SaveAsDialog.vue";
+import SaveConfirmDialog from "./dialogs/SaveConfirmDialog.vue";
 </script>
 
 <template>
@@ -13,6 +14,7 @@ import SaveAsDialog from "./dialogs/SaveAsDialog.vue";
   <create-file-dialog></create-file-dialog>
   <save-as-dialog></save-as-dialog>
   <save-all-dialog></save-all-dialog>
+  <save-confirm-dialog></save-confirm-dialog>
   <rename-dialog></rename-dialog>
   <move-dialog></move-dialog>
   <history-file-dialog></history-file-dialog>

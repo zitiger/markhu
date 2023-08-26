@@ -5,6 +5,7 @@ export const useDialogStore = defineStore('dialog', {
     state: () => {
 
         const isCreateFileDialogVisible = ref<boolean>(false) //
+        const isSaveConfirmDialogVisible = ref<boolean>(false) //
         const isSaveAsDialogVisible = ref<boolean>(false) //
         const isCreateDirDialogVisible = ref<boolean>(false) //
         const isRenameDialogVisible = ref<boolean>(false) //
@@ -14,6 +15,7 @@ export const useDialogStore = defineStore('dialog', {
 
         return {
             isCreateFileDialogVisible,
+            isSaveConfirmDialogVisible,
             isSaveAsDialogVisible,
             isCreateDirDialogVisible,
             isSaveAllDialogVisible,
@@ -30,6 +32,14 @@ export const useDialogStore = defineStore('dialog', {
         hideCreateFileDialog() {
             console.log("hideCreateFileDialog");
             this.isCreateFileDialogVisible = false;
+        },
+        showSaveConfirmDialog() {
+            console.log("showSaveConfirmDialog");
+            this.isSaveConfirmDialogVisible = true;
+        },
+        hideSaveConfirmDialog() {
+            console.log("hideSaveConfirmDialog");
+            this.isSaveConfirmDialogVisible = false;
         },
         showSaveAsDialog() {
             console.log("showSaveAsDialog");

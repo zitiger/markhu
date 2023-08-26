@@ -40,14 +40,6 @@
     </a-tabs>
   </div>
 
-  <a-modal v-model:open="showConfirm" :title="t('dialog.save_file.title')">
-    <template #footer>
-      <a-button key="back" @click="dispose" style="float: left">{{t('dialog.button_not_save') }}</a-button>
-      <a-button key="back" @click="cancel">{{t('dialog.button_cancel') }}</a-button>
-      <a-button key="submit" type="primary" @click="save">{{t('dialog.button_save') }}</a-button>
-    </template>
-    <p>{{t("dialog.save_file.content")}}</p>
-  </a-modal>
 
 </template>
 
@@ -77,30 +69,17 @@ function shortenFileName(fileName: string): string {
   return fileName;
 }
 
-const removeTab = (event: MouseEvent, targetName: string) => {
-  console.log("event", event)
-  if (store.isModified(targetName)) {
-    closingFilepath.value = targetName
-    showConfirm.value = true;
+const removeTab = (event: MouseEvent, filepath: string) => {
+  console.log("event", store.isModified(filepath))
+
+  if (store.isModified(filepath)) {
+    useEditorStore().closingFile = filepath;
+    useDialogStore().showSaveConfirmDialog();
   } else {
-    store.close(targetName)
+    store.close(filepath)
   }
 }
 
-function dispose() {
-  store.close(closingFilepath.value)
-  showConfirm.value = false;
-}
-
-function cancel() {
-  showConfirm.value = false;
-}
-
-async function save() {
-  await store.save(closingFilepath.value)
-  store.close(closingFilepath.value)
-  showConfirm.value = false;
-}
 
 const onContextMenuClick = async (filepath: string, menuKey: string) => {
   console.log(menuKey)
@@ -132,11 +111,12 @@ const onContextMenuClick = async (filepath: string, menuKey: string) => {
 
 }
 
-.column3 .empty-hint .ant-empty-description{
+.column3 .empty-hint .ant-empty-description {
   font-size: 20px !important;
   color: var(--mh-hint-message-color) !important;
 
 }
+
 .column3 .ant-tabs .ant-tabs-content-holder {
   overflow-y: auto !important;
 }

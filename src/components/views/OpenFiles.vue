@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {useEditorStore} from '../../stores'
+import {useDialogStore, useEditorStore} from '../../stores'
 import {useStructureStore} from "../../stores";
 import ResourcePanel from "../panels/ResourcePanel.vue";
 import {useI18n} from "vue-i18n";
@@ -16,7 +16,12 @@ function focusTab(filepath: string) {
 }
 
 function removeTab(filepath: string) {
-  useEditorStore().close(filepath)
+  if (useEditorStore().isModified(filepath)) {
+    useEditorStore().closingFile = filepath;
+    useDialogStore().showSaveConfirmDialog();
+  } else {
+    useEditorStore().close(filepath)
+  }
 }
 
 function saveAll() {
