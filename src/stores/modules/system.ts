@@ -3,7 +3,7 @@ import {ref} from 'vue'
 import {open} from '@tauri-apps/plugin-dialog';
 import {useStructureStore} from "./structure";
 import i18n from "../../locales";
-import {getTheme} from "../../api/file";
+import {getTheme, openFolderApi} from "../../api/file";
 import path from "../../api/path";
 
 export const useSystemStore = defineStore('system', {
@@ -23,15 +23,9 @@ export const useSystemStore = defineStore('system', {
     },
     actions: {
         async open() {
-            const selected = await open({
-                directory: true,
-            });
-            if (Array.isArray(selected)) {
-                // user selected multiple directories
-            } else if (selected === null) {
-                // user cancelled the selection
-            } else {
-                this.workspace = selected;
+            const folder = await openFolderApi();
+            if(folder.length>0){
+                this.workspace = folder;
                 await useStructureStore().load();
             }
         },

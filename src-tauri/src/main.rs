@@ -13,6 +13,8 @@ fn main() {
         .plugin(tauri_plugin_window_state::Builder::default().build())
         .menu(menu::build_menu)
         .invoke_handler(tauri::generate_handler![
+            cmd::open_folder,
+            cmd::open_file,
             cmd::create_dir,
             cmd::create_file,
             cmd::save_content,

@@ -9,6 +9,7 @@ use serde::{Deserialize, Serialize};
 use std::{fs::metadata, path::PathBuf};
 // use std::path::PathBuf;
 use std::process::Command;
+use rfd::{FileDialog};
 #[cfg(target_os = "linux")]
 use fork::{daemon, Fork}; // dep: fork = "0.1"
 
@@ -21,6 +22,22 @@ pub struct FileInfo {
     count: u64,
     file_path: String,
     children: Option<Vec<FileInfo>>, // 用于存储子项，如果是文件则为None
+}
+
+#[command]
+pub fn open_folder() -> String {
+    let folder = FileDialog::new().pick_folder();
+    let folder = folder.unwrap_or_default();
+    String::from(folder.to_str().unwrap_or_default())
+}
+
+#[command]
+pub fn open_file() -> String {
+    let folder = FileDialog::new()
+        .add_filter("markdown", &["md"])
+        .pick_file();
+    let folder = folder.unwrap_or_default();
+    String::from(folder.to_str().unwrap_or_default())
 }
 
 #[command]

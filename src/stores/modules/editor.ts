@@ -1,7 +1,7 @@
 import {defineStore} from 'pinia'
 import {ref, watch} from 'vue'
 import {path} from "@tauri-apps/api";
-import {getContentApi, saveContentApi} from "../../api/file";
+import {getContentApi, openFileApi, saveContentApi} from "../../api/file";
 import {convertFileSrc} from "@tauri-apps/api/tauri";
 import {confirm, open} from '@tauri-apps/plugin-dialog';
 import {useSystemStore} from "./system";
@@ -103,20 +103,14 @@ export const useEditorStore = defineStore('editor', {
         },
 
         async open() {
-            const selected = await open({
-                filters: [{
-                    name: 'Markdown',
-                    extensions: ['md']
-                }]
-            });
-            if (Array.isArray(selected)) {
-                // user selected multiple files
-            } else if (selected === null) {
-                // user cancelled the selection
-            } else {
-                await this.read(selected.path)
+            try {
+                const filepath = await openFileApi();
+                if (filepath.length > 0) {
+                    await this.read(filepath)
+                }
+            } catch (e:any) {
+                message.error(e)
             }
-
         },
         async read(filepath: string) {
             let index = this.find(filepath);

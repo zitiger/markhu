@@ -16,6 +16,22 @@ export interface RustFileInfo {
 // 定义一个类型别名来描述事件映射对象
 type EventMap = Record<string, () => void>;
 
+export async function openFolderApi( ): Promise<string> {
+    try {
+        return  await invoke('open_folder') as string;
+    } catch (e) {
+        return Promise.reject(e);
+    }
+}
+
+export async function openFileApi( ): Promise<string> {
+    try {
+        return await invoke('open_file') as string;
+    } catch (e) {
+        return Promise.reject(e);
+    }
+}
+
 export async function createDirApi(path: string): Promise<string> {
     try {
         let res = await invoke('create_dir', {
