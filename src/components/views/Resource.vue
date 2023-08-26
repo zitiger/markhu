@@ -14,10 +14,10 @@
   padding: 10px 0;
 }
 
-.resource-container>div:not(:first-child) {
+.resource-container > div:not(:first-child) {
   border-top: 1px solid var(--mh-divider-color);
   margin-top: 4px;
-  padding-top:2px;
+  padding-top: 2px;
 }
 </style>
 <script setup lang="ts">

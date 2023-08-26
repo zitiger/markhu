@@ -10,14 +10,16 @@ export interface FileInfo {
 export interface StructureNode {
     title: string
     path: string
-    key:string
+    key: string
     folder: boolean
     children?: StructureNode[]
 }
+
 export interface SearchResult {
     filepath: string;
     matches: SearchMatch[];
 }
+
 export interface SearchMatch {
     prefix: string;
     suffix: string;

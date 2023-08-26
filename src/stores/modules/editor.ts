@@ -1,9 +1,9 @@
 import {defineStore} from 'pinia'
-import {ref, watch} from 'vue'
+import {ref} from 'vue'
 import {path} from "@tauri-apps/api";
 import {getContentApi, openFileApi, saveContentApi} from "../../api/file";
 import {convertFileSrc} from "@tauri-apps/api/tauri";
-import {confirm, open} from '@tauri-apps/plugin-dialog';
+import {confirm} from '@tauri-apps/plugin-dialog';
 import {useSystemStore} from "./system";
 import {message} from 'ant-design-vue';
 
@@ -110,7 +110,7 @@ export const useEditorStore = defineStore('editor', {
                 if (filepath.length > 0) {
                     await this.read(filepath)
                 }
-            } catch (e:any) {
+            } catch (e: any) {
                 message.error(e)
             }
         },
@@ -201,7 +201,7 @@ export const useEditorStore = defineStore('editor', {
 
 
             let changedIndex = this.changedFiles.indexOf(filepath);
-            if(changedIndex>-1){
+            if (changedIndex > -1) {
                 this.changedFiles.splice(changedIndex, 1);
             }
 

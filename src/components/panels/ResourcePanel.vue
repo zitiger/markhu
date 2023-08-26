@@ -15,9 +15,9 @@
       </div>
     </div>
     <transition name="fade">
-    <div class="content" v-show="showContent">
-      <slot name="content"></slot>
-    </div>
+      <div class="content" v-show="showContent">
+        <slot name="content"></slot>
+      </div>
     </transition>
   </div>
 </template>

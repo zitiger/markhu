@@ -22,11 +22,11 @@
 
             <template #overlay>
               <a-menu @click="(event:any) => onContextMenuClick(tab.filepath, event.key)">
-                <a-menu-item key="closeFile">{{t('content.context_menu.close_file')}}</a-menu-item>
-                <a-menu-item key="closeOthers">{{t('content.context_menu.close_others')}}</a-menu-item>
-                <a-menu-item key="closeAll">{{t('content.context_menu.close_all')}}</a-menu-item>
+                <a-menu-item key="closeFile">{{ t('content.context_menu.close_file') }}</a-menu-item>
+                <a-menu-item key="closeOthers">{{ t('content.context_menu.close_others') }}</a-menu-item>
+                <a-menu-item key="closeAll">{{ t('content.context_menu.close_all') }}</a-menu-item>
                 <a-menu-divider></a-menu-divider>
-                <a-menu-item key="showInFolder">{{t('content.context_menu.show_in_folder')}}</a-menu-item>
+                <a-menu-item key="showInFolder">{{ t('content.context_menu.show_in_folder') }}</a-menu-item>
               </a-menu>
             </template>
           </a-dropdown>

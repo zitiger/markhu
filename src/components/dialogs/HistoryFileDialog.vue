@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {useEditorStore, useStructureStore, useDialogStore, useSystemStore} from '../../stores'
+import {useDialogStore, useEditorStore, useSystemStore} from '../../stores'
 import {useI18n} from "vue-i18n";
 import path from "../../api/path";
 import {reactive, ref, watch} from "vue";
@@ -15,7 +15,7 @@ watch(() => useDialogStore().isHistoryFileDialogVisible, async (newCount, oldCou
   list.length = 0;
   list.push(...useSystemStore().history);
 
-  keyword.value=""
+  keyword.value = ""
 });
 
 async function open(filepath: string) {
@@ -34,7 +34,8 @@ async function change() {
     <template #footer>
 
     </template>
-    <a-input v-model:value="keyword" @change="change" :placeholder="t('dialog.history_file.keyword_placeholder')"  allow-clear/>
+    <a-input v-model:value="keyword" @change="change" :placeholder="t('dialog.history_file.keyword_placeholder')"
+             allow-clear/>
 
     <a-list item-layout="horizontal" :data-source="list" size="small">
       <template #renderItem="{ item }">
@@ -52,8 +53,8 @@ async function change() {
 </template>
 <style scoped>
 
-.ant-list-item{
-  padding-left:2px !important;
-  padding-right:2px !important;;
+.ant-list-item {
+  padding-left: 2px !important;
+  padding-right: 2px !important;;
 }
 </style>

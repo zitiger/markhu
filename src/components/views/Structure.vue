@@ -1,20 +1,11 @@
 <script lang="ts" setup>
 import path from "../../api/path";
 
-import {
-  FolderAddOutlined,
-  FileAddOutlined,
-  SyncOutlined,
-  FolderOutlined,
-  FileOutlined,
-  ExclamationCircleOutlined,
-  RightOutlined, DownOutlined
-} from '@ant-design/icons-vue';
+import {ExclamationCircleOutlined, FileOutlined, FolderOutlined} from '@ant-design/icons-vue';
 
 
-import {useEditorStore, useDialogStore, useSystemStore} from '../../stores'
-import {computed, createVNode, onMounted, reactive, ref, watch} from "vue";
-import {useStructureStore} from "../../stores";
+import {useDialogStore, useEditorStore, useStructureStore, useSystemStore} from '../../stores'
+import {computed, createVNode} from "vue";
 import {message, Modal} from "ant-design-vue";
 import {showInFolder} from "../../api/file";
 import ResourcePanel from "../panels/ResourcePanel.vue";
@@ -126,15 +117,15 @@ function reload() {
             <span><folder-outlined v-if="folder"/> <file-outlined v-else/> {{ title }}</span>
             <template #overlay>
               <a-menu @click="(event:any) => onContextMenuClick(treeKey, event.key)">
-                <a-menu-item key="createFile">{{t('resource.structure.context_menu.create_file')}}</a-menu-item>
-                <a-menu-item key="createDir">{{t('resource.structure.context_menu.create_folder')}}</a-menu-item>
+                <a-menu-item key="createFile">{{ t('resource.structure.context_menu.create_file') }}</a-menu-item>
+                <a-menu-item key="createDir">{{ t('resource.structure.context_menu.create_folder') }}</a-menu-item>
                 <a-menu-divider></a-menu-divider>
-                <a-menu-item key="move">{{t('resource.structure.context_menu.move')}}</a-menu-item>
+                <a-menu-item key="move">{{ t('resource.structure.context_menu.move') }}</a-menu-item>
                 <a-menu-divider></a-menu-divider>
-                <a-menu-item key="rename">{{t('resource.structure.context_menu.rename')}}</a-menu-item>
-                <a-menu-item key="remove">{{t('resource.structure.context_menu.remove')}}</a-menu-item>
+                <a-menu-item key="rename">{{ t('resource.structure.context_menu.rename') }}</a-menu-item>
+                <a-menu-item key="remove">{{ t('resource.structure.context_menu.remove') }}</a-menu-item>
                 <a-menu-divider></a-menu-divider>
-                <a-menu-item key="showInFolder">{{t('resource.structure.context_menu.show_in_folder')}}</a-menu-item>
+                <a-menu-item key="showInFolder">{{ t('resource.structure.context_menu.show_in_folder') }}</a-menu-item>
               </a-menu>
             </template>
           </a-dropdown>

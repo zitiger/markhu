@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {useEditorStore, useDialogStore} from '../../stores'
+import {useDialogStore, useEditorStore} from '../../stores'
 import {useI18n} from "vue-i18n";
 
 const {t} = useI18n();

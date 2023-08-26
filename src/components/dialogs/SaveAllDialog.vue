@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {useEditorStore, useStructureStore, useDialogStore, useSystemStore} from '../../stores'
+import {useDialogStore, useEditorStore} from '../../stores'
 import {getCurrent} from '@tauri-apps/plugin-window'
 import {useI18n} from "vue-i18n";
 import path from "../../api/path";
@@ -40,8 +40,9 @@ async function save() {
 </template>
 <style scoped>
 ul {
-  padding:10px;
+  padding: 10px;
 }
+
 li {
   list-style-type: none;
 }

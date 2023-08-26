@@ -4,7 +4,7 @@ import Content from "./components/Content.vue";
 import {useDialogStore, useEditorStore, useSystemStore} from "./stores";
 import {onMounted, reactive, watch} from "vue";
 import Dialogs from "./components/Dialogs.vue";
-import { getCurrent } from '@tauri-apps/plugin-window';
+import {getCurrent} from '@tauri-apps/plugin-window';
 
 import SplitterPanel from "./components/panels/SplitterPanel.vue";
 import {theme} from "ant-design-vue";

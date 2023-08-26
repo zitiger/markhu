@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import {createFileApi, createDirApi, existPath, readFolderApi} from "../../api/file";
-import {useEditorStore, useStructureStore, useDialogStore, useSystemStore} from '../../stores'
+import {existPath} from "../../api/file";
+import {useDialogStore, useEditorStore, useStructureStore} from '../../stores'
 import {reactive, ref, watch} from "vue";
 import {message} from "ant-design-vue";
 import {useI18n} from "vue-i18n";
@@ -68,7 +68,7 @@ watch(() => useStructureStore().currentDir, async (newValue, oldCount) => {
 });
 
 watch(() => useDialogStore().isSaveAsDialogVisible, async (newValue, oldCount) => {
-  formState.basename = path.basename(useEditorStore().activeFile) ;
+  formState.basename = path.basename(useEditorStore().activeFile);
 });
 </script>
 

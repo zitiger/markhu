@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import {computed, onMounted, reactive, ref} from "vue";
-import {useEditorStore, useStructureStore, useSystemStore} from "../../stores";
-import {StructureNode, SearchResult, SearchMatch} from "../../api/model";
+import {reactive, ref} from "vue";
+import {useEditorStore, useSystemStore} from "../../stores";
+import {SearchMatch, SearchResult} from "../../api/model";
 import {useI18n} from "vue-i18n";
 import ResourcePanel from "../panels/ResourcePanel.vue";
 import {searchTextApi} from "../../api/file";
@@ -21,7 +21,7 @@ async function change() {
     let res = await searchTextApi(useSystemStore().workspace, key.value, 5)
     data.length = 0
     data.push(...res)
-  }else{
+  } else {
     data.length = 0
   }
 }
@@ -66,7 +66,7 @@ async function change() {
 }
 
 .empty_result {
-  margin-top:50px;
+  margin-top: 50px;
 }
 
 ul {

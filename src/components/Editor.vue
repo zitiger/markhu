@@ -6,11 +6,16 @@
 import "vditor/dist/index.css"
 import {ref} from '@vue/reactivity';
 import Vditor from 'vditor';
-import {h, onMounted, watch} from 'vue'
+import {onMounted, watch} from 'vue'
 import {useEditorStore, useSystemStore} from '../stores'
 import {createDirApi, existPath, saveImageApi} from "../api/file.js";
 import {Md5} from "ts-md5";
 import {useI18n} from "vue-i18n";
+import svgIcons from '../assets/vditor-toolbar-svg'
+import {message} from "ant-design-vue";
+import path from "../api/path";
+import {convertFileSrc} from "@tauri-apps/api/tauri";
+import {useOutlineStore} from "../stores/modules/outline";
 
 const {t} = useI18n()
 
@@ -21,12 +26,6 @@ const props = defineProps({
 const editorId = "editor-" + Md5.hashStr(props.path || '');
 
 const vditor = ref<Vditor | null>(null);
-
-import svgIcons from '../assets/vditor-toolbar-svg'
-import {message, Modal, theme} from "ant-design-vue";
-import path from "../api/path";
-import {convertFileSrc} from "@tauri-apps/api/tauri";
-import {useOutlineStore} from "../stores/modules/outline";
 
 watch(() => useSystemStore().realTheme, (newTheme: string) => {
       if (newTheme !== 'light') {

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import {createFileApi, createDirApi, existPath, readFolderApi} from "../../api/file";
-import {useEditorStore, useStructureStore, useDialogStore, useSystemStore} from '../../stores'
+import {existPath} from "../../api/file";
+import {useDialogStore, useEditorStore, useStructureStore} from '../../stores'
 import {reactive, ref, watch} from "vue";
 import {path} from "@tauri-apps/api";
 import {message} from "ant-design-vue";

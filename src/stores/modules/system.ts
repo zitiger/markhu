@@ -1,6 +1,5 @@
 import {defineStore} from 'pinia'
 import {ref} from 'vue'
-import {open} from '@tauri-apps/plugin-dialog';
 import {useStructureStore} from "./structure";
 import i18n from "../../locales";
 import {getTheme, openFolderApi} from "../../api/file";
@@ -24,7 +23,7 @@ export const useSystemStore = defineStore('system', {
     actions: {
         async open() {
             const folder = await openFolderApi();
-            if(folder.length>0){
+            if (folder.length > 0) {
                 this.workspace = folder;
                 await useStructureStore().load();
             }

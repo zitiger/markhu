@@ -1,14 +1,6 @@
 import {defineStore} from 'pinia'
-import {reactive, ref, toRaw} from 'vue'
-import {
-    createDirApi,
-    createFileApi,
-    existPath,
-    moveToTrashApi,
-    readFolderApi,
-    removeDirApi,
-    removeFileApi
-} from "../../api/file";
+import {ref, toRaw} from 'vue'
+import {createDirApi, createFileApi, moveToTrashApi, readFolderApi} from "../../api/file";
 import {FileInfo, StructureNode} from "../../api/model";
 import {useSystemStore} from "./system";
 import {useEditorStore} from "./editor";

@@ -4,11 +4,10 @@ import zh_CN from './zh_CN.json'
 
 // https://developer.mozilla.org/zh-CN/docs/Web/API/Navigator/language
 let currentLanguage = navigator.language.replace('-', '_')
-if(currentLanguage === "en"){
-    currentLanguage="en_US"
-}
-else if(currentLanguage === "ja"){
-    currentLanguage="ja_JP"
+if (currentLanguage === "en") {
+    currentLanguage = "en_US"
+} else if (currentLanguage === "ja") {
+    currentLanguage = "ja_JP"
 }
 
 // 如果本地缓存记录了语言环境，则使用本地缓存

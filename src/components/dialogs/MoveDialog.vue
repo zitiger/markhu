@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import {createFileApi, createDirApi, existPath, readFolderApi, renameApi} from "../../api/file";
-import {useEditorStore, useStructureStore, useDialogStore, useSystemStore} from '../../stores'
+import {existPath, renameApi} from "../../api/file";
+import {useDialogStore, useStructureStore} from '../../stores'
 import {reactive, ref, watch} from "vue";
 import {message} from "ant-design-vue";
 import {useI18n} from "vue-i18n";

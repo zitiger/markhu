@@ -16,15 +16,15 @@ export interface RustFileInfo {
 // 定义一个类型别名来描述事件映射对象
 type EventMap = Record<string, () => void>;
 
-export async function openFolderApi( ): Promise<string> {
+export async function openFolderApi(): Promise<string> {
     try {
-        return  await invoke('open_folder') as string;
+        return await invoke('open_folder') as string;
     } catch (e) {
         return Promise.reject(e);
     }
 }
 
-export async function openFileApi( ): Promise<string> {
+export async function openFileApi(): Promise<string> {
     try {
         return await invoke('open_file') as string;
     } catch (e) {
@@ -248,9 +248,9 @@ export async function getTheme(): Promise<string> {
 }
 
 
-export async function setMenuText(menuId:string,textArray:string[]) {
+export async function setMenuText(menuId: string, textArray: string[]) {
     try {
-        await invoke('set_menu_text', {menuId,textArray}) ;
+        await invoke('set_menu_text', {menuId, textArray});
 
     } catch (error) {
         // 处理错误
@@ -260,9 +260,9 @@ export async function setMenuText(menuId:string,textArray:string[]) {
 }
 
 
-export async function changeRecentMenu( filepathArray: string[]) {
+export async function changeRecentMenu(filepathArray: string[]) {
     try {
-        await invoke('change_recent_menu', { filepathArray});
+        await invoke('change_recent_menu', {filepathArray});
     } catch (error) {
         // 处理错误
         console.error(error);

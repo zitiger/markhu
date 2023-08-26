@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts" setup>
-import {ref, onMounted, onUnmounted} from 'vue';
+import {onMounted, onUnmounted, ref} from 'vue';
 
 const leftFlex = ref('0 0 200px');
 let startX = 0;

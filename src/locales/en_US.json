@@ -2,14 +2,69 @@
   "common": {
   },
   "menu": {
-    "app_menu": ["MarkHu","About","-","Services","-","Hide","Hide Others","Show All"],
-    "file_menu": ["File","Create File", "Create Folder", "-","Open File","Open Folder","-","Save File","Save As","Save All","-","Close File","Close All"],
-    "recent_menu":["Open Recent","More Recent Files","Clear Recent Files"],
-    "edit_menu": ["Edit","Undo","Redo","-","Cut","Copy","Paste","Select All"],
-    "theme_menu": ["Theme","Auto", "Dark","Light"],
-    "locale_menu": ["Locale"],
-    "mode_menu": ["Mode","WYSIWYG", "Instant Rendering","Split View","-","Toggle Zen Mode"],
-    "window_menu": ["Window","Minimize", "Zoom/Maximize","Fullscreen"]
+    "app_menu": [
+      "MarkHu",
+      "About",
+      "-",
+      "Services",
+      "-",
+      "Hide",
+      "Hide Others",
+      "Show All"
+    ],
+    "file_menu": [
+      "File",
+      "Create File",
+      "Create Folder",
+      "-",
+      "Open File",
+      "Open Folder",
+      "-",
+      "Save File",
+      "Save As",
+      "Save All",
+      "-",
+      "Close File",
+      "Close All"
+    ],
+    "recent_menu": [
+      "Open Recent",
+      "More Recent Files",
+      "Clear Recent Files"
+    ],
+    "edit_menu": [
+      "Edit",
+      "Undo",
+      "Redo",
+      "-",
+      "Cut",
+      "Copy",
+      "Paste",
+      "Select All"
+    ],
+    "theme_menu": [
+      "Theme",
+      "Auto",
+      "Dark",
+      "Light"
+    ],
+    "locale_menu": [
+      "Locale"
+    ],
+    "mode_menu": [
+      "Mode",
+      "WYSIWYG",
+      "Instant Rendering",
+      "Split View",
+      "-",
+      "Toggle Zen Mode"
+    ],
+    "window_menu": [
+      "Window",
+      "Minimize",
+      "Zoom/Maximize",
+      "Fullscreen"
+    ]
   },
   "dialog": {
     "button_ok": "Ok",
@@ -84,7 +139,7 @@
     "keyword_placeholder": "Please enter keyword",
     "empty_result": "No Result Found"
   },
-  "outline":{
+  "outline": {
     "empty_hint": "No Outline in Document"
   },
   "content": {

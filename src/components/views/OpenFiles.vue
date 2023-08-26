@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-import {useDialogStore, useEditorStore} from '../../stores'
-import {useStructureStore} from "../../stores";
+import {useDialogStore, useEditorStore, useStructureStore} from '../../stores'
 import ResourcePanel from "../panels/ResourcePanel.vue";
 import {useI18n} from "vue-i18n";
 
@@ -50,7 +49,7 @@ function closeAll() {
           <li v-for="file in openedFiles" :class="{ active: file.filepath === useEditorStore().activeFile}">
 
             <span class="button">
-              <IconFont type="icon-close" class="remove-tab" @click="removeTab(file.filepath)" />
+              <IconFont type="icon-close" class="remove-tab" @click="removeTab(file.filepath)"/>
               <IconFont type="icon-dot" class="changed" v-if="useEditorStore().isModified(file.filepath)"/>
             </span>
             <span class="filename" @click="focusTab(file.filepath)">{{ file.basename }}</span>
@@ -102,9 +101,11 @@ function closeAll() {
 .content li:hover .remove-tab {
   display: inline-block;
 }
+
 .content li .changed {
   font-size: 10px;
 }
+
 .content li:hover .changed {
   display: none;
 }
