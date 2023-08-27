@@ -4,7 +4,7 @@ import path from "../../api/path";
 import {ExclamationCircleOutlined, FileOutlined, FolderOutlined} from '@ant-design/icons-vue';
 
 import {useDialogStore, useEditorStore, useStructureStore, useSystemStore} from '../../stores'
-import {computed, createVNode, ref, watch} from "vue";
+import {computed, createVNode, ref} from "vue";
 import {message, Modal} from "ant-design-vue";
 import {showInFolder} from "../../api/file";
 import ResourcePanel from "../panels/ResourcePanel.vue";
@@ -61,7 +61,7 @@ const onContextMenuClick = (treeKey: string, menuKey: string) => {
     } else if (menuKey === "move") {
       useDialogStore().showMoveDialog();
     } else if (menuKey === "rename") {
-      useStructureStore().startEditing();
+      startEditing();
     } else if (menuKey === "remove") {
       let fullPath = node.path;
 
@@ -93,26 +93,47 @@ function reload() {
   message.success(t('resource.structure.reload_successfully'));
 }
 
-watch(() => useStructureStore().editingNode, async (newValue, oldValue) => {
-  if (newValue) {
-    editingInputText.value = newValue.title;
-    inputStatus.value = ""
+function startEditing() {
 
-    setTimeout(() => {
-      editingInput.value.focus()
-      editingInput.value.select();
-    }, 500)
+  useStructureStore().startEditing();
+
+  let node = useStructureStore().currentNode;
+
+  oldName = node.title;
+  inputStatus.value = ""
+
+  xisFile = !node.folder;
+
+  let title = node.title;
+  if (!node.folder) {
+    editingInputText.value = title.substring(0, title.length - 3);
+  } else {
+    editingInputText.value = title;
   }
-})
+
+  setTimeout(() => {
+    editingInput.value.focus()
+    editingInput.value.select();
+  }, 500)
+}
 
 async function finishEditing() {
-  let result = await useStructureStore().finishEditing(editingInputText.value);
+  let name = editingInputText.value;
+  if (xisFile) {
+    name = editingInputText.value + ".md"
+  }
 
-  if (result) {
-    editingInputText.value = ''
-    inputStatus.value = ""
+  if (name === oldName) {
+    await useStructureStore().cancelEditing();
   } else {
-    inputStatus.value = "error"
+    let result = await useStructureStore().finishEditing(name);
+
+    if (result) {
+      editingInputText.value = ''
+      inputStatus.value = ""
+    } else {
+      inputStatus.value = "error"
+    }
   }
 }
 
@@ -140,6 +161,7 @@ async function finishAdding() {
 }
 
 let xisFile = false;
+let oldName = "";
 
 let inputStatus = ref("")
 let addingInput = ref()
@@ -188,7 +210,9 @@ function onExpand(expandedKeys222: string[]) {
               <a-tooltip :title="t('resource.structure.path_exists')" color="red" :open="inputStatus ==='error'">
                 <a-input size="small" type="text" :status="inputStatus" ref="editingInput" @blur="finishEditing"
                          v-on:keydown.enter="finishEditing"
-                         v-model:value="editingInputText"/>
+                         v-model:value="editingInputText"
+                         @click.stop.prevent
+                         :addon-after="xisFile?'.md':''"/>
               </a-tooltip>
             </span>
             <span v-else><folder-outlined v-if="folder"/> <file-outlined v-else/> {{ title }}</span>

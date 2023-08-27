@@ -252,6 +252,9 @@ export const useStructureStore = defineStore('structure', {
 
                 return true;
             }
+        }, async cancelEditing() {
+            this.currentNode.editing = false;
+            this.editingNode = undefined;
         }
     },
 })
