@@ -125,6 +125,7 @@
     },
     "structure": {
       "reload_successfully": "Reload successfully",
+      "path_exists": "Same path exists",
       "context_menu": {
         "create_file": "New File",
         "create_folder": "New Folder",

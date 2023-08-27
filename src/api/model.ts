@@ -12,7 +12,9 @@ export interface StructureNode {
     path: string
     key: string
     folder: boolean
-    children?: StructureNode[]
+    children?: StructureNode[],
+    adding?: boolean,
+    editing?: boolean
 }
 
 export interface SearchResult {

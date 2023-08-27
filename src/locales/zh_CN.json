@@ -125,6 +125,7 @@
     },
     "structure": {
       "reload_successfully": "重新加载成功",
+      "path_exists": "相同路径已经存在",
       "context_menu": {
         "create_file": "新建文件",
         "create_folder": "新建文件夹",

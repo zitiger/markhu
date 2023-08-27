@@ -1,6 +1,6 @@
 import {defineStore} from 'pinia'
 import {ref, toRaw} from 'vue'
-import {createDirApi, createFileApi, moveToTrashApi, readFolderApi} from "../../api/file";
+import {createDirApi, createFileApi, existPath, moveToTrashApi, readFolderApi, renameApi} from "../../api/file";
 import {FileInfo, StructureNode} from "../../api/model";
 import {useSystemStore} from "./system";
 import {useEditorStore} from "./editor";
@@ -25,8 +25,9 @@ export const useStructureStore = defineStore('structure', {
             children: []
         });
 
+        let editingNode = ref<StructureNode>();
 
-        return {path, currentDir, currentNode, list, dir}
+        return {path, currentDir, currentNode, editingNode, list, dir}
     },
 
     actions: {
@@ -54,6 +55,8 @@ export const useStructureStore = defineStore('structure', {
             }
 
             await updateNodePath(this.list, from, to)
+
+            await renameApi(from, to);
         },
         async remove(path: string, isFile: boolean) {
             // if (isFile) {
@@ -86,6 +89,8 @@ export const useStructureStore = defineStore('structure', {
 
             let xxx = await this.buildNode(aaa, false)
             this.list.push(...xxx)
+
+            console.log("open", this.list)
 
             let yyy = await this.buildNode(aaa, true)
             this.dir.push(
@@ -147,10 +152,108 @@ export const useStructureStore = defineStore('structure', {
         find(path: string) {
 
             return findNodeByPath(this.list, path);
+        },
+
+        startAdding(isFile: boolean) {
+            let parentNode = findNodeByPath(this.list, this.currentDir)
+
+            let container;
+            if (parentNode == null) {
+                container = this.list;
+            } else {
+                if (!parentNode.children) {
+                    parentNode.children = [];
+                }
+                container = parentNode.children
+            }
+
+            let newKey = path.join(this.currentDir, (new Date()).getTime().toString())
+            let addingNode = {
+                title: "",
+                path: newKey,
+                key: newKey,
+                folder: !isFile,
+                adding: true
+            }
+            container.unshift(
+                addingNode
+            )
+            this.currentNode = addingNode;
+        },
+        async finishAdding(isFile: boolean, name: string) {
+
+            console.log("this.currentDir this.currentDir this.currentDir", this.currentNode)
+
+            let dir = path.dirname(this.currentNode.path)
+
+            if (name != null && name.length > 0) {
+                if (isFile && !name.toLowerCase().endsWith(".md")) {
+                    name = name + ".md"
+                }
+
+                let filepath = await path.join(dir, name);
+                if (await existPath(filepath)) {
+                    return false;
+                }
+                await this.create(dir, name, isFile)
+
+                if (isFile) {
+                    let filepath = await path.join(dir, name);
+
+                    console.log("read read read read read", filepath)
+                    await useEditorStore().read(filepath)
+                }
+            }
+
+            let parentNode = findNodeByPath(this.list, dir)
+
+            let container;
+            if (parentNode == null) {
+                container = this.list;
+            } else {
+                if (!parentNode.children) {
+                    parentNode.children = [];
+                }
+                container = parentNode.children
+            }
+            // container.splice(1, 1);
+            container.shift();
+
+            console.log("finishAdding", isFile, name)
+
+            return true;
+        },
+
+        startEditing() {
+            this.currentNode.editing = true;
+            this.editingNode = this.currentNode;
+        },
+
+        async finishEditing(name: string) {
+            console.log("finishEditingfinishEditingfinishEditingfinishEditingfinishEditing")
+            let isFile = !this.editingNode?.folder;
+            if (isFile && !name.toLowerCase().endsWith(".md")) {
+                name = name + ".md"
+            }
+
+            let oldPath = this.editingNode?.path;
+            let folder = path.dirname(oldPath);
+            let newPath = path.join(folder, name);
+
+            console.log(oldPath, newPath);
+
+            if (await existPath(newPath)) {
+                return false;
+            } else {
+                await this.rename(oldPath, newPath);
+
+                this.currentNode.editing = false;
+                this.editingNode = undefined;
+
+                return true;
+            }
         }
     },
-
-
 })
 
 
@@ -163,11 +266,11 @@ function createNode(list: StructureNode[], newNode: StructureNode): StructureNod
         if (!parentNode.children) {
             parentNode.children = [];
         }
-        parentNode.children.push(newNode);
+        parentNode.children.splice(1, 0, newNode);//.unshift(newNode);
     } else {
-        list.push(newNode);
+        list.splice(1, 0, newNode);
     }
-
+    console.log("ccccc", list.length, list);
     return list;
 }
 
