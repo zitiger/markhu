@@ -125,6 +125,8 @@ async function finishEditing() {
 
   if (name === oldName) {
     await useStructureStore().cancelEditing();
+    editingInputText.value = ''
+    inputStatus.value = ""
   } else {
     let result = await useStructureStore().finishEditing(name);
 
@@ -135,6 +137,12 @@ async function finishEditing() {
       inputStatus.value = "error"
     }
   }
+}
+
+async function cancelEditing() {
+  await useStructureStore().cancelEditing();
+  editingInputText.value = ''
+  inputStatus.value = ""
 }
 
 function startAdding(isFile: boolean) {
@@ -158,6 +166,10 @@ async function finishAdding() {
   } else {
     inputStatus.value = "error"
   }
+}
+
+async function cancelAdding() {
+  await useStructureStore().cancelAdding();
 }
 
 let xisFile = false;
@@ -200,6 +212,7 @@ function onExpand(expandedKeys222: string[]) {
 
              <a-tooltip :title="t('resource.structure.path_exists')" color="red" :open="inputStatus ==='error'">
               <a-input size="small" type="text" :status="inputStatus" ref="addingInput" @blur="finishAdding"
+                       v-on:keyup.esc="cancelAdding"
                        v-on:keydown.enter="finishAdding" v-model:value="addingInputText"
                        @click.stop.prevent
                        :addon-after="xisFile?'.md':''" allow-clear/>
@@ -209,6 +222,7 @@ function onExpand(expandedKeys222: string[]) {
             <span v-else-if="editing">
               <a-tooltip :title="t('resource.structure.path_exists')" color="red" :open="inputStatus ==='error'">
                 <a-input size="small" type="text" :status="inputStatus" ref="editingInput" @blur="finishEditing"
+                         v-on:keyup.esc="cancelEditing"
                          v-on:keydown.enter="finishEditing"
                          v-model:value="editingInputText"
                          @click.stop.prevent

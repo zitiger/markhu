@@ -223,7 +223,23 @@ export const useStructureStore = defineStore('structure', {
 
             return true;
         },
+        async cancelAdding() {
+            console.log("cancelAdding", this.currentNode)
 
+            let dir = path.dirname(this.currentNode.path)
+            let parentNode = findNodeByPath(this.list, dir)
+
+            let container;
+            if (parentNode == null) {
+                container = this.list;
+            } else {
+                if (!parentNode.children) {
+                    parentNode.children = [];
+                }
+                container = parentNode.children
+            }
+            container.shift();
+        },
         startEditing() {
             this.currentNode.editing = true;
             this.editingNode = this.currentNode;
