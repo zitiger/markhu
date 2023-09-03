@@ -1,19 +1,19 @@
 export interface FileInfo {
-    count: number;
     filePath: string;
-    createTime: number;
-    updateTime: number;
-    isFile: boolean; // 可选属性，表示是否是文件
+    fileType: string;
     children: FileInfo[]; // 可选属性，表示子文件或文件夹
 }
 
 export interface StructureNode {
-    title: string
-    path: string
-    key: string
-    folder: boolean
+    title: string,
+    path: string,
+    type: string,
+    expanded?: boolean,
+    selected?: boolean,
+    focused?: boolean,
     children?: StructureNode[],
-    adding?: boolean,
+    addingFile?: boolean,
+    addingFolder?: boolean,
     editing?: boolean
 }
 

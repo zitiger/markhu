@@ -99,5 +99,6 @@ const showContent = ref(true)
 
 .content {
   overflow-y: auto;
+  display: flex;
 }
 </style>

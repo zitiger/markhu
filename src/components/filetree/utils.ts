@@ -8,7 +8,7 @@ export function flattenVisibleTree(tree: TreeNode): TreeNode[] {
         if (parentExpanded || node.expanded) {
             result.push(node);
 
-            if ((node.path === "/" || node.type === 'folder') && node.expanded && node.children) {
+            if ((node.type === 'folder') && node.expanded && node.children) {
                 for (const child of node.children) {
                     traverse(child, node.expanded);
                 }

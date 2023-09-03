@@ -3,11 +3,8 @@ import {listen} from "@tauri-apps/api/event";
 import {FileInfo, SearchResult} from "./model";
 
 export interface RustFileInfo {
-    count: number;
     file_path: string;
-    create_time: number;
-    update_time: number;
-    is_file: boolean; // 可选属性，表示是否是文件
+    file_type: string;
     children: RustFileInfo[]; // 可选属性，表示子文件或文件夹
 }
 
@@ -64,6 +61,7 @@ export async function readFolderApi(dirPath: string): Promise<FileInfo[]> {
         }) as RustFileInfo[];
 
         let converted = convert(res);
+
         return converted;
     } catch (e) {
         //return Promise.reject(e);
@@ -79,13 +77,11 @@ function convert(a: RustFileInfo[]): FileInfo[] {
 
     let b: FileInfo[] = []; // 创建一个空数组
     for (let item of a) { // 遍历a中的每个元素
-        let {count, file_path, create_time, update_time, is_file, children} = item; // 解构赋值
+        let {file_path, file_type, children} = item; // 解构赋值
         let filePath = file_path; // 重命名
-        let createTime = create_time; // 重命名
-        let updateTime = update_time; // 重命名
-        let isFile = is_file; // 重命名
+        let fileType = file_type; // 重命名
         let newChildren = convert(children); // 递归转换子数组
-        b.push({count, filePath, createTime, updateTime, isFile, children: newChildren}); // 把新对象添加到b中
+        b.push({filePath, fileType, children: newChildren}); // 把新对象添加到b中
     }
     return b; // 返回b
 }

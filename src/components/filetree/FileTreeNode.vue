@@ -2,17 +2,19 @@
   <!--  <transition name="slide-up">-->
   <li draggable="true" class="file-tree-node" @dragstart.stop="onDragStart" @dragend.stop="onDragEnd"
       @contextmenu.stop.prevent="onNodeContextmenu($event, nodeData)">
-    <div v-show="nodeData.path!=='/'"
+    <div v-show="nodeData.title!=='/'"
          :class="['node-block',{ selected: nodeData.selected, focused: nodeData.focused }]"
          @dragenter.stop="onDragEnter" @dragover.stop.prevent="onDragOver" @dragleave.stop="onDragLeave"
-         @drop.stop="onDrop" @click="onNodeSelect($event, nodeData)">
-      <div :style="{'margin-left': (props.level<3?0:(props.level-2)*20)+'px' }" :class="[ dragOverClass]">
+         @drop.stop="onDrop" @click.stop="onNodeSelect($event, nodeData)">
+      <div style="display: flex;" :style="{'margin-left': (props.level<3?0:(props.level-2)*20)+'px' }"
+           :class="[ dragOverClass]">
         <span v-if="nodeData.type === 'folder'" @click.stop="onNodeToggle" class="icon" @dragover.prevent>
           <slot name="toggler" :nodeData="nodeData">
             <template v-if="nodeData.expanded">-</template>
             <template v-else>+</template>
           </slot>
         </span>
+        <span v-else style="margin-left: 20px"></span>
         <span>
           <slot name="icon" :nodeData="nodeData">
             <template v-if="nodeData.type === 'folder'">[D]</template>
@@ -21,20 +23,22 @@
         </span>
 
         <template v-if="nodeData.editing">
-          <input type="text" @blur="onNodeRename(nodeData,newName)" v-on:keyup.esc="onEditingEsc"
+          <input style="width: 100%" class="tree-node-input" type="text" @blur="onNodeRename(nodeData,newName)"
+                 v-on:keyup.esc="onEditingEsc"
                  v-on:keydown.enter="onNodeRename(nodeData,newName)" ref="editingInputRef" v-model="newName">
         </template>
         <slot name="title" :nodeData="nodeData" v-else>
-          <span>{{ nodeData.title }}</span>
+          <span style="width: 100%">{{ nodeData.title }}</span>
         </slot>
       </div>
+
     </div>
     <ul>
       <template v-if="nodeData.addingFolder || nodeData.addingFile || nodeData.expanded || nodeData.path==='/'">
         <li v-if="nodeData.type === 'folder' && (nodeData.addingFile||nodeData.addingFolder)"
             :style="{'padding-left': (props.level<2?0:(props.level-1)*20)+'px' }">
           <template v-if="nodeData.addingFolder">
-            <input type="text" ref="addingFolderInputRef"
+            <input style="width: 100%" class="tree-node-input" type="text" ref="addingFolderInputRef"
                    @blur="onFolderCreate(nodeData,newFolderName)"
                    v-on:keydown.enter="onFolderCreate(nodeData,newFolderName)"
                    v-on:keyup.esc="onFolderEsc"
@@ -42,7 +46,7 @@
           </template>
 
           <template v-if="nodeData.addingFile">
-            <input type="text" ref="addingFileInputRef"
+            <input style="width: 100%" class="tree-node-input" type="text" ref="addingFileInputRef"
                    @blur="onFileCreate(nodeData,newFileName)"
                    v-on:keydown.enter="onFileCreate(nodeData,newFileName)"
                    v-on:keyup.esc="onFileEsc"
@@ -205,7 +209,7 @@ function onFolderCreate(nodeData: TreeNode, newFileName: string) {
     if (newFileName.length > 0) {
       emits('folderCreate', nodeData, newFileName);
     } else {
-      onFileEsc();
+      onFolderEsc();
     }
   }
 }
@@ -302,7 +306,7 @@ function onDragLeave(e: DragEvent) {
 }
 
 function onDrop(e: DragEvent) {
-
+  console.log("onDroponDroponDroponDroponDrop");
   ddo.drop = nodeData;
   emits('nodeDrop');
   dragOverClass.value = "";

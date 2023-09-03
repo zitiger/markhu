@@ -87,7 +87,7 @@ const onContextMenuClick = async (filepath: string, menuKey: string) => {
   if (node) {
 
     if (menuKey === "closeFile") {
-      useEditorStore().close(filepath);
+      useEditorStore().doClose(filepath);
     } else if (menuKey === "closeOthers") {
       await useEditorStore().closeOthers(filepath);
     } else if (menuKey === "closeAll") {

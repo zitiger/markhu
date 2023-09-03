@@ -1,5 +1,5 @@
 <template>
-  <div class="file-tree-view" @focusin="onFocusIn" @focusout="onFocusOut" tabindex="0">
+  <div class="file-tree-view" @focusin="onFocusIn" @focusout="onFocusOut" tabindex="0" @click="onOutsideClick">
     <ul>
       <FileTreeNode :node-data="data" :level="1" @nodeDrop="onNodeDrop" @nodeSelect="onNodeSelect"
                     @fileCreate="onFileCreate" @folderCreate="onFolderCreate" @nodeRename="onNodeRename"
@@ -33,23 +33,25 @@ let ddo: DragDropObject = {
 
 provide('ddo', ddo);
 
-const emits = defineEmits(['nodeSelect', 'fileCreate', 'folderCreate', 'nodeRename', 'nodeContextmenu', 'nodeExpand', 'nodeCollapse', 'nodeDrop', 'nodeMove']);
+const emits = defineEmits(['nodeClick', 'nodeSelect', 'fileCreate', 'folderCreate', 'nodeRename', 'nodeContextmenu', 'nodeExpand', 'nodeCollapse', 'nodeDrop', 'nodeMove', 'outsideClick']);
 
 const props = defineProps({
   // 数据源列表
   data: {
-    type: Array as () => TreeNode[],
+    type: Object as () => TreeNode,
     required: true
   }
 });
 
-const data: TreeNode = reactive({
-  title: "/",
-  path: "/",
-  type: "folder",
-  expanded: true,
-  children: props.data
-})
+const data = reactive(props.data)
+
+// const data: TreeNode = reactive({
+//   title: "/",
+//   path: "/",
+//   type: "folder",
+//   expanded: true,
+//   children: props.data
+// })
 
 
 let selectedItems = [] as TreeNode[];
@@ -62,6 +64,11 @@ function onFocusIn() {
 
 function onFocusOut() {
   window.removeEventListener('keydown', onKeyDown);
+}
+
+function onOutsideClick() {
+  console.log("outsideClick")
+  emits("outsideClick");
 }
 
 function onKeyDown(event: KeyboardEvent) {
@@ -139,7 +146,7 @@ function onFileCreate(node: TreeNode, title: string) {
   }
   node.children.unshift(newOne)
 
-  emits('fileCreate', node, title);
+  emits('fileCreate', newOne, node);
 }
 
 function onFolderCreate(node: TreeNode, title: string) {
@@ -154,7 +161,7 @@ function onFolderCreate(node: TreeNode, title: string) {
   }
   node.children.unshift(newOne)
 
-  emits('folderCreate', node, title);
+  emits('folderCreate', newOne, node);
 }
 
 function onNodeSelect(event: MouseEvent, item: TreeNode) {
@@ -209,12 +216,16 @@ function onNodeSelect(event: MouseEvent, item: TreeNode) {
     selectedItems.splice(0, selectedItems.length)
     selectedItems.push(item);
     item.selected = true;
+
+    emits('nodeClick', item);
+
   }
 
   emits('nodeSelect', selectedItems);
 }
 
 function onNodeDrop() {
+  console.log("xxxxdrop")
 
   if (ddo.drop.path === ddo.drag.path) {
     return
@@ -244,6 +255,7 @@ function onNodeDrop() {
   for (let i = 0; i < dragParent.children.length; i++) {
     if (dragParent.children[i].title === ddo.drag.title) {
       dragParent.children.splice(i, 1);
+      break;
     }
   }
 
@@ -276,6 +288,8 @@ function onNodeDrop() {
     dropItemParent.children.splice(index, 0, dragItem)
 
     newPath = join(dropItemParent.path, title)
+
+    console.log("xxxxdrop")
   }
 
   emits("nodeDrop", newPath, oldPath);
@@ -288,7 +302,8 @@ function onNodeDrop() {
 </script>
 <style scoped>
 .file-tree-view {
-  outline: none
+  outline: none;
+  height: 100%;
 }
 
 .file-tree-view ul {

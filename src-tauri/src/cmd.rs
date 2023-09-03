@@ -1,26 +1,25 @@
-use std::{fs, time::UNIX_EPOCH};
-use std::io::Write;
-use std::path::Path;
-
-use tauri::{command};
-use serde::{Deserialize, Serialize};
-
 #[cfg(target_os = "linux")]
 use std::{fs::metadata, path::PathBuf};
+use std::fs;
+use std::io::Write;
+use std::path::Path;
 // use std::path::PathBuf;
 use std::process::Command;
-use rfd::{FileDialog};
+
+use rfd::{FileDialog, MessageDialogResult};
+use serde::{Deserialize, Serialize};
+use tauri::command;
+
 #[cfg(target_os = "linux")]
-use fork::{daemon, Fork}; // dep: fork = "0.1"
+use fork::{daemon, Fork};
+
+// dep: fork = "0.1"
 
 // 定义一个结构体，表示文件或文件夹的信息
 #[derive(Debug, Deserialize, Serialize)]
 pub struct FileInfo {
-    is_file: bool,
-    create_time: i64,
-    update_time: i64,
-    count: u64,
     file_path: String,
+    file_type: String,
     children: Option<Vec<FileInfo>>, // 用于存储子项，如果是文件则为None
 }
 
@@ -101,41 +100,21 @@ fn read_folder_recursively(path: String) -> Option<Vec<FileInfo>> {
             for item in dir {
                 if let Ok(entry) = item {
                     let meta_data = entry.metadata().expect("");
-                    let update_time = meta_data.modified().expect("");
-                    let since_the_epoch1 =
-                        update_time.duration_since(UNIX_EPOCH).expect("get timestamp error");
-                    let timestamp1 = since_the_epoch1.as_secs() as i64 * 1000i64
-                        + (since_the_epoch1.subsec_nanos() as f64 / 1_000_000.0) as i64;
-
-                    let create_time = meta_data.created().expect("");
-                    let since_the_epoch2 =
-                        create_time.duration_since(UNIX_EPOCH).expect("get timestamp error");
-                    let timestamp2 = since_the_epoch2.as_secs() as i64 * 1000i64
-                        + (since_the_epoch2.subsec_nanos() as f64 / 1_000_000.0) as i64;
-
-
-                    // let ms = update_time.since_the_epoch.as_secs() as i64 * 1000i64 + (since_the_epoch.subsec_nanos() as f64 / 1_000_000.0) as i64;
                     let file_path = entry.path().display().to_string();
 
                     // 判断是文件还是文件夹
                     if meta_data.is_file() {
                         // 如果是文件，就创建一个FileInfo结构体，并设置is_file为true，children为None
                         res.push(FileInfo {
-                            is_file: true,
-                            create_time: timestamp2,
-                            update_time: timestamp1,
-                            count: meta_data.len(),
                             file_path,
+                            file_type: "file".to_string(),
                             children: None,
                         });
                     } else if meta_data.is_dir() {
                         // 如果是文件夹，就递归地调用自己，获取子项，并创建一个FileInfo结构体，并设置is_file为false，children为Some
                         res.push(FileInfo {
-                            is_file: false,
-                            create_time: timestamp2,
-                            update_time: timestamp1,
-                            count: meta_data.len(),
                             file_path: file_path.clone(),
+                            file_type: "folder".to_string(),
                             children: Some(read_folder_recursively(file_path).unwrap_or_default()),
                         });
                     }

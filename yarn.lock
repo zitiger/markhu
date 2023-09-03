@@ -624,6 +624,13 @@ magic-string@^0.30.0:
   dependencies:
     "@jridgewell/sourcemap-codec" "^1.4.15"
 
+markhu-file-tree2@^0.1.14:
+  version "0.1.14"
+  resolved "https://registry.npmjs.org/markhu-file-tree2/-/markhu-file-tree2-0.1.14.tgz#ca843644261dfd259ceb79f9179c868bffcce866"
+  integrity sha512-gV1f3TWcZ8FVMEfTRuHxhtyrqBxWK9P2sNu6sV8z80922G++FJXsSHOT9ifCqYIlvFRxClm639YXLwdM7fWmNg==
+  dependencies:
+    vue "^3.3.4"
+
 minimatch@^9.0.0:
   version "9.0.3"
   resolved "https://registry.npmmirror.com/minimatch/-/minimatch-9.0.3.tgz#a6e00c3de44c3a542bfaae70abfc22420a6da825"
@@ -803,7 +810,7 @@ vue-types@^3.0.0:
   dependencies:
     is-plain-object "3.0.1"
 
-vue@^3.2.45:
+vue@^3.2.45, vue@^3.3.4:
   version "3.3.4"
   resolved "https://registry.npmmirror.com/vue/-/vue-3.3.4.tgz#8ed945d3873667df1d0fcf3b2463ada028f88bd6"
   integrity sha512-VTyEYn3yvIeY1Py0WaYGZsXnz3y5UnGi62GjVEqvEGPl6nxbOrCXbVOTQWBEJUqAyTUk2uJ5JLVnYJ6ZzGbrSw==
