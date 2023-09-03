@@ -6,12 +6,12 @@ const {t} = useI18n();
 
 async function yes() {
   await useEditorStore().save(useEditorStore().closingFile);
-  useEditorStore().close(useEditorStore().closingFile);
+  useEditorStore().doClose(useEditorStore().closingFile);
   useDialogStore().hideSaveConfirmDialog();
 }
 
 async function no() {
-  useEditorStore().close(useEditorStore().closingFile)
+  useEditorStore().doClose(useEditorStore().closingFile)
   useDialogStore().hideSaveConfirmDialog();
 }
 

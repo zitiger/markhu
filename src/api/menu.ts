@@ -1,5 +1,5 @@
 import {changeRecentMenu, listenMenuEvent, setMenuSelected, setMenuText} from "./file";
-import {useDialogStore, useEditorStore, useSystemStore} from "../stores";
+import {useDialogStore, useEditorStore, useStructureStore, useSystemStore} from "../stores";
 import {watch} from "vue";
 import i18n, {langs} from "../locales";
 
@@ -8,10 +8,10 @@ export async function initMenu() {
     await listenMenuEvent({
         'open_file': () => useEditorStore().open(),
         'open_folder': () => useSystemStore().open(),
-        'create_file': () => useDialogStore().showCreateFileDialog(),
-        'create_folder': () => useDialogStore().showCreateDirDialog(),
+        'create_file': () => useStructureStore().startAddingFile(),
+        'create_folder': () => useStructureStore().startAddingFolder(),
         'save_file': () => useEditorStore().save(useEditorStore().activeFile),
-        'save_as': () => useDialogStore().showSaveAsDialog(),
+        'save_as': () => useEditorStore().saveAs(useEditorStore().activeFile),
         'save_all': () => useEditorStore().saveAll(),
         'close_file': () => useEditorStore().close(useEditorStore().activeFile),
         'close_all': () => useEditorStore().closeAll(),

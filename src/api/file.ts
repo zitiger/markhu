@@ -29,6 +29,15 @@ export async function openFileApi(): Promise<string> {
     }
 }
 
+export async function saveFileApi(): Promise<string> {
+    try {
+        return await invoke('save_file') as string;
+    } catch (e) {
+        return Promise.reject(e);
+    }
+}
+
+
 export async function createDirApi(path: string): Promise<string> {
     try {
         let res = await invoke('create_dir', {
@@ -259,6 +268,28 @@ export async function setMenuText(menuId: string, textArray: string[]) {
 export async function changeRecentMenu(filepathArray: string[]) {
     try {
         await invoke('change_recent_menu', {filepathArray});
+    } catch (error) {
+        // 处理错误
+        console.error(error);
+        throw error;
+    }
+}
+
+export async function confirmApi(title: string, desc: string, yes: string, no: string) {
+    try {
+        let res = await invoke('confirm', {title, desc, yes, no}) as string;
+        return res;
+    } catch (error) {
+        // 处理错误
+        console.error(error);
+        throw error;
+    }
+}
+
+export async function confirmYncApi(title: string, desc: string, yes: string, no: string, cancel: string) {
+    try {
+        let res = await invoke('confirm_ync', {title, desc, yes, no, cancel}) as string;
+        return res;
     } catch (error) {
         // 处理错误
         console.error(error);

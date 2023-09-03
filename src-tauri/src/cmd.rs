@@ -40,6 +40,15 @@ pub fn open_file() -> String {
 }
 
 #[command]
+pub fn save_file() -> String {
+    let folder = FileDialog::new()
+        .add_filter("markdown", &["md"])
+        .save_file();
+    let folder = folder.unwrap_or_default();
+    String::from(folder.to_str().unwrap_or_default())
+}
+
+#[command]
 pub fn create_dir(path: String) -> Option<String> {
     let file = fs::create_dir_all(&path);
 
@@ -221,3 +230,36 @@ pub fn move_to_trash(path: String) -> Option<String> {
     trash::delete(path).expect("move to trash error");
     Some("OK".to_string())
 }
+
+#[tauri::command]
+pub fn confirm(title: String, desc: String, yes: String, no: String) -> String {
+    let res = rfd::MessageDialog::new()
+        .set_title(title)
+        .set_description(desc)
+        .set_buttons(rfd::MessageButtons::OkCancelCustom(yes.to_string(), no.to_string()))
+        .show();
+
+    if res == MessageDialogResult::Custom(yes) {
+        "yes".to_string()
+    } else {
+        "no".to_string()
+    }
+}
+
+#[tauri::command]
+pub fn confirm_ync(title: String, desc: String, yes: String, no: String, cancel: String) -> String {
+    let res = rfd::MessageDialog::new()
+        .set_title(title)
+        .set_description(desc)
+        .set_buttons(rfd::MessageButtons::YesNoCancelCustom(yes.to_string(), no.to_string(), cancel.to_string()))
+        .show();
+
+    if res == MessageDialogResult::Custom(yes) {
+        "yes".to_string()
+    } else if res == MessageDialogResult::Custom(no) {
+        "no".to_string()
+    } else {
+        "cancel".to_string()
+    }
+}
+

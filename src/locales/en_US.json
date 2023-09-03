@@ -73,6 +73,10 @@
     "button_no": "No",
     "button_save": "Save",
     "button_not_save": "Do not Save",
+    "close_file": {
+      "title": "Do you want to save the changes you made to current file?",
+      "desc": "Your changes will be lost if you don't save them."
+    },
     "create_file": {
       "title": "Create File",
       "parent_folder_label": "Parent Folder",

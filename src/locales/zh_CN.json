@@ -73,6 +73,10 @@
     "button_no": "否",
     "button_save": "保存",
     "button_not_save": "不保存",
+    "close_file": {
+      "title": "是否在关闭前保存当前文件？",
+      "desc": "如果不保存，将失去所有更改。"
+    },
     "create_file": {
       "title": "创建新文件",
       "parent_folder_label": "所在文件夹",

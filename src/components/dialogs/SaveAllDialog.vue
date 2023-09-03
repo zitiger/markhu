@@ -10,7 +10,7 @@ const editStore = useEditorStore();
 
 async function dispose() {
   dialogStore.hideSaveAllDialog();
-  await getCurrent().close()
+  await getCurrent().doClose()
 }
 
 function cancel() {
@@ -20,7 +20,7 @@ function cancel() {
 async function save() {
   await editStore.saveAll()
   dialogStore.hideSaveAllDialog();
-  await getCurrent().close()
+  await getCurrent().doClose()
 }
 </script>
 

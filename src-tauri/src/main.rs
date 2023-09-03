@@ -15,6 +15,7 @@ fn main() {
         .invoke_handler(tauri::generate_handler![
             cmd::open_folder,
             cmd::open_file,
+                cmd::save_file,
             cmd::create_dir,
             cmd::create_file,
             cmd::save_content,
@@ -31,7 +32,9 @@ fn main() {
             cmd::move_to_trash,
             search::search_text,
             menu::set_menu_text,
-            menu::change_recent_menu
+            menu::change_recent_menu,
+                cmd::confirm,
+                cmd::confirm_ync,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
