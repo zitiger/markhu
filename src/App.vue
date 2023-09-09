@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import Navigator from "./components/Navigator.vue";
 import Content from "./components/Content.vue";
-import {useDialogStore, useEditorStore, useSystemStore} from "./stores";
+import {useEditorStore, useSystemStore} from "./stores";
 import {onMounted, reactive, watch} from "vue";
 import Dialogs from "./components/Dialogs.vue";
 import {getCurrent} from '@tauri-apps/plugin-window';
@@ -24,7 +24,8 @@ watch(() => useEditorStore().activeFile, async (newValue, oldCount) => {
 getCurrent().listen('tauri://close-requested', async (event) => {
 
   if (useEditorStore().changedFiles.length > 0) {
-    useDialogStore().showSaveAllDialog();
+    // useDialogStore().showSaveAllDialog();
+    await useEditorStore().closeAll();
   } else {
     await getCurrent().close();
   }

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {useDialogStore, useEditorStore, useStructureStore} from '../../stores'
+import {useEditorStore, useStructureStore} from '../../stores'
 import ResourcePanel from "../panels/ResourcePanel.vue";
 import {useI18n} from "vue-i18n";
 
@@ -14,13 +14,8 @@ function focusTab(filepath: string) {
   useEditorStore().read(filepath);
 }
 
-function removeTab(filepath: string) {
-  if (useEditorStore().isModified(filepath)) {
-    useEditorStore().closingFile = filepath;
-    useDialogStore().showSaveConfirmDialog();
-  } else {
-    useEditorStore().close(filepath)
-  }
+async function removeTab(filepath: string) {
+  useEditorStore().close(filepath)
 }
 
 function saveAll() {
@@ -44,8 +39,8 @@ function closeAll() {
     </template>
 
     <template v-slot:content>
-      <div style="max-height: 30vh">
-        <ul class="content">
+      <div style="max-height: 30vh;width:100%">
+        <ul>
           <li v-for="file in openedFiles" :class="{ active: file.filepath === useEditorStore().activeFile}">
 
             <span class="button">
@@ -114,7 +109,8 @@ function closeAll() {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-  flex-grow: 1
+  flex-grow: 1;
+  width: 100%;
 }
 
 </style>

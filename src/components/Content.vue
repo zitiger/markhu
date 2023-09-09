@@ -45,7 +45,7 @@
 
 <script setup lang="ts">
 import {ref} from '@vue/reactivity';
-import {useDialogStore, useEditorStore, useStructureStore, useSystemStore} from '../stores'
+import {useEditorStore, useStructureStore, useSystemStore} from '../stores'
 import Editor from "./Editor.vue";
 import {showInFolder} from "../api/file";
 import {useI18n} from "vue-i18n";
@@ -72,12 +72,12 @@ function shortenFileName(fileName: string): string {
 const removeTab = (event: MouseEvent, filepath: string) => {
   console.log("event", store.isModified(filepath))
 
-  if (store.isModified(filepath)) {
-    useEditorStore().closingFile = filepath;
-    useDialogStore().showSaveConfirmDialog();
-  } else {
-    store.close(filepath)
-  }
+  // if (store.isModified(filepath)) {
+  //   useEditorStore().closingFile = filepath;
+  //   useDialogStore().showSaveConfirmDialog();
+  // } else {
+  store.close(filepath)
+  // }
 }
 
 

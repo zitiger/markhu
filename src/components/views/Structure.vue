@@ -1,91 +1,93 @@
 <script lang="ts" setup>
 import path from "../../api/path";
 
-import {ExclamationCircleOutlined, FileOutlined, FolderOutlined} from '@ant-design/icons-vue';
-
-import {useDialogStore, useEditorStore, useStructureStore, useSystemStore} from '../../stores'
-import {computed, createVNode, ref} from "vue";
-import {message, Modal} from "ant-design-vue";
-import {showInFolder} from "../../api/file";
+// import {ExclamationCircleOutlined, FileOutlined, FolderOutlined} from '@ant-design/icons-vue';
+import {useEditorStore, useStructureStore, useSystemStore} from '../../stores'
+import {computed, ref} from "vue";
+import {message} from "ant-design-vue";
+import {confirmApi, showInFolder} from "../../api/file";
 import ResourcePanel from "../panels/ResourcePanel.vue";
 import {useI18n} from "vue-i18n";
+import FileTree from "../filetree/FileTree.vue"
+import {TreeNode} from "../filetree/types";
+import i18n from "../../locales";
 
+let fileTreeRef = ref();
 const {t} = useI18n()
 const editorStore = useEditorStore()
 const structureStore = (useStructureStore())
-const dialogStore = useDialogStore()
+// const dialogStore = useDialogStore()
 await structureStore.load()
 
-let treeData = (structureStore.list);//ref(await convertList(structureStore.list));
+
+let treeData = structureStore.data;//ref(await convertList(structureStore.list));
+
+console.log(treeData)
+
 
 const workspace = computed(() => {
   return path.basename(useSystemStore().workspace)
 })
 
-const handleNodeClick = async (selectedKeys: any, e: {
-  selected: boolean,
-  selectedNodes: any,
-  node: any,
-  event: any
-}) => {
+const onNodeClick = async (data: TreeNode) => {
 
-  let data = e.node;
+  console.log("node click", data)
 
-  if (data.folder) {
-    useStructureStore().currentDir = data.path
+  if (data.type === "folder") {
+    // useStructureStore().currentDir = data.path
   } else {
-    useStructureStore().currentDir = data.path.substring(0, data.path.lastIndexOf(path.sep));
+    // useStructureStore().currentDir = data.path.substring(0, data.path.lastIndexOf(path.sep));
     await editorStore.read(data.path)
   }
-  // useStructureStore().currentNode = e.node
-  console.log("node click", e.node, selectedKeys)
+  useStructureStore().currentNode = data
+  console.log("onNodeClick", useStructureStore().currentNode);
 }
 
-const onContextMenuClick = (treeKey: string, menuKey: string) => {
+const onContextmenuClick = async (nodeData: TreeNode, menuKey: string) => {
   console.log(menuKey)
-  console.log(`treeKey: ${treeKey}, menuKey: ${menuKey}`);
-  let node = useStructureStore().find(treeKey);
-  if (node) {
-    useStructureStore().currentNode = node
+  console.log(`treeKey: ${nodeData.path}, menuKey: ${menuKey}`);
+  // let node = useStructureStore().find(treeKey);
+  // if (node) {
+  // useStructureStore().currentNode = nodeData
+  //
+  // if (nodeData.type === "folder") {
+  //   useStructureStore().currentDir = nodeData.path;
+  // } else {
+  //   useStructureStore().currentDir = path.dirname(nodeData.path);
+  // }
 
-    if (node.folder) {
-      useStructureStore().currentDir = node.path;
-    } else {
-      useStructureStore().currentDir = path.dirname(node.path);
+  if (menuKey === "createFile") {
+    // startAdding(true);
+    // nodeData.addingFile = true;
+
+    fileTreeRef.value.startCreateFile(nodeData.path)
+  } else if (menuKey === "createDir") {
+    // startAdding(false);
+    // nodeData.addingFolder = true;
+    fileTreeRef.value.startCreateFolder(nodeData.path)
+  } else if (menuKey === "rename") {
+    // nodeData.editing = true;
+    fileTreeRef.value.startRename(nodeData.path)
+  } else if (menuKey === "remove") {
+    let fullPath = nodeData.path;
+
+    // let parentPath = path.dirname(fullPath)
+    let title = i18n.global.t("dialog.delete.title")
+    let desc = i18n.global.t("dialog.delete.desc")
+    let yes = i18n.global.t("dialog.delete.button_delete")
+    let no = i18n.global.t("dialog.button_cancel")
+
+    let basename = path.basename(fullPath)
+    desc = basename + "\n\n" + desc
+
+    let r = await confirmApi(title, desc, yes, no)
+    if (r) {
+      await useStructureStore().remove(fullPath)
     }
-
-    if (menuKey === "createFile") {
-      startAdding(true);
-    } else if (menuKey === "createDir") {
-      startAdding(false);
-    } else if (menuKey === "move") {
-      useDialogStore().showMoveDialog();
-    } else if (menuKey === "rename") {
-      startEditing();
-    } else if (menuKey === "remove") {
-      let fullPath = node.path;
-
-      Modal.confirm({
-        title: '确认删除?',
-        icon: createVNode(ExclamationCircleOutlined),
-        content: '是否进行删除操作？',
-        okText: '是',
-        okType: 'danger',
-
-        cancelText: '否',
-        onOk() {
-          const isFile = node != undefined && !node.folder
-
-          useStructureStore().remove(fullPath, isFile)
-        },
-        onCancel() {
-          console.log('Cancel');
-        },
-      });
-    } else if (menuKey === "showInFolder") {
-      showInFolder(node.path);
-    }
+  } else if (menuKey === "showInFolder") {
+    await showInFolder(nodeData.path);
   }
+  // }
 }
 
 function reload() {
@@ -93,7 +95,38 @@ function reload() {
   message.success(t('resource.structure.reload_successfully'));
 }
 
-function startEditing() {
+async function onFolderCreate(node: TreeNode, parent: TreeNode) {
+  await useStructureStore().createFolder(node.path)
+  console.log("onFolderCreate", node.path)
+}
+
+async function onFileCreate(node: TreeNode, parent: TreeNode) {
+  if (!node.title.toLowerCase().endsWith(".md")) {
+    node.title = node.title + ".md"
+    node.path = node.path + ".md"
+  }
+  await useStructureStore().createFile(node.path);
+  await useEditorStore().read(node.path)
+}
+
+function onNodeMove(newPath: string, oldPath: string) {
+  useStructureStore().move(oldPath, newPath)
+}
+
+function onNodeRename(node, title, oldTitle, newPath, oldPath) {
+
+  useStructureStore().rename(oldPath, newPath)
+}
+
+function onEditError(error: string) {
+  message.error(t('resource.structure.path_exists'));
+}
+
+function onOutsideClick() {
+  useStructureStore().currentNode = useStructureStore().data;
+}
+
+/*function startEditing() {
 
   useStructureStore().startEditing();
 
@@ -115,8 +148,8 @@ function startEditing() {
     editingInput.value.focus()
     editingInput.value.select();
   }, 500)
-}
-
+}*/
+/*
 async function finishEditing() {
   let name = editingInputText.value;
   if (xisFile) {
@@ -143,21 +176,21 @@ async function cancelEditing() {
   await useStructureStore().cancelEditing();
   editingInputText.value = ''
   inputStatus.value = ""
-}
+}*/
 
-function startAdding(isFile: boolean) {
+// function startAdding(isFile: boolean) {
+//
+//   expandedKeys.value.push(useStructureStore().currentDir)
+//   xisFile = isFile;
+//   useStructureStore().startAdding(isFile);
+//   inputStatus.value = ""
+//
+//   setTimeout(() => {
+//     addingInput.value.focus()
+//   }, 500)
+// }
 
-  expandedKeys.value.push(useStructureStore().currentDir)
-  xisFile = isFile;
-  useStructureStore().startAdding(isFile);
-  inputStatus.value = ""
-
-  setTimeout(() => {
-    addingInput.value.focus()
-  }, 500)
-}
-
-async function finishAdding() {
+/*async function finishAdding() {
   console.log("finishAdding")
   let result = await useStructureStore().finishAdding(xisFile, addingInputText.value)
   if (result) {
@@ -170,9 +203,9 @@ async function finishAdding() {
 
 async function cancelAdding() {
   await useStructureStore().cancelAdding();
-}
+}*/
 
-let xisFile = false;
+/*let xisFile = false;
 let oldName = "";
 
 let inputStatus = ref("")
@@ -180,14 +213,16 @@ let addingInput = ref()
 let addingInputText = ref("")
 
 let editingInput = ref()
-let editingInputText = ref("")
+let editingInputText = ref("")*/
 
+/*
 let expandedKeys = ref<string[]>([])
+*/
 
-function onExpand(expandedKeys222: string[]) {
+/*function onExpand(expandedKeys222: string[]) {
   expandedKeys.value.length = 0;
   expandedKeys.value.push(...expandedKeys222)
-}
+}*/
 </script>
 
 <template>
@@ -198,41 +233,36 @@ function onExpand(expandedKeys222: string[]) {
     </template>
 
     <template v-slot:buttons>
-      <IconFont type="icon-create-dir" @click.stop="startAdding(false)"/>
-      <IconFont type="icon-create-file" @click.stop="startAdding(true)"/>
+      <IconFont type="icon-create-dir" @click.stop="fileTreeRef.startCreateFolder(treeData.path)"/>
+      <IconFont type="icon-create-file" @click.stop="fileTreeRef.startCreateFile(treeData.path)"/>
       <IconFont type="icon-refresh" @click.stop="reload()"/>
     </template>
     <template v-slot:content>
-      <a-directory-tree :showIcon="false" :tree-data="treeData" @select="handleNodeClick" :expanded-keys="expandedKeys"
-                        @expand="onExpand" class="file-tree">
+      <FileTree :data="treeData" default-extname=".md"
+                ref="fileTreeRef"
+                @nodeClick="onNodeClick"
+                @folderCreate="onFolderCreate" @fileCreate="onFileCreate"
+                @nodeRename="onNodeRename" @editError="onEditError" @nodeMove="onNodeMove"
+                @outsideClick="onOutsideClick"
+      >
 
-        <template #title="{folder, key: treeKey, title, editing, adding,data }">
-          <a-dropdown :trigger="['contextmenu']">
-            <span v-if="adding">
+        <template v-slot:toggler="{nodeData,expanded}">
+          <IconFont type="icon-arrow-down" v-if="expanded"/>
+          <IconFont type="icon-arrow-down-copy" v-else/>
+        </template>
 
-             <a-tooltip :title="t('resource.structure.path_exists')" color="red" :open="inputStatus ==='error'">
-              <a-input size="small" type="text" :status="inputStatus" ref="addingInput" @blur="finishAdding"
-                       v-on:keyup.esc="cancelAdding"
-                       v-on:keydown.enter="finishAdding" v-model:value="addingInputText"
-                       @click.stop.prevent
-                       :addon-after="xisFile?'.md':''" allow-clear/>
-             </a-tooltip>
+        <template v-slot:icon="{nodeData}">
+          <IconFont type="icon-folder1" v-if="nodeData.type==='folder'"/>
+          <IconFont type="icon-file-markdown2" v-else/>
+        </template>
 
-            </span>
-            <span v-else-if="editing">
-              <a-tooltip :title="t('resource.structure.path_exists')" color="red" :open="inputStatus ==='error'">
-                <a-input size="small" type="text" :status="inputStatus" ref="editingInput" @blur="finishEditing"
-                         v-on:keyup.esc="cancelEditing"
-                         v-on:keydown.enter="finishEditing"
-                         v-model:value="editingInputText"
-                         @click.stop.prevent
-                         :addon-after="xisFile?'.md':''"/>
-              </a-tooltip>
-            </span>
-            <span v-else><folder-outlined v-if="folder"/> <file-outlined v-else/> {{ title }}</span>
+
+        <template v-slot:title="{nodeData}">
+          <a-dropdown trigger="contextmenu">
+            <span style="width: 100%">{{ nodeData.title }}</span>
 
             <template #overlay>
-              <a-menu @click="(event:any) => onContextMenuClick(treeKey, event.key)">
+              <a-menu @click="(event:any) => onContextmenuClick(nodeData, event.key)">
                 <a-menu-item key="createFile">{{ t('resource.structure.context_menu.create_file') }}</a-menu-item>
                 <a-menu-item key="createDir">{{ t('resource.structure.context_menu.create_folder') }}</a-menu-item>
                 <a-menu-divider></a-menu-divider>
@@ -245,8 +275,58 @@ function onExpand(expandedKeys222: string[]) {
               </a-menu>
             </template>
           </a-dropdown>
+
+
         </template>
-      </a-directory-tree>
+
+
+      </FileTree>
+      <!--      <div style="height: 100%" @click="useStructureStore().currentNode = useStructureStore().data">-->
+      <!--      </div>-->
+      <!--      <a-directory-tree :showIcon="false" :tree-data="treeData" @select="handleNodeClick" :expanded-keys="expandedKeys"
+                              @expand="onExpand" class="file-tree">
+
+              <template #title="{folder, key: treeKey, title, editing, adding,data }">
+              <a-dropdown :trigger="['contextmenu']">
+                  <span v-if="adding">
+
+                   <a-tooltip :title="t('resource.structure.path_exists')" color="red" :open="inputStatus ==='error'">
+                    <a-input size="small" type="text" :status="inputStatus" ref="addingInput" @blur="finishAdding"
+                             v-on:keyup.esc="cancelAdding"
+                             v-on:keydown.enter="finishAdding" v-model:value="addingInputText"
+                             @click.stop.prevent
+                             :addon-after="xisFile?'.md':''" allow-clear/>
+                   </a-tooltip>
+
+                  </span>
+                <span v-else-if="editing">
+                    <a-tooltip :title="t('resource.structure.path_exists')" color="red" :open="inputStatus ==='error'">
+                      <a-input size="small" type="text" :status="inputStatus" ref="editingInput" @blur="finishEditing"
+                               v-on:keyup.esc="cancelEditing"
+                               v-on:keydown.enter="finishEditing"
+                               v-model:value="editingInputText"
+                               @click.stop.prevent
+                               :addon-after="xisFile?'.md':''"/>
+                    </a-tooltip>
+                  </span>
+                <span v-else><folder-outlined v-if="folder"/> <file-outlined v-else/> {{ title }}</span>
+
+                <template #overlay>
+                  <a-menu @click="(event:any) => onContextMenuClick(treeKey, event.key)">
+                    <a-menu-item key="createFile">{{ t('resource.structure.context_menu.create_file') }}</a-menu-item>
+                    <a-menu-item key="createDir">{{ t('resource.structure.context_menu.create_folder') }}</a-menu-item>
+                    <a-menu-divider></a-menu-divider>
+                    <a-menu-item key="move">{{ t('resource.structure.context_menu.move') }}</a-menu-item>
+                    <a-menu-divider></a-menu-divider>
+                    <a-menu-item key="rename">{{ t('resource.structure.context_menu.rename') }}</a-menu-item>
+                    <a-menu-item key="remove">{{ t('resource.structure.context_menu.remove') }}</a-menu-item>
+                    <a-menu-divider></a-menu-divider>
+                    <a-menu-item key="showInFolder">{{ t('resource.structure.context_menu.show_in_folder') }}</a-menu-item>
+                  </a-menu>
+                </template>
+              </a-dropdown>
+            </template>
+            </a-directory-tree>-->
     </template>
   </resource-panel>
 
@@ -254,22 +334,22 @@ function onExpand(expandedKeys222: string[]) {
 <style scoped>
 
 .container {
+  height: 100%;
 }
+
+
 </style>
 <style>
-
-.file-tree {
-  background-color: transparent !important;
+.container .content {
+  height: 100%;
 }
 
-.ant-dropdown-trigger {
-
-  display: block;
+.tree-node-input {
+  outline: none;
+  padding: 0 4px;
+  background-color: var(--mh-content-background-color);
+  border: 1px solid var(--mh-primary-color);
 }
 
-.file-tree .ant-tree-title {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+
 </style>

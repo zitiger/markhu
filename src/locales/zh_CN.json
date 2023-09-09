@@ -71,46 +71,20 @@
     "button_cancel": "取消",
     "button_yes": "是",
     "button_no": "否",
-    "button_save": "保存",
-    "button_not_save": "不保存",
-    "create_file": {
-      "title": "创建新文件",
-      "parent_folder_label": "所在文件夹",
-      "file_name_label": "文件名称",
-      "file_name_required_message": "请输入文件名称",
-      "file_exist_message": "创建文件失败，已经存在相同名称的文件"
+    "close_file": {
+      "title": "是否在关闭前保存当前文件？",
+      "desc": "如果不保存，将失去所有更改。",
+      "button_save": "保存",
+      "button_not_save": "不保存"
     },
-    "save_as": {
-      "title": "另存为",
-      "parent_folder_label": "所在文件夹",
-      "file_name_label": "文件名称",
-      "file_name_required_message": "请输入文件名称",
-      "file_exist_message": "创建文件失败，已经存在相同名称的文件"
+    "delete": {
+      "title": "是否确实要删除文件?",
+      "desc": "您可以从废纸篓/回收站还原此文件。",
+      "button_delete": "移动到废纸篓/回收站"
     },
-    "create_dir": {
-      "title": "创建新文件夹",
-      "parent_folder_label": "所在目录",
-      "folder_name_label": "文件夹名称",
-      "folder_name_required_message": "请输入文件夹名称",
-      "file_exist_message": "创建文件夹失败，已经存在相同名称的文件夹"
-    },
-    "rename": {
-      "title": "重命名",
-      "name_exist_message": "重命名失败，已经存在相同名称"
-    },
-    "move": {
-      "title": "移动",
-      "path_exist_message": "移动失败，目标文件夹中已经存在相同名称",
-      "old_folder_label": "当前文件夹",
-      "new_folder_label": "目标文件夹"
-    },
-    "save_all": {
-      "title": "是否保存？",
-      "content": "有文件尚未保存，是否在关闭前进行保存？"
-    },
-    "save_file": {
-      "title": "是否保存?",
-      "content": "有文件尚未保存，是否在关闭前进行保存？"
+    "open_history": {
+      "title": "打开文件失败，文件不存在",
+      "desc": "没有找到此文件，这个文件可能已经被删除或者移动。"
     },
     "history_file": {
       "keyword_placeholder": "输入关键词搜索",
