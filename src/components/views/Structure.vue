@@ -3,7 +3,7 @@ import path from "../../api/path";
 
 // import {ExclamationCircleOutlined, FileOutlined, FolderOutlined} from '@ant-design/icons-vue';
 import {useEditorStore, useStructureStore, useSystemStore} from '../../stores'
-import {computed, ref} from "vue";
+import {computed, ref, watch} from "vue";
 import {message} from "ant-design-vue";
 import {confirmApi, showInFolder} from "../../api/file";
 import ResourcePanel from "../panels/ResourcePanel.vue";
@@ -22,8 +22,14 @@ await structureStore.load()
 
 let treeData = structureStore.data;//ref(await convertList(structureStore.list));
 
-console.log(treeData)
 
+watch(() => useStructureStore().createFileKey, (path) => {
+  fileTreeRef.value.startCreateFile(path);
+})
+
+watch(() => useStructureStore().createFolderKey, (path) => {
+  fileTreeRef.value.startCreateFolder(path);
+})
 
 const workspace = computed(() => {
   return path.basename(useSystemStore().workspace)
@@ -332,12 +338,9 @@ let expandedKeys = ref<string[]>([])
 
 </template>
 <style scoped>
-
 .container {
   height: 100%;
 }
-
-
 </style>
 <style>
 .container .content {
@@ -350,6 +353,4 @@ let expandedKeys = ref<string[]>([])
   background-color: var(--mh-content-background-color);
   border: 1px solid var(--mh-primary-color);
 }
-
-
 </style>

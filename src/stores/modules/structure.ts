@@ -1,5 +1,5 @@
 import {defineStore} from 'pinia'
-import {reactive} from 'vue'
+import {reactive, ref} from 'vue'
 import {createDirApi, createFileApi, moveToTrashApi, readFolderApi, renameApi} from "../../api/file";
 import {FileInfo, StructureNode} from "../../api/model";
 import {useSystemStore} from "./system";
@@ -19,18 +19,17 @@ export const useStructureStore = defineStore('structure', {
 
         // let path = '';
 
+        let createFileKey = ref('');
+        let createFolderKey = ref('');
+
         let currentNode = reactive<StructureNode>(data);
 
-        return {data, currentNode}
+        return {data, currentNode, createFileKey, createFolderKey}
     },
 
     actions: {
         async createFolder(path: string) {
-            // let filepath = await path.join(folder, basename);
-
-
             await createDirApi(path);
-
         },
         async createFile(path: string) {
             // let filepath = await path.join(folder, basename);
@@ -136,22 +135,18 @@ export const useStructureStore = defineStore('structure', {
 
             return findNodeByPath(this.data, path);
         },
-        // startAddingFile() {
-        //     let node = this.currentNode;
-        //     if (node.type === "file") {
-        //         node = findParentNodeByPath(this.data, node.path)
-        //     }
-        //     node.addingFile = true;
-        //
-        //     console.log(this.currentNode)
-        // },
-        // startAddingFolder() {
-        //     let node = this.currentNode;
-        //     if (node.type === "file") {
-        //         node = findParentNodeByPath(this.data, node.path)
-        //     }
-        //     node.addingFolder = true;
-        // },
+        startCreateFile() {
+            let node = this.currentNode;
+            this.createFileKey = node.path
+        },
+        startCreateFolder() {
+            let node = this.currentNode;
+            if (node.type === "file") {
+                this.createFolderKey = path.dirname(node.path);
+            } else {
+                this.createFolderKey = node.path
+            }
+        },
         /*      async finishAdding(isFile: boolean, name: string) {
 
                   console.log("this.currentDir this.currentDir this.currentDir", this.currentNode)
