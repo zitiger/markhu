@@ -5,7 +5,7 @@
          @contextmenu.stop.prevent="onNodeContextmenu($event, nodeData)"
     >
       <div :class="[{selected: selectedKeys.has(nodeData.path), focused: focusedKey === nodeData.path}]">
-        <div v-if="nodeData.path !== data.path" :style="{'margin-left': (nodeData.level)*20+'px' }"
+        <div v-if="nodeData.path !== data.path" :style="{'margin-left': (nodeData.level??0)*20+'px' }"
              class="file-tree-node-content"
              :class="[{
              'node-drag-hover-above': hoverAboveKey===nodeData.path,
@@ -44,7 +44,7 @@
         </div>
       </div>
       <div v-if="nodeData.type === 'folder' && ( createFileKey === nodeData.path|| createFolderKey === nodeData.path)"
-           :style="{'padding-left': nodeData.level*20+20+'px' }">
+           :style="{'padding-left': (nodeData.level??0)*20+20+'px' }">
         <template v-if="createFolderKey === nodeData.path">
           <input type="text" ref="editInputRef"
                  @blur="onFolderCreate(nodeData)"

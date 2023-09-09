@@ -5,7 +5,6 @@ import {FileInfo, StructureNode} from "../../api/model";
 import {useSystemStore} from "./system";
 import {useEditorStore} from "./editor";
 import path from "../../api/path";
-import {findParentNodeByPath} from "../../components/filetree/utils";
 
 export const useStructureStore = defineStore('structure', {
     state: () => {
@@ -137,22 +136,22 @@ export const useStructureStore = defineStore('structure', {
 
             return findNodeByPath(this.data, path);
         },
-        startAddingFile() {
-            let node = this.currentNode;
-            if (node.type === "file") {
-                node = findParentNodeByPath(this.data, node.path)
-            }
-            node.addingFile = true;
-
-            console.log(this.currentNode)
-        },
-        startAddingFolder() {
-            let node = this.currentNode;
-            if (node.type === "file") {
-                node = findParentNodeByPath(this.data, node.path)
-            }
-            node.addingFolder = true;
-        },
+        // startAddingFile() {
+        //     let node = this.currentNode;
+        //     if (node.type === "file") {
+        //         node = findParentNodeByPath(this.data, node.path)
+        //     }
+        //     node.addingFile = true;
+        //
+        //     console.log(this.currentNode)
+        // },
+        // startAddingFolder() {
+        //     let node = this.currentNode;
+        //     if (node.type === "file") {
+        //         node = findParentNodeByPath(this.data, node.path)
+        //     }
+        //     node.addingFolder = true;
+        // },
         /*      async finishAdding(isFile: boolean, name: string) {
 
                   console.log("this.currentDir this.currentDir this.currentDir", this.currentNode)
