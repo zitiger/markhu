@@ -270,6 +270,9 @@ function createNode(list: StructureNode[], newNode: StructureNode): StructureNod
 function deleteNode(data: StructureNode, path: string) {
     const parentPath = getParentPath(path);
     const parentNode = findNodeByPath(data, parentPath);
+    if (!parentNode || !parentNode.children) {
+        return;
+    }
     let children = parentNode.children
     const index = findChildIndex(children, path);
     if (index !== -1) {

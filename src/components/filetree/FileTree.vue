@@ -156,7 +156,7 @@ function onNodeContextmenu(event: MouseEvent, nodeData: TreeNode) {
   emits("nodeContextmenu", event, nodeData)
 }
 
-function onNodeToggle(nodeData) {
+function onNodeToggle(nodeData: TreeNode) {
   const expanded = expandedKeys.has(nodeData.path);
 
   if (!expanded) {

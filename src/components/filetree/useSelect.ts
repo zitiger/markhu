@@ -1,8 +1,8 @@
 import {TreeNode} from "./types";
 import {findIndexByPath} from "./utils";
-import {reactive} from "vue";
+import {ComputedRef, reactive, Ref} from "vue";
 
-export default function useSelect(flattenTree, focusedNodeKey, emits) {
+export default function useSelect(flattenTree: ComputedRef<TreeNode[]>, focusedNodeKey: Ref<string>, emits: any) {
 
     const selectedKeys = reactive(new Set<string>())
     const clickedKeys: string[] = [];

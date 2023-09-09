@@ -113,7 +113,7 @@ function onNodeMove(newPath: string, oldPath: string) {
   useStructureStore().move(oldPath, newPath)
 }
 
-function onNodeRename(node, title, oldTitle, newPath, oldPath) {
+function onNodeRename(node: TreeNode, title: string, oldTitle: string, newPath: string, oldPath: string) {
 
   useStructureStore().rename(oldPath, newPath)
 }

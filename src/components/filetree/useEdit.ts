@@ -1,8 +1,8 @@
 import {TreeNode} from "./types";
 import {dirname, extname, join} from "./utils";
-import {nextTick, ref, watch} from "vue";
+import {nextTick, Ref, ref, watch} from "vue";
 
-export default function useEdit(defaultExtname: string | undefined, expandedKeys: Set<string>, editInputRef, emits) {
+export default function useEdit(defaultExtname: string | undefined, expandedKeys: Set<string>, editInputRef: Ref<HTMLInputElement[]>, emits: any) {
 
     const renameKey = ref('');
     const createFileKey = ref('');
