@@ -31,7 +31,6 @@ export default function useEdit(defaultExtname: string | undefined, expandedKeys
     })
 
     function startRename(key: string) {
-        console.log("startRenamestartRenamestartRenamestartRename")
         renameKey.value = key;
         editErrorKey.value = ''
     }
@@ -81,14 +80,12 @@ export default function useEdit(defaultExtname: string | undefined, expandedKeys
         }
 
         let title = input.value;
-        let fileExtname = extname(title);
+        const fileExtname = extname(title);
         if (!fileExtname && defaultExtname) {
             title = title + defaultExtname;
         }
 
-        console.log("fileCreatefileCreatefileCreatefileCreate")
-
-        let newOne = doCreate(node, title, "file")
+        const newOne = doCreate(node, title, "file")
         if (newOne) {
             emits('fileCreate', newOne, node);
         } else {
@@ -103,7 +100,7 @@ export default function useEdit(defaultExtname: string | undefined, expandedKeys
         }
 
         const title = input.value;
-        let newOne = doCreate(node, title, "folder")
+        const newOne = doCreate(node, title, "folder")
         if (newOne) {
             emits('folderCreate', newOne, node);
         } else {
