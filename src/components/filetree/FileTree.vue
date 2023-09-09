@@ -3,11 +3,11 @@
     <div v-for="nodeData in flattenTree" :key="nodeData.path" draggable="true" class="file-tree-node"
          @dragstart.stop="onDragStart(nodeData)" @dragend.stop="onDragEnd"
          @contextmenu.stop.prevent="onNodeContextmenu($event, nodeData)"
-         :class="[{selected: selectedKeys.has(nodeData.path), focused: focusedKey === nodeData.path}]"
     >
-      <div v-if="nodeData.path !== data.path" style="display: flex" :style="{'margin-left': (nodeData.level)*20+'px' }"
+      <div v-if="nodeData.path !== data.path" :style="{'padding-left': (nodeData.level)*20+'px' }"
            class="file-tree-node-content"
            :class="[{
+             selected: selectedKeys.has(nodeData.path), focused: focusedKey === nodeData.path,
              'node-drag-hover-above': hoverAboveKey===nodeData.path,
              'node-drag-hover-in': hoverInKey===nodeData.path,
              'node-drag-hover-below': hoverBelowKey===nodeData.path,
@@ -17,8 +17,7 @@
            @drop.stop="onDrop(nodeData,data)" @click="onNodeSelect($event, nodeData)">
         <span v-if="nodeData.type === 'folder'" @click.stop="onNodeToggle(nodeData)" class="icon" @dragover.prevent>
           <slot name="toggler" :nodeData="nodeData" :expanded="expandedKeys.has(nodeData.path)">
-            <template
-                v-if="expandedKeys.has(nodeData.path)">-</template>
+            <template v-if="expandedKeys.has(nodeData.path)">-</template>
             <template v-else>+</template>
           </slot>
         </span>
@@ -30,13 +29,13 @@
         </span>
 
         <template v-if="renameKey === nodeData.path">
-          <input style="width: 100%" type="text" @blur="onNodeRename(nodeData)"
+          <input type="text" @blur="onNodeRename(nodeData)"
                  v-on:keydown.enter="onNodeRename(nodeData)"
                  v-on:keyup.esc="onEditCancel"
                  ref="editInputRef"
                  :value="nodeData.title"
                  class="tree-node-input"
-                 :class="[{ 'node-edit-error': editErrorKey===nodeData.path, }]"
+                 :class="[{ 'tree-node-input-error': editErrorKey===nodeData.path, }]"
           >
         </template>
         <slot name="title" :nodeData="nodeData" v-else>
@@ -46,12 +45,12 @@
       <div v-if="nodeData.type === 'folder' && ( createFileKey === nodeData.path|| createFolderKey === nodeData.path)"
            :style="{'padding-left': nodeData.level*20+20+'px' }">
         <template v-if="createFolderKey === nodeData.path">
-          <input style="width: 100%" type="text" ref="editInputRef"
+          <input type="text" ref="editInputRef"
                  @blur="onFolderCreate(nodeData)"
                  v-on:keydown.enter="onFolderCreate(nodeData)"
                  v-on:keyup.esc="onEditCancel"
                  class="tree-node-input"
-                 :class="[{ 'node-edit-error': editErrorKey===nodeData.path, }]"
+                 :class="[{ 'tree-node-input-error': editErrorKey===nodeData.path, }]"
           >
         </template>
 
@@ -61,7 +60,7 @@
                  v-on:keydown.enter="onFileCreate(nodeData)"
                  v-on:keyup.esc="onEditCancel"
                  class="tree-node-input"
-                 :class="[{ 'node-edit-error': editErrorKey===nodeData.path, }]"
+                 :class="[{ 'tree-node-input-error': editErrorKey===nodeData.path, }]"
           >
         </template>
       </div>
@@ -175,18 +174,19 @@ function onNodeToggle(nodeData) {
   border: 2px solid transparent;
 }
 
-.file-tree-node.selected {
+.file-tree-node .selected {
   background-color: #5295E7;
   border: 2px solid #5295E7;
 
 }
 
-.file-tree-node.focused {
+.file-tree-node .focused {
   border: 2px solid #5295E7;
 }
 
 .file-tree-node-content {
   border: 2px solid transparent;
+  display: flex
 }
 
 .node-drag-hover-in {
@@ -203,7 +203,11 @@ function onNodeToggle(nodeData) {
   border-bottom: 2px solid #5295E7 !important;
 }
 
-.node-edit-error {
+.tree-node-input {
+  width: 100%
+}
+
+.tree-node-input-error {
   border-color: red !important;
 }
 </style>
