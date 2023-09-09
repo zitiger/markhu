@@ -4,43 +4,44 @@
          @dragstart.stop="onDragStart(nodeData)" @dragend.stop="onDragEnd"
          @contextmenu.stop.prevent="onNodeContextmenu($event, nodeData)"
     >
-      <div v-if="nodeData.path !== data.path" :style="{'padding-left': (nodeData.level)*20+'px' }"
-           class="file-tree-node-content"
-           :class="[{
-             selected: selectedKeys.has(nodeData.path), focused: focusedKey === nodeData.path,
+      <div :class="[{selected: selectedKeys.has(nodeData.path), focused: focusedKey === nodeData.path}]">
+        <div v-if="nodeData.path !== data.path" :style="{'margin-left': (nodeData.level)*20+'px' }"
+             class="file-tree-node-content"
+             :class="[{
              'node-drag-hover-above': hoverAboveKey===nodeData.path,
              'node-drag-hover-in': hoverInKey===nodeData.path,
              'node-drag-hover-below': hoverBelowKey===nodeData.path,
            }]"
-           @dragenter.stop="onDragEnter" @dragover.stop.prevent="onDragOver($event, nodeData)"
-           @dragleave.stop="onDragLeave"
-           @drop.stop="onDrop(nodeData,data)" @click="onNodeSelect($event, nodeData)">
+             @dragenter.stop="onDragEnter" @dragover.stop.prevent="onDragOver($event, nodeData)"
+             @dragleave.stop="onDragLeave"
+             @drop.stop="onDrop(nodeData,data)" @click="onNodeSelect($event, nodeData)">
         <span v-if="nodeData.type === 'folder'" @click.stop="onNodeToggle(nodeData)" class="icon" @dragover.prevent>
           <slot name="toggler" :nodeData="nodeData" :expanded="expandedKeys.has(nodeData.path)">
             <template v-if="expandedKeys.has(nodeData.path)">-</template>
             <template v-else>+</template>
           </slot>
         </span>
-        <span>
+          <span>
           <slot name="icon" :nodeData="nodeData">
             <template v-if="nodeData.type === 'folder'">[D]</template>
             <template v-else>[F]</template>
           </slot>
         </span>
 
-        <template v-if="renameKey === nodeData.path">
-          <input type="text" @blur="onNodeRename(nodeData)"
-                 v-on:keydown.enter="onNodeRename(nodeData)"
-                 v-on:keyup.esc="onEditCancel"
-                 ref="editInputRef"
-                 :value="nodeData.title"
-                 class="tree-node-input"
-                 :class="[{ 'tree-node-input-error': editErrorKey===nodeData.path, }]"
-          >
-        </template>
-        <slot name="title" :nodeData="nodeData" v-else>
-          <span style="width: 100%">{{ nodeData.title }}</span>
-        </slot>
+          <template v-if="renameKey === nodeData.path">
+            <input type="text" @blur="onNodeRename(nodeData)"
+                   v-on:keydown.enter="onNodeRename(nodeData)"
+                   v-on:keyup.esc="onEditCancel"
+                   ref="editInputRef"
+                   :value="nodeData.title"
+                   class="tree-node-input"
+                   :class="[{ 'tree-node-input-error': editErrorKey===nodeData.path, }]"
+            >
+          </template>
+          <slot name="title" :nodeData="nodeData" v-else>
+            <span style="width: 100%">{{ nodeData.title }}</span>
+          </slot>
+        </div>
       </div>
       <div v-if="nodeData.type === 'folder' && ( createFileKey === nodeData.path|| createFolderKey === nodeData.path)"
            :style="{'padding-left': nodeData.level*20+20+'px' }">
@@ -103,6 +104,9 @@ const flattenTree = computed(() => {
   result.push(data)
 
   function traverse(tree: TreeNode, level = 0) {
+    if (!tree.children) {
+      return;
+    }
     for (const node of tree.children) {
       node.level = level;
       result.push(node);
