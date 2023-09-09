@@ -128,7 +128,7 @@ const {
   onDragLeave,
   onDragEnd,
   onDrop
-} = useDragDrop(emits);
+} = useDragDrop(expandedKeys, emits);
 
 const {
   renameKey,
