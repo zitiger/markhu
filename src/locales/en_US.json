@@ -71,50 +71,20 @@
     "button_cancel": "Cancel",
     "button_yes": "Yes",
     "button_no": "No",
-    "button_save": "Save",
-    "button_not_save": "Do not Save",
     "close_file": {
       "title": "Do you want to save the changes you made to current file?",
-      "desc": "Your changes will be lost if you don't save them."
+      "desc": "Your changes will be lost if you don't save them.",
+      "button_save": "Save",
+      "button_not_save": "Do not Save"
     },
-    "create_file": {
-      "title": "Create File",
-      "parent_folder_label": "Parent Folder",
-      "file_name_label": "File Name",
-      "file_name_required_message": "Please input File Name",
-      "file_exist_message": "Failed to create, it already exists"
+    "delete": {
+      "title": "Are you sure you want to delete the current file?",
+      "desc": "You can restore this file from the Trash.",
+      "button_delete": "Move to Trash"
     },
-    "save_as": {
-      "title": "Save As",
-      "parent_folder_label": "Parent Folder",
-      "file_name_label": "File Name",
-      "file_name_required_message": "Please input File Name",
-      "file_exist_message": "Failed to create, it already exists"
-    },
-    "create_dir": {
-      "title": "Create Folder",
-      "parent_folder_label": "Parent Folder",
-      "folder_name_label": "Folder Name",
-      "folder_name_required_message": "Please input Folder Name",
-      "file_exist_message": "Failed to create, it already exists"
-    },
-    "rename": {
-      "title": "Rename",
-      "name_exist_message": "Failed to rename, it already exists"
-    },
-    "move": {
-      "title": "Move",
-      "path_exist_message": "Failed to move, it already exists",
-      "old_folder_label": "Current Folder",
-      "new_folder_label": "Target Folder"
-    },
-    "save_all": {
-      "title": "Save Changes?",
-      "content": "Do you want to save the changes you made to files?"
-    },
-    "save_file": {
-      "title": "Save Changes?",
-      "content": "Do you want to save the changes you made to file?"
+    "open_history": {
+      "title": "Fail to open file, it does not exist",
+      "desc": "Can not find the file, maybe it is deleted or moved."
     },
     "history_file": {
       "keyword_placeholder": "Enter keyword to filter",

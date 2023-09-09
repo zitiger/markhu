@@ -14,7 +14,8 @@ export const useStructureStore = defineStore('structure', {
             title: "/",
             path: "/",
             type: "folder",
-            expanded: true
+            expanded: true,
+            children: []
         });
 
         // let path = '';
@@ -64,31 +65,29 @@ export const useStructureStore = defineStore('structure', {
 
         },
 
-        async basename(filepath: string) {
-            return await path.basename(filepath)
-        },
         async load() {
 
-            let path = useSystemStore().workspace;
-            if (path === "") {
+            let workspace = useSystemStore().workspace;
+            if (workspace === "") {
                 return
             }
 
-            this.data.path = path;
-            this.data.title = "/"
+            // this.data.path = path;
+            // this.data.title = "/"
 
-            this.currentDir = path;
+            // this.currentDir = path;
 
-            const sourceFileList = await readFolderApi(path);
+            const sourceFileList = await readFolderApi(workspace);
 
             console.log(sourceFileList)
             // this.list.length = 0; // 清空数组
             // this.dir.length = 0; // 清空数组
 
             let fileList = await this.buildNode(sourceFileList)
-            this.data.children = fileList
 
-            console.log("fileListfileListfileListfileList", fileList)
+            this.data.path = workspace;
+            this.data.title = path.basename(workspace);
+            this.data.children = fileList;
         },
 
         async buildNode(res: FileInfo[]) {
@@ -112,7 +111,7 @@ export const useStructureStore = defineStore('structure', {
                     }
                 }
                 result.push({
-                    title: await this.basename(filePath),
+                    title: await path.basename(filePath),
                     path: filePath,
                     type: fileType,
                     children

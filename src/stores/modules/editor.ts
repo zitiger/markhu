@@ -1,11 +1,20 @@
 import {defineStore} from 'pinia'
 import {ref} from 'vue'
 import {path} from "@tauri-apps/api";
-import {confirmYncApi, getContentApi, openFileApi, saveContentApi, saveFileApi} from "../../api/file";
+import {
+    alertApi,
+    confirmYncApi,
+    existPath,
+    getContentApi,
+    openFileApi,
+    saveContentApi,
+    saveFileApi
+} from "../../api/file";
 import {convertFileSrc} from "@tauri-apps/api/tauri";
 import {useSystemStore} from "./system";
 import {message} from 'ant-design-vue';
 import i18n from '../../locales'
+import {useStructureStore} from "./structure";
 
 type File = {
     basename: string
@@ -80,6 +89,8 @@ export const useEditorStore = defineStore('editor', {
 
             this.activeFile = newFilepath;
             // todo add file to tree data
+
+            useStructureStore().load();
         },
         async saveAll() {
             let filesToSave: string[] = []
@@ -142,7 +153,15 @@ export const useEditorStore = defineStore('editor', {
             let historyIndex = length - 1 - index;
             if (historyIndex >= 0) {
                 let filepath = useSystemStore().history[historyIndex];
-                await this.read(filepath);
+
+                let exist = await existPath(filepath)
+                if (!exist) {
+                    let title = i18n.global.t("dialog.open_history.title");
+                    let desc = filepath + "\n\n" + i18n.global.t("dialog.open_history.desc");
+                    await alertApi(title, desc);
+                } else {
+                    await this.read(filepath);
+                }
             }
         },
         async closeAll() {
@@ -164,7 +183,7 @@ export const useEditorStore = defineStore('editor', {
             let shouldClose = true;
             if (changed.length > 0) {
 
-                let res = await this.doConfirm();
+                let res = await this.doConfirm(changed);
                 if (res === "yes") {
                     for (const fileToSave of changed) {
                         await this.save(fileToSave)
@@ -186,7 +205,7 @@ export const useEditorStore = defineStore('editor', {
                 // useEditorStore().closingFile = filepath;
                 // useDialogStore().showSaveConfirmDialog();
 
-                let result = await this.doConfirm();
+                let result = await this.doConfirm([filepath]);
                 if (result === "yes") {
                     await useEditorStore().save(filepath);
                     this.doClose(filepath);
@@ -237,14 +256,21 @@ export const useEditorStore = defineStore('editor', {
                 this.zenMode = !this.zenMode
             }
         },
-        async doConfirm() {
+        async doConfirm(filePaths: string[]) {
+
+            let fileNames = filePaths.map(async (filePath) => {
+                return await path.basename(filePath);
+            });
+            let fileNameStr = (await Promise.all(fileNames)).join("\n");
+
+
             let title = i18n.global.t("dialog.close_file.title")
             let desc = i18n.global.t("dialog.close_file.desc")
-            let yes = i18n.global.t("dialog.button_save")
-            let no = i18n.global.t("dialog.button_not_save")
+            let yes = i18n.global.t("dialog.close_file.button_save")
+            let no = i18n.global.t("dialog.close_file.button_not_save")
             let cancel = i18n.global.t("dialog.button_cancel")
 
-            return await confirmYncApi(title, desc, yes, no, cancel)
+            return await confirmYncApi(title, fileNameStr + "\n\n" + desc, yes, no, cancel)
         }
     }
 })

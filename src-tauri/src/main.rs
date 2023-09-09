@@ -35,6 +35,7 @@ fn main() {
             menu::change_recent_menu,
                 cmd::confirm,
                 cmd::confirm_ync,
+                cmd::alert,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

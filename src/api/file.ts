@@ -296,3 +296,15 @@ export async function confirmYncApi(title: string, desc: string, yes: string, no
         throw error;
     }
 }
+
+export async function alertApi(title: string, desc: string) {
+    try {
+        let res = await invoke('alert', {title, desc}) as string;
+        return res;
+    } catch (error) {
+        // 处理错误
+        console.error(error);
+        throw error;
+    }
+}
+

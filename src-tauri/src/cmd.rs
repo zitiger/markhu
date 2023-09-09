@@ -263,3 +263,15 @@ pub fn confirm_ync(title: String, desc: String, yes: String, no: String, cancel:
     }
 }
 
+#[tauri::command]
+pub fn alert(title: String, desc: String) -> String {
+    let res = rfd::MessageDialog::new()
+        .set_title(title)
+        .set_description(desc)
+        .show();
+
+    println!("error create dir===={}", res);
+
+    "Ok".to_string()
+}
+
