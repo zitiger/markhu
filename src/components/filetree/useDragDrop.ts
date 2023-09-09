@@ -2,7 +2,7 @@ import {ref} from 'vue';
 import {Position, TreeNode} from "./types";
 import {dirname, findIndexByPath, findNodeByPath, findParentNodeByPath, join} from "./utils";
 
-export default function useDragDrop(emits) {
+export default function useDragDrop(expandedKeys: Set<string>, emits) {
 
     const hoverAboveKey = ref<string>("");
     const hoverInKey = ref<string>("");
@@ -122,7 +122,7 @@ export default function useDragDrop(emits) {
         }
 
         // for an expanded folder, there is no below position
-        if (dropItem.type === "folder" && dropItem.expanded && position == Position.BELOW) {
+        if (dropItem.type === "folder" && expandedKeys.has(dropItem.path) && position == Position.BELOW) {
             return;
         }
 
