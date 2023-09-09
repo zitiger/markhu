@@ -15,18 +15,18 @@
              @dragenter.stop="onDragEnter" @dragover.stop.prevent="onDragOver($event, nodeData)"
              @dragleave.stop="onDragLeave"
              @drop.stop="onDrop(nodeData,data)" @click="onNodeSelect($event, nodeData)">
-        <span v-if="nodeData.type === 'folder'" @click.stop="onNodeToggle(nodeData)" class="icon" @dragover.prevent>
-          <slot name="toggler" :nodeData="nodeData" :expanded="expandedKeys.has(nodeData.path)">
-            <template v-if="expandedKeys.has(nodeData.path)">-</template>
-            <template v-else>+</template>
-          </slot>
-        </span>
+          <span v-if="nodeData.type === 'folder'" @click.stop="onNodeToggle(nodeData)" class="icon" @dragover.prevent>
+            <slot name="toggler" :nodeData="nodeData" :expanded="expandedKeys.has(nodeData.path)">
+              <template v-if="expandedKeys.has(nodeData.path)">-</template>
+              <template v-else>+</template>
+            </slot>
+          </span>
           <span>
-          <slot name="icon" :nodeData="nodeData">
+            <slot name="icon" :nodeData="nodeData">
             <template v-if="nodeData.type === 'folder'">[D]</template>
             <template v-else>[F]</template>
-          </slot>
-        </span>
+            </slot>
+          </span>
 
           <template v-if="renameKey === nodeData.path">
             <input type="text" @blur="onNodeRename(nodeData)"
