@@ -25,7 +25,7 @@ function update_cargo_version() {
    local version=$1
    local file_path='src-tauri/Cargo.toml'
    local file_content=$(cat $file_path)
-   local new_file_content=$(echo "$file_content" | sed -E "s/version = \"[0-9]+\.[0-9]+\.[0-9]+\"/version = \"$version\"/")
+   local new_file_content=$(echo "$file_content" | sed -E "s/^version = \"[0-9]+\.[0-9]+\.[0-9]+\"/version = \"$version\"/")
    echo "$new_file_content" > $file_path
 }
 
