@@ -2,7 +2,7 @@ import {TreeNode} from "./types";
 import {findIndexByPath} from "./utils";
 import {reactive} from "vue";
 
-export default function useSelect(flattenTree: TreeNode[], focusedNodeKey, emits) {
+export default function useSelect(flattenTree, focusedNodeKey, emits) {
 
     const selectedKeys = reactive(new Set<string>())
     const clickedKeys: string[] = [];
