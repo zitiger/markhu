@@ -33,3 +33,7 @@ function update_cargo_version() {
 update_package_version $1
 update_tauri_conf_version $1
 update_cargo_version $1
+
+version="v$1"  # 在 $1 前添加前缀 'v'
+git tag $version  # 运行 git tag 命令，使用拼接后的版本号
+git push --tags
