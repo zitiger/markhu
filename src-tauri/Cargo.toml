@@ -23,7 +23,7 @@ trash = "3.0"
 
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
-rfd = { git = "https://github.com/PolyMeilex/rfd", version = "0.11.3" }
+rfd = { git = "https://github.com/zitiger/rfd/" }
 
 [target.'cfg(target_os = "linux")'.dependencies]
 fork = "0.1"
